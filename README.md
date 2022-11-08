@@ -9,9 +9,9 @@
 ## Example 4: register host function
 
 - [Say Hello](say_hello/README.md)
-[x] source code
-[x] readme
-[ ] book chapter
+  - [x] source code
+  - [x] readme
+  - [ ] book chapter
 
 ## Example 5: async host function
 
