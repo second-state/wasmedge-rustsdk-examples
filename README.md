@@ -2,7 +2,10 @@
 
 ## Example 1: run a main.rs from host
 
-(todo)
+- [Run wasm app from host](run-wasm-app-from-host/)
+  - [x] source code
+  - [ ] readme
+  - [ ] book chapter
 
 ## Example 2: call a function from host
 

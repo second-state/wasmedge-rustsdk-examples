@@ -1,0 +1,2 @@
+[workspace]
+members = ["wasm-app", "run-wasm-app"]
