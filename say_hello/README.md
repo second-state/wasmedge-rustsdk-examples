@@ -9,31 +9,13 @@ In this example, we will demonstrate how to use the WasmEdge Rust APIs in a simp
 
 ## Prerequisites
 
-### Operating System
-
-- Ubuntu-20.04, Ubuntu-22.04
-- macOS-11, macOS-12
-
 ### Rust-lang
 
-Assume that `Rust 1.63-nightly or above` is installed in your build environment. If you don't have `Rust` installed yet, open a terminal program and run the following command to download `Rustup` and install `Rust` :
+Assume that `Rust 1.63-nightly or above` is installed in your build environment. If you don't have `Rust` installed yet, refer to [Rust-lang installation guide](https://www.rust-lang.org/tools/install) to install
 
-```bash
-$ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-$ rustup default nightly
-```
+### Install WasmEdge Runtime Library
 
-To check if `Rust` has already been in your local system, or it has already been installed successfully, type the following command in the termial program:
-
-```bash
-$ rustc --version
-```
-
-If you can see the following message or similar, then `Rustup` and `Rust` has already been installed successfully in your local system:
-
-```bash
-rustc 1.67.0-nightly (215e3cd21 2022-11-03)
-```
+To install the WasmEdge runtime library, refer to [wasmedge-installation](https://wasmedge.org/book/en/quick_start/install.html#wasmedge-installation-and-uninstallation)
 
 ## Hello-World Example
 
