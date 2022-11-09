@@ -1,6 +1,6 @@
 use wasmedge_sdk::{
     config::{CommonConfigOptions, ConfigBuilder, HostRegistrationConfigOptions},
-    params, Module, Vm,
+    params, Module, PluginManager, Vm,
 };
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -10,6 +10,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let wasm_file = &args[2];
     let model_bin = &args[3];
     let image_file = &args[4];
+
+    // load wasinn-pytorch-plugin
+    PluginManager::load_from_default_paths();
 
     let config = ConfigBuilder::new(CommonConfigOptions::default())
         .with_host_registration_config(
