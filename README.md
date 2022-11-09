@@ -29,6 +29,6 @@
 
 (todo)
 
-## Example 6: call a PyTorch function in Wasm
+## Example 6: AI inference over WasmEdge Runtime via WASI-NN
 
 (todo)
