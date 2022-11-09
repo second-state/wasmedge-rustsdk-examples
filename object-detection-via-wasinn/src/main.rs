@@ -28,8 +28,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut vm = Vm::new(Some(config))?;
 
     // init wasi module
-    let mut wasi_module = vm.wasi_module()?.initialize(
-        Some(vec!["placeholder", model_bin, image_file]),
+    vm.wasi_module()?.initialize(
+        Some(vec![wasm_file, model_bin, image_file]),
         None,
         Some(vec![dir_mapping]),
     );
