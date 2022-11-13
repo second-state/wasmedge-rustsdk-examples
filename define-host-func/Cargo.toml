@@ -1,6 +1,6 @@
 [package]
 edition = "2021"
-name = "call-func-from-host"
+name = "define-host-func"
 version = "0.1.0"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
