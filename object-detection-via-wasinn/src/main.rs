@@ -1,9 +1,18 @@
+#[cfg(all(target_os = "linux", target_arch = "x86_64"))]
 use wasmedge_sdk::{
     config::{CommonConfigOptions, ConfigBuilder, HostRegistrationConfigOptions},
     params, Module, PluginManager, Vm,
 };
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
+    #[cfg(all(target_os = "linux", target_arch = "x86_64"))]
+    infer()?;
+
+    Ok(())
+}
+
+#[cfg(all(target_os = "linux", target_arch = "x86_64"))]
+fn infer() -> Result<(), Box<dyn std::error::Error>> {
     // parse arguments
     let args: Vec<String> = std::env::args().collect();
     let dir_mapping = &args[1];
