@@ -7,11 +7,11 @@
   - [x] readme
   - [ ] book chapter
 
-## Example 2: call a function from host
+## Example 2: Call a wasm function from host
 
-- [Call a native function from host](call-func-from-host/README.md)
+- [Call a wasm function from host](call-func-from-host/README.md)
   - [x] source code
-  - [ ] readme
+  - [x] readme
   - [ ] book chapter
 
 ## Example 3: use wasmedge_bindgen to call a function with string argument from host
