@@ -469,18 +469,18 @@ dependencies = [
 
 [[package]]
 name = "wasmtime-asm-macros"
-version = "2.0.1"
+version = "2.0.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "41f17b9bf1ff3ed08f35dd3faa8fe0dc34693939252e47a3a056073d28fcd6d7"
+checksum = "de327cf46d5218315957138131ed904621e6f99018aa2da508c0dcf0c65f1bf2"
 dependencies = [
  "cfg-if",
 ]
 
 [[package]]
 name = "wasmtime-fiber"
-version = "2.0.1"
+version = "2.0.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "331439bc204d5395b89a018d5aa11aaeb5819c733db40fe8bd1d4ce88bf85be1"
+checksum = "1075aa43857086ef89afbe87602fe2dae98ad212582e722b6d3d2676bb5ee141"
 dependencies = [
  "cc",
  "cfg-if",

@@ -44,11 +44,20 @@ Now let's build and run this example.
 
   ```bash
   cd object-detection-via-wasinn
-  cargo run
+  cargo run -- .:. wasmedge-wasinn-example-mobilenet-image.wasm mobilenet.pt input.jpg
   ```
 
   If the command runs successfully, then the following result is printed out on the screen:
 
   ```bash
-  
+  Read torchscript binaries, size in bytes: 14376860
+  Loaded graph into wasi-nn with ID: 0
+  Created wasi-nn execution context with ID: 0
+  Read input tensor, size in bytes: 602112
+  Executed graph inference
+     1.) [954](20.6681)banana
+     2.) [940](12.1483)spaghetti squash
+     3.) [951](11.5748)lemon
+     4.) [950](10.4899)orange
+     5.) [953](9.4834)pineapple, ananas
   ```
