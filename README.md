@@ -1,10 +1,10 @@
 # Examples of WasmEdge Rust SDK
 
-## Example 1: run a main.rs from host
+## Example 1: Run a wasm app from host
 
 - [Run a wasm app from host](run-wasm-app-from-host/)
   - [x] source code
-  - [ ] readme
+  - [x] readme
   - [ ] book chapter
 
 ## Example 2: call a function from host
