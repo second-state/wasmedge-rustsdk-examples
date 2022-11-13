@@ -33,5 +33,5 @@
 
 - [Object detection via WASI-NN](object-detection-via-wasinn/README.md)]
   - [x] source code
-  - [ ] readme
+  - [x] readme
   - [ ] book chapter
