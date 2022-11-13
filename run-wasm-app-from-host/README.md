@@ -51,7 +51,7 @@ Now let's build and run this example.
   cargo build -p wasm-app --target wasm32-wasi --release
   ```
 
-  If the command runs correctly, `wasm-app.wasm` can be found in the directory of `./target/wasm32-wasi/release/`.
+  If the command runs successfully, `wasm-app.wasm` can be found in the directory of `./target/wasm32-wasi/release/`.
 
 - Build and run `run-wasm-app`
 
@@ -60,7 +60,7 @@ Now let's build and run this example.
   cargo run -p run-wasm-app -- ./target/wasm32-wasi/release/wasm-app.wasm
   ```
 
-  If the command runs correctly, the following message is printed out on the screen:
+  If the command runs successfully, then the following message is printed out on the screen:
 
   ```bash
   Greetings from wasm-app!
