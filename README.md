@@ -18,7 +18,7 @@
 
 (todo)
 
-## Example 4: register host function
+## Example 4: Define and run a host function
 
 - [Say Hello](say_hello/README.md)
   - [x] source code
