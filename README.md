@@ -14,7 +14,7 @@
   - [x] readme
   - [ ] book chapter
 
-## Example 3: use wasmedge_bindgen to call a function with string argument from host
+## Example 3: Arguments of non-standard wasm types in wasm function
 
 (todo)
 
@@ -25,7 +25,7 @@
   - [x] readme
   - [ ] book chapter
 
-## Example 5: async host function
+## Example 5: Async host function
 
 (todo)
 
