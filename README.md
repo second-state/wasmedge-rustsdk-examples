@@ -31,7 +31,7 @@
 
 ## Example 6: AI inference over WasmEdge Runtime via WASI-NN
 
-- [Object detection via WASI-NN](object-detection-via-wasinn/README.md)]
+- [Object detection via WASI-NN](object-detection-via-wasinn/README.md)
   - [x] source code
   - [x] readme
   - [ ] book chapter
