@@ -18,9 +18,9 @@
 
 (todo)
 
-## Example 4: Define and run a host function
+## Example 4: Define and register a host function
 
-- [Say Hello](say_hello/README.md)
+- [Define a host](define-host-func/README.md)
   - [x] source code
   - [x] readme
   - [ ] book chapter
