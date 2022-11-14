@@ -28,11 +28,13 @@ Now let's build and run this example.
 
 - Install `libwasmedge`
 
+  Refer to the [Quick Install](https://wasmedge.org/book/en/quick_start/install.html#quick-install) section of WasmEdge Runtime Book to install `libwasmedge`. Or, use the following command directly
+
   ```bash
   ./install_libwasmedge.sh -p /usr/local
   ```
 
-  > For users in China mainland, try the following command to install `libwasmedge` if failed to run the command above
+  > For users in China mainland (中国大陆地区), try the following command to install `libwasmedge` if failed to run the command above
   >
   > ```bash
   > ./install_libwasmedge_zh.sh -p /usr/local
