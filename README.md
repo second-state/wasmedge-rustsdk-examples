@@ -25,9 +25,12 @@
   - [x] readme
   - [ ] book chapter
 
-## Example 5: Async host function
+## Example 5: Define and register async host functions
 
-(todo)
+- [Define async host functions](define-async-host-func/README.md)
+  - [x] source code
+  - [x] readme
+  - [ ] book chapter
 
 ## Example 6: AI inference over WasmEdge Runtime via WASI-NN
 
