@@ -16,7 +16,10 @@
 
 ## Example 3: Arguments of non-standard wasm types in wasm function
 
-(todo)
+- [WasmEdge-Bindgen](wasmedge-bindgen/README.md)
+  - [x] source code
+  - [x] readme
+  - [ ] book chapter
 
 ## Example 4: Define and register a host function
 
