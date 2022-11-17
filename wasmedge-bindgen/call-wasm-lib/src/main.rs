@@ -77,6 +77,20 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         }
     }
 
+    // call func "lowest_common_multiple" in wasm-lib.wasm: (i32, i32) -> i32
+    let params = vec![Param::I32(123), Param::I32(2)];
+    match vm.run_func("lowest_common_multiple", params)? {
+        Ok(mut res) => {
+            println!(
+                "Run bindgen -- lowest_common_multiple: {:?}",
+                res.pop().unwrap().downcast::<i32>().unwrap()
+            );
+        }
+        Err(err) => {
+            println!("Run bindgen -- lowest_common_multiple FAILED {:?}", err);
+        }
+    }
+
     // call func "sha3_digest" in wasm-lib.wasm: Vec<u8> -> Vec<u8>
     let params = "This is an important message".as_bytes().to_vec();
     let params = vec![Param::VecU8(&params)];

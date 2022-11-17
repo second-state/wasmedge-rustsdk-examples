@@ -1,3 +1,4 @@
+use num_integer::lcm;
 use serde::{Deserialize, Serialize};
 use sha3::{Digest, Keccak256, Sha3_256};
 #[allow(unused_imports)]
@@ -59,6 +60,11 @@ pub fn obfusticate(s: String) -> String {
             _ => c,
         })
         .collect()
+}
+
+#[wasmedge_bindgen]
+pub fn lowest_common_multiple(a: i32, b: i32) -> i32 {
+    return lcm(a, b);
 }
 
 #[wasmedge_bindgen]
