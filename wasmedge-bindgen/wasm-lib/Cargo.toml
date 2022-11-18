@@ -11,5 +11,5 @@ num-integer = "0.1"
 serde = {version = "1.0", features = ["derive"]}
 serde_json = "1.0"
 sha3 = "0.10.6"
-wasmedge-bindgen = {path = "/Volumes/Dev/secondstate/me/wasmedge-bindgen/bindgen/rust/wasm"}
-wasmedge-bindgen-macro = {path = "/Volumes/Dev/secondstate/me/wasmedge-bindgen/bindgen/rust/macro"}
+wasmedge-bindgen = "0.4.1"
+wasmedge-bindgen-macro = "0.4.1"
