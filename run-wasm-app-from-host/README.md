@@ -4,9 +4,9 @@ As a typical application development process, we put some code in the `main` fun
 
 This example consists of two projects:
 
-- [`wasm-app`](wasm-app) is a common application, which will be compiled into a wasm binary.
+- [`wasm-app`](wasm-app) is a *wasm application*, which is a common application but compiled into a wasm binary instead of a general binary execution.
 
-- [`run-wasm-app`](run-wasm-app) is a host application that loads the wasm binary generated from `wasm-app` and executes it over WasmEdge Runtime.
+- [`run-wasm-app`](run-wasm-app) is a host application that is responsible for creating a WasmEdge [Vm](https://wasmedge.github.io/WasmEdge/wasmedge_sdk/struct.Vm.html) instance, loading the wasm binary generated from `wasm-app` and finally running it over WasmEdge Runtime.
 
 Now let's build and run this example.
 
