@@ -2,14 +2,14 @@
 
 ## Example 1: Run a wasm app from host
 
-- [Run wasm app from host](run-wasm-app-from-host/)
+- [Run wasm app from host](run-wasm-app-from-host/README.md)
   - [x] source code
   - [x] readme
   - [ ] book chapter
 
 ## Example 2: Call a wasm function from host
 
-- [Call wasm function from host](call-func-from-host/README.md)
+- [Call wasm library from host](call-wasm-lib-from-host/README.md)
   - [x] source code
   - [x] readme
   - [ ] book chapter

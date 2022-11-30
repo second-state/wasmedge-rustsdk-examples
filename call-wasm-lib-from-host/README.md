@@ -51,13 +51,12 @@ Now let's build and run this example.
 
   ```bash
   git clone git@github.com:apepkuss/wasmedge-rust-examples.git
-  cd wasmedge-rust-examples
+  cd wasmedge-rust-examples/call-wasm-lib-from-host
   ```
 
 - Build `wasm-lib`
 
   ```bash
-  cd call-func-from-host
   cargo build -p wasm-lib --target wasm32-wasi --release
   ```
 
