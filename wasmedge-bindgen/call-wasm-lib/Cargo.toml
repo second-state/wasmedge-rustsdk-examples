@@ -4,4 +4,4 @@ name = "call-wasm-lib"
 version = "0.1.0"
 
 [dependencies]
-wasmedge-sdk = {version = "0.7.0"}
+wasmedge-sdk = {version = "0.7.1"}
