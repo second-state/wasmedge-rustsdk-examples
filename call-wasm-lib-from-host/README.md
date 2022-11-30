@@ -1,4 +1,4 @@
-# Call a Wasm Function from Host
+# Call a Wasm Library from Host
 
 This example demonstrates how to define a wasm library that holds a function to be exported, and then run the wasm function over WasmEdge Runtime.
 
