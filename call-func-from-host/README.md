@@ -10,7 +10,7 @@ This example consists of two projects:
 
 Now let's build and run this example.
 
-- Install `rustup` and `Rust nightly`
+- Install `rustup` and `Rust`
 
   Go to the [official Rust webpage](https://www.rust-lang.org/tools/install) and follow the instructions to install `rustup` and `Rust`.
 
