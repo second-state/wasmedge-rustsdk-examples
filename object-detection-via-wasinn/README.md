@@ -14,13 +14,6 @@ Now let's build and run this example.
 
   > It is recommended that Rust is 1.63 or above in the stable channel.
 
-- Download example
-
-  ```bash
-  git clone git@github.com:apepkuss/wasmedge-rust-examples.git
-  cd wasmedge-rust-examples
-  ```
-
 - Install `libwasmedge`
 
   Refer to the [Quick Install](https://wasmedge.org/book/en/quick_start/install.html#quick-install) section of WasmEdge Runtime Book to install `libwasmedge`. Or, use the following command directly
@@ -76,6 +69,13 @@ Now let's build and run this example.
     // set WASMEDGE_PLUGIN_PATH
     export WASMEDGE_PLUGIN_PATH=$HOME/.wasmedge/lib/wasmedge
     ```
+
+- Download example
+
+  ```bash
+  git clone git@github.com:apepkuss/wasmedge-rust-examples.git
+  cd wasmedge-rust-examples
+  ```
 
 - Build & run
 
