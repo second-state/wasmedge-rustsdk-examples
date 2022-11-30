@@ -7,7 +7,7 @@
   - [x] readme
   - [ ] book chapter
 
-## Example 2: Call a wasm function from host
+## Example 2: Call a wasm library from host
 
 - [Call wasm library from host](call-wasm-lib-from-host/README.md)
   - [x] source code
