@@ -2,18 +2,17 @@
 
 WasmEdge Runtime implements the WASI-NN proposal. This example demonstrates how to perform an AI inference task, object detection, over WasmEdge Runtime.
 
-> To run this example, the operating system should be **Ubuntu-20.04 or above** on **x86_64 target**
+> To run this example, the operating system should be **Ubuntu-20.04 or above** on **x86_64 target**.
+
+> The AI model, the wasm file and input image used in this example are from [pytorch-mobilenet-image](https://github.com/second-state/WasmEdge-WASINN-examples/blob/master/pytorch-mobilenet-image/README.md) project.
 
 Now let's build and run this example.
 
-- Install `rustup` and `Rust nightly`
+- Install `rustup` and `Rust`
 
-  Go to the [official Rust webpage](https://www.rust-lang.org/tools/install) and follow the instructions to install `rustup`. Then, run the following commands in your terminal:
+  Go to the [official Rust webpage](https://www.rust-lang.org/tools/install) and follow the instructions to install `rustup` and `Rust`.
 
-  ```bash
-  rustup default nightly
-  rustup target add wasm32-wasi
-  ```
+  > It is recommended that Rust is 1.63 or above in the stable channel.
 
 - Download example
 
@@ -49,7 +48,7 @@ Now let's build and run this example.
 
 - Install `libtorch` and `WasmEdge WASI-NN PyTorch Backend`
   
-  The [Get WasmEdge with WASI-NN Plug-in PyTorch Backend](https://wasmedge.org/book/en/write_wasm/rust/wasinn.html#get-wasmedge-with-wasi-nn-plug-in-pytorch-backend) section in WasmEdge Book describes the steps of deploying the `libtorch` library and `WASI-NN PyTorch Backend`. For convenience, the commands in the book are listed below:
+  [Get WasmEdge with WASI-NN Plug-in PyTorch Backend](https://wasmedge.org/book/en/write_wasm/rust/wasinn.html#get-wasmedge-with-wasi-nn-plug-in-pytorch-backend) in WasmEdge Book describes the steps of deploying the `libtorch` library and `WASI-NN PyTorch Backend`. For convenience, the commands in the book are listed below:
 
   - Install `libtorch`
 
