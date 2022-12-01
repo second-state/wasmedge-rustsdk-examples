@@ -14,7 +14,7 @@ Now let's build and run this example.
 
   Go to the [official Rust webpage](https://www.rust-lang.org/tools/install) and follow the instructions to install `rustup` and `Rust`.
 
-  > It is recommended that Rust is 1.63 or above in the stable channel.
+  > It is recommended to use Rust 1.63 or above in the stable channel.
 
   Then, add `wasm32-wasi` target to the Rustup toolchain:
 
