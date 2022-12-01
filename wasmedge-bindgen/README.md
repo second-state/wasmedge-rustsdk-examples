@@ -40,7 +40,7 @@ Now let's build and run this example.
   > source $HOME/.wasmedge/env
   > ```
 
-  > To install a specific version of `libwasmedge`, use `-v` option. For example, the following command installs `libwasmedge 0.11.2` to `/usr/local/`
+  > To install a specific version of `libwasmedge`, use `-v` option. For example, the following command installs `libwasmedge 0.11.2` to `$HOME/.wasmedge`
   >
   > ```bash
   > ./install_libwasmedge.sh -v 0.11.2
