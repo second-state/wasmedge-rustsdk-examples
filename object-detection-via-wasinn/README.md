@@ -12,7 +12,7 @@ Now let's build and run this example.
 
   Go to the [official Rust webpage](https://www.rust-lang.org/tools/install) and follow the instructions to install `rustup` and `Rust`.
 
-  > It is recommended that Rust is 1.63 or above in the stable channel.
+  > It is recommended to use Rust 1.63 or above in the stable channel.
 
 - Install `libwasmedge`
 
@@ -32,7 +32,7 @@ Now let's build and run this example.
   > source $HOME/.wasmedge/env
   > ```
 
-  > To install a specific version of `libwasmedge`, use `-v` option. For example, the following command installs `libwasmedge 0.11.2` to `/usr/local/`
+  > To install a specific version of `libwasmedge`, use `-v` option. For example, the following command installs `libwasmedge 0.11.2` to `$HOME/.wasmedge`
   >
   > ```bash
   > ./install_libwasmedge.sh -v 0.11.2
@@ -74,13 +74,12 @@ Now let's build and run this example.
 
   ```bash
   git clone git@github.com:apepkuss/wasmedge-rust-examples.git
-  cd wasmedge-rust-examples
+  cd wasmedge-rust-examples/object-detection-via-wasinn
   ```
 
 - Build & run
 
   ```bash
-  cd object-detection-via-wasinn
   cargo run -- .:. wasmedge-wasinn-example-mobilenet-image.wasm mobilenet.pt input.jpg
   ```
 
