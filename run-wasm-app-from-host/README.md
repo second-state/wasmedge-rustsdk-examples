@@ -10,20 +10,16 @@ This example consists of two projects:
 
 Now let's build and run this example.
 
-- Install `rustup` and `Rust nightly`
+- Install `rustup` and `Rust`
 
-  Go to the [official Rust webpage](https://www.rust-lang.org/tools/install) and follow the instructions to install `rustup`. Then, run the following commands in your terminal:
+  Go to the [official Rust webpage](https://www.rust-lang.org/tools/install) and follow the instructions to install `rustup` and `Rust`.
+
+  > It is recommended to use Rust 1.63 or above in the stable channel.
+
+  Then, add `wasm32-wasi` target to the Rustup toolchain:
 
   ```bash
-  rustup default nightly
   rustup target add wasm32-wasi
-  ```
-
-- Download example
-
-  ```bash
-  git clone git@github.com:apepkuss/wasmedge-rust-examples.git
-  cd wasmedge-rust-examples
   ```
 
 - Install `libwasmedge`
@@ -31,20 +27,32 @@ Now let's build and run this example.
   Refer to the [Quick Install](https://wasmedge.org/book/en/quick_start/install.html#quick-install) section of WasmEdge Runtime Book to install `libwasmedge`. Or, use the following command directly
 
   ```bash
-  ./install_libwasmedge.sh -p /usr/local
+  // The command will create a directory `$HOME/.wasmedge`
+  ./install_libwasmedge.sh
+
+  source $HOME/.wasmedge/env
   ```
 
   > For users in China mainland (中国大陆地区), try the following command to install `libwasmedge` if failed to run the command above
   >
   > ```bash
-  > ./install_libwasmedge_zh.sh -p /usr/local
+  > ./install_libwasmedge_zh.sh
+  > source $HOME/.wasmedge/env
   > ```
 
-  > To install a specific version of `libwasmedge`, use `-v` option. For example, the following command installs `libwasmedge 0.11.2` to `/usr/local/`
+  > To install a specific version of `libwasmedge`, use `-v` option. For example, the following command installs `libwasmedge 0.11.2` to `$HOME/.wasmedge`
   >
   > ```bash
-  > ./install_libwasmedge.sh -p /usr/local -v 0.11.2
+  > ./install_libwasmedge.sh -v 0.11.2
+  > source $HOME/.wasmedge/env
   > ```
+
+- Download example
+
+  ```bash
+  git clone git@github.com:apepkuss/wasmedge-rust-examples.git
+  cd wasmedge-rust-examples
+  ```
 
 - Build `wasm-app`
 
