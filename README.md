@@ -2,6 +2,8 @@
 
 ## Example 1: Run a wasm app from host
 
+This example demonstrates how to create a WebAssembly application and run it as a wasm module over WasmEdge Runtime.
+
 - [Run wasm app from host](run-wasm-app-from-host/README.md)
   - [x] Source Code
   - [x] README
@@ -9,12 +11,16 @@
 
 ## Example 2: Call a wasm library from host
 
+This example demonstrates how to define a wasm library and call the APIs exported from the wasm library in WasmEdge Runtime.
+
 - [Call wasm library from host](call-wasm-lib-from-host/README.md)
   - [x] Source Code
   - [x] README
   - [ ] Tutorial
 
 ## Example 3: Arguments of non-standard wasm types in wasm function
+
+This example demonstrates how to define wasm functions, of which the arguments are of Rust built-in types instead of WebAssembly types.
 
 - [WasmEdge-Bindgen](wasmedge-bindgen/README.md)
   - [x] Source Code
