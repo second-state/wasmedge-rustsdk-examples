@@ -47,6 +47,8 @@ This example demonstrates how to define a native async function as an async host
 
 ## Example 6: AI inference over WasmEdge WASI-NN Plugin (PyTroch)
 
+This example demonstrates how to perform an object detection task over WasmEdge Runtime.
+
 - [Object detection via WASI-NN Plugin PyTorch Backend](object-detection-via-wasinn/README.md)
   - [x] Source Code
   - [x] README
