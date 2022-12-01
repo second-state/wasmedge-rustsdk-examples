@@ -29,6 +29,8 @@ This example demonstrates how to define wasm functions, of which the arguments a
 
 ## Example 4: Define and register a host function
 
+This example demonstrates how to define a host function with `#[host_function]` macro, and register it into a WasmEdge `Vm` and run it over WasmEdge Runtime.
+
 - [Define host function](define-host-func/README.md)
   - [x] Source Code
   - [x] README
