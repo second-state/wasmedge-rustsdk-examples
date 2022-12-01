@@ -38,6 +38,8 @@ This example demonstrates how to define a native function as a host function wit
 
 ## Example 5: Define and register async host functions
 
+This example demonstrates how to define a native async function as an async host function with `#[async_host_function]` macro, and register it into a WasmEdge `Vm` and run it over WasmEdge Runtime.
+
 - [Define async host functions](define-async-host-func/README.md)
   - [x] Source Code
   - [x] README
