@@ -151,7 +151,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 #### Create a WasmEdge `Vm` instance
 
-In WasmEdge Runtime, a `Vm` instance runs a wasm app via the `wasi` interface. Therefore, we pass as an argument a `Config` instance with the `wasi` option enabled when we create a `Vm` instance. This enabled `wasi` option tells the `Vm` instance to turn on the support for the `wasi` interface.
+In WasmEdge Runtime, a `Vm` instance runs a wasm app via the `wasi` interface. Therefore, we pass as an argument a `Config` instance with the `wasi` option enabled when we create a `Vm` instance. Due to the enabled `wasi` option, a default wasi module named *"wasi_snapshot_preview1"* is also created while creating the new `Vm` instance.
 
 ```rust
 ...
@@ -173,7 +173,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 #### Initialize the default wasi module
 
-Here is a thing to be noticed that, to use the `wasi` interface, it is required to initialize the `wasi` module in the current `Vm` instance before using the interfaces.
+Here is a thing to be noticed: to use the export functions in the default wasi module, it is required to initialize the default wasi module with the necessary arguments specified by users. In this example, we just pass three default values `None` to the `initialize` method.
 
 ```Rust
 ...
