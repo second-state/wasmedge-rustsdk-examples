@@ -53,3 +53,12 @@ This example demonstrates how to perform an object detection task over WasmEdge 
   - [x] Source Code
   - [x] README
   - [ ] Tutorial
+
+## Example 7: Manipulate WebAssembly linear memory
+
+This example demonstrates how to manipulate linear memory.
+
+- [Manipulate linear memory](manipulate-linear-memory/README.md)
+  - [x] Source Code
+  - [x] README
+  - [ ] Tutorial
