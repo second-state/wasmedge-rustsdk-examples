@@ -29,7 +29,7 @@ fn main() -> anyhow::Result<()> {
     )?;
 
     // create a Vm instance and register the module into it
-    let vm = Vm::new(None)?.register_module_from_bytes("extern", &wasm_bytes)?;
+    let mut vm = Vm::new(None)?.register_module_from_bytes("extern", &wasm_bytes)?;
     
     // get the module instance named "extern"
     let extern_instance = vm.named_module("extern")?;
@@ -60,10 +60,10 @@ fn main() -> anyhow::Result<()> {
     let mem_addr = 0x2220;
     let val = 0xFEFEFFE;
     println!("Set {:#X} at the memory address {:#X}", val, mem_addr);
-    set_at.call(&vm, params!(mem_addr, val))?;
+    set_at.call(&mut vm, params!(mem_addr, val))?;
 
     // call the exported function named "get_at"
-    let returns = get_at.call(&vm, params!(mem_addr))?;
+    let returns = get_at.call(&mut vm, params!(mem_addr))?;
     println!("Retrieve the value at the memory address {:#X}: {:#X}", mem_addr, returns[0].to_i32());
 
     // call the exported function named "set_at"
@@ -71,10 +71,10 @@ fn main() -> anyhow::Result<()> {
     let mem_addr = (page_size * 2) - std::mem::size_of_val(&val) as i32;
     let val = 0xFEA09;
     println!("Set {:#X} at the memory address {:#X}", val, mem_addr);
-    set_at.call(&vm, params!(mem_addr, val))?;
+    set_at.call(&mut vm, params!(mem_addr, val))?;
 
     // call the exported function named "get_at"
-    let returns = get_at.call(&vm, params!(mem_addr))?;
+    let returns = get_at.call(&mut vm, params!(mem_addr))?;
     println!("Retrieve the value at the memory address {:#X}: {:#X}", mem_addr, returns[0].to_i32());
 
     Ok(())

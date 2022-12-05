@@ -6,5 +6,5 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-wasmedge-sdk = { version = "0.8.0", path = "/Volumes/Dev/secondstate/me/WasmEdge/bindings/rust/wasmedge-sdk" }
+wasmedge-sdk = "0.7.1"
 anyhow = "1"
