@@ -62,3 +62,12 @@ This example demonstrates how to manipulate linear memory.
   - [x] Source Code
   - [x] README
   - [ ] Tutorial
+
+## Example 8: Use WebAssembly `Table` and `FuncRef` to invoke host functions
+
+This example demonstrates how to use WebAssembly `Table` and `FuncRef` together to invoke host functions.
+
+- [Table and FuncRef](table-and-funcref/README.md)
+  - [x] Source Code
+  - [x] README
+  - [ ] Tutorial
