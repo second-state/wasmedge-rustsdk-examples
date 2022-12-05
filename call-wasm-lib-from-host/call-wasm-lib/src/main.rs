@@ -16,7 +16,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let res = vm
         .register_module_from_file("wasm-lib", &wasm_lib_file)?
         .run_func(Some("wasm-lib"), "fib", params!(num))?;
-    println!("fib(5) = {}", res[0].to_i32());
+    println!("fib({}) = {}", num, res[0].to_i32());
 
     Ok(())
 }
