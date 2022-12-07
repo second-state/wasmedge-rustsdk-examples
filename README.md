@@ -18,6 +18,15 @@ This example demonstrates how to define a wasm library and call the APIs exporte
   - [x] README
   - [ ] Tutorial
 
+### Example 2-1: Use extern functions in a wasm library
+
+This example demonstrates how to use external functions in a wasm library, and how to call such a wasm library with WasmEdge Rust SDK.
+
+- [Call wasm library with external dependency](call-wasm-lib-with-external-deps/README.md)
+  - [x] Source Code
+  - [x] README
+  - [ ] Tutorial
+
 ## Example 3: Arguments of non-standard wasm types in wasm function
 
 This example demonstrates how to define wasm functions, of which the arguments are of Rust built-in types instead of WebAssembly types.
