@@ -45,6 +45,15 @@ This example demonstrates how to define a native function as a host function wit
   - [x] README
   - [ ] Tutorial
 
+### Example 4-1: Define a host function with string arguments
+
+This example demonstrates how to define a host function that takes two arguments of Rust built-in `String` or string slice type.
+
+- [Define host function with string arguments](define-host-func-with-string-args/README.md)
+  - [x] Source Code
+  - [x] README
+  - [ ] Tutorial
+
 ## Example 5: Define and register async host functions
 
 This example demonstrates how to define a native async function as an async host function with `#[async_host_function]` macro, and register it into a WasmEdge `Vm` and run it over WasmEdge Runtime.
