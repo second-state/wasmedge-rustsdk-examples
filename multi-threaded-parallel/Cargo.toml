@@ -1,0 +1,2 @@
+[workspace]
+members = ["run-mandelbrot-in-parallel"]
