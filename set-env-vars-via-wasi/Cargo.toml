@@ -1,0 +1,2 @@
+[workspace]
+members = ["print-env-vars", "set-env-vars-via-wasi"]

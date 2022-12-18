@@ -98,3 +98,12 @@ This example demonstrates how to generate a AOT file with WasmEdge AOT compiler,
   - [x] Source Code
   - [x] README
   - [ ] Tutorial
+
+## Example 10: Set environment variables and arguments via WasmEdge `wasi` interface
+
+This example demonstrates how to set environment variables and arguments via WasmEdge `wasi` interface.
+
+- [Set env vars via wasi](set-env-vars-via-wasi/README.md)
+  - [x] Source Code
+  - [x] README
+  - [ ] Tutorial
