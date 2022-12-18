@@ -1,5 +1,19 @@
 # Examples of WasmEdge Rust SDK
 
+- [Examples of WasmEdge Rust SDK](#examples-of-wasmedge-rust-sdk)
+  - [Example 1: Run a wasm app from host](#example-1-run-a-wasm-app-from-host)
+  - [Example 2: Call a wasm library from host](#example-2-call-a-wasm-library-from-host)
+    - [Example 2-1: Use extern functions in a wasm library](#example-2-1-use-extern-functions-in-a-wasm-library)
+  - [Example 3: Arguments of non-standard wasm types in wasm function](#example-3-arguments-of-non-standard-wasm-types-in-wasm-function)
+  - [Example 4: Define and register a host function](#example-4-define-and-register-a-host-function)
+    - [Example 4-1: Define a host function with string arguments](#example-4-1-define-a-host-function-with-string-arguments)
+  - [Example 5: Define and register async host functions](#example-5-define-and-register-async-host-functions)
+  - [Example 6: AI inference over WasmEdge WASI-NN Plugin (PyTroch)](#example-6-ai-inference-over-wasmedge-wasi-nn-plugin-pytroch)
+  - [Example 7: Manipulate WebAssembly linear memory](#example-7-manipulate-webassembly-linear-memory)
+  - [Example 8: Use WebAssembly `Table` and `FuncRef` to invoke host functions](#example-8-use-webassembly-table-and-funcref-to-invoke-host-functions)
+  - [Example 9: Run wasm functions in AOT mode](#example-9-run-wasm-functions-in-aot-mode)
+  - [Example 10: Set environment variables and arguments via WasmEdge `wasi` interface](#example-10-set-environment-variables-and-arguments-via-wasmedge-wasi-interface)
+
 ## Example 1: Run a wasm app from host
 
 This example demonstrates how to create a WebAssembly application and run it as a wasm module over WasmEdge Runtime.
