@@ -1,4 +1,4 @@
-# Define & Run Host Function
+# Run wasm functions in AOT mode
 
 This example demonstrates how to generate a AOT file with WasmEdge AOT compiler, and then load the file and run the wasm function in AOT mode.
 
