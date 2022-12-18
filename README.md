@@ -89,3 +89,12 @@ This example demonstrates how to use WebAssembly `Table` and `FuncRef` together 
   - [x] Source Code
   - [x] README
   - [ ] Tutorial
+
+## Example 9: Run wasm functions in WasmEdge AOT mode
+
+This example demonstrates how to generate a AOT file with WasmEdge AOT compiler, and then load the file and run the wasm function in AOT mode.
+
+- [Use WasmEdge AOT Compiler](run-wasm-func-in-aot-mode/README.md)
+  - [x] Source Code
+  - [x] README
+  - [ ] Tutorial

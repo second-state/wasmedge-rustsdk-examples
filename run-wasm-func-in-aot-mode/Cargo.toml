@@ -1,0 +1,9 @@
+[package]
+name = "run-wasm-func-in-aot-mode"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+wasmedge-sdk = { version = "0.7.1", features = ["aot"] }
