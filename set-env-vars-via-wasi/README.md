@@ -4,9 +4,9 @@ This example demonstrates how to set environment variables and arguments via Was
 
 This example consists of two projects:
 
-- [`print-env-vars`](wasm-lib) is a wasm library, in which a function accessing the environment variables is defined.
+- [`print-env-vars`](print-env-vars) is a wasm library, in which a function accessing the environment variables is defined.
 
-- [`set-env-vars-via-wasi`](call-wasm-lib) is a host application that defines a group of arguments and environment variables and sets them via WasmEdge `wasi` interface; then,loads the wasm binary generated from `print-env-vars`, and runs the wasm function exported by the wasm library to print the pre-defined arguments and environment variables.
+- [`set-env-vars-via-wasi`](set-env-vars-via-wasi) is a host application that defines a group of arguments and environment variables and sets them via WasmEdge `wasi` interface; then,loads the wasm binary generated from `print-env-vars`, and runs the wasm function exported by the wasm library to print the pre-defined arguments and environment variables.
 
 Now let's build and run this example.
 
