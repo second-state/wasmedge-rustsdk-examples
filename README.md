@@ -4,6 +4,7 @@
   - [Example 1: Run a wasm app from host](#example-1-run-a-wasm-app-from-host)
   - [Example 2: Call a wasm library from host](#example-2-call-a-wasm-library-from-host)
     - [Example 2-1: Use extern functions in a wasm library](#example-2-1-use-extern-functions-in-a-wasm-library)
+    - [Example 2-2: Call wasm functions between wasm modules](#example-2-2-call-wasm-functions-between-wasm-modules)
   - [Example 3: Arguments of non-standard wasm types in wasm function](#example-3-arguments-of-non-standard-wasm-types-in-wasm-function)
   - [Example 4: Define and register a host function](#example-4-define-and-register-a-host-function)
     - [Example 4-1: Define a host function with string arguments](#example-4-1-define-a-host-function-with-string-arguments)
@@ -38,6 +39,15 @@ This example demonstrates how to define a wasm library and call the APIs exporte
 This example demonstrates how to use external functions in a wasm library, and how to call such a wasm library with WasmEdge Rust SDK.
 
 - [Call wasm library with external dependency](call-wasm-lib-with-external-deps/README.md)
+  - [x] Source Code
+  - [x] README
+  - [ ] Tutorial
+
+### Example 2-2: Call wasm functions between wasm modules
+
+This example demonstrates the function dependencies between different wasm modules. That is, a wasm function defined in one wasm module can be called by another wasm module.
+
+- [Call wasm functions between wasm modules](load-module-in-module/README.md)
   - [x] Source Code
   - [x] README
   - [ ] Tutorial
