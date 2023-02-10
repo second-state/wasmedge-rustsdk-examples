@@ -50,7 +50,7 @@ Now let's build and run this example.
 - Download example
 
   ```bash
-  git clone git@github.com:apepkuss/wasmedge-rust-examples.git
+  git clone git@github.com:second-state/wasmedge-rustsdk-examples.git
   cd wasmedge-rust-examples/call-wasm-lib-with-external-deps
   ```
 
