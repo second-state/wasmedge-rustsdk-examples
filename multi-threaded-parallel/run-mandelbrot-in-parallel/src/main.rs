@@ -51,9 +51,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .build("env")?;
 
     let config = ConfigBuilder::new(CommonConfigOptions::new().threads(true))
-        .with_compiler_config(
-            CompilerConfigOptions::new().out_format(CompilerOutputFormat::Native),
-        )
+        .with_compiler_config(CompilerConfigOptions::new().out_format(CompilerOutputFormat::Native))
         .build()?;
     let compiler = Compiler::new(Some(&config))?;
     // let wasm_file = std::path::PathBuf::from("/Volumes/Dev/secondstate/me/wasmedge-rust-examples/multi-threaded-parallel/mandelbrot-c/mandelbrot.wasm");
@@ -75,7 +73,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             .reference_types(false),
     )
     .build()?;
-    let vm = Vm::new(Some(config))?
+    let vm = Vm::new(Some(config), None)?
         .register_import_module(import)?
         .register_module_from_file("mandelbrot", aot_file_path)?;
 

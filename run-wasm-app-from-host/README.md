@@ -66,7 +66,6 @@ Now let's build and run this example.
 - Build and run `run-wasm-app`
 
   ```bash
-  // in the directory of run-wasm-app-from-host
   cargo run -p run-wasm-app -- ./target/wasm32-wasi/release/wasm-app.wasm
   ```
 

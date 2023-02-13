@@ -65,7 +65,6 @@ Now let's build and run this example.
 - Build and run `call-wasm-lib`
 
   ```bash
-  // in the directory of call-func-from-host
   cargo run -p call-wasm-lib -- ./target/wasm32-wasi/release/wasm_lib.wasm 5
   ```
 

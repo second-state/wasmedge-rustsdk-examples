@@ -13,7 +13,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let config = ConfigBuilder::new(CommonConfigOptions::default())
         .with_host_registration_config(HostRegistrationConfigOptions::default().wasi(true))
         .build()?;
-    let vm = Vm::new(Some(config))?.register_module(None, module)?;
+    let vm = Vm::new(Some(config), None)?.register_module(None, module)?;
 
     let vm = VmDock::new(vm);
 

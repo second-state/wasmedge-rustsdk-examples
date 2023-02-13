@@ -4,4 +4,4 @@ name = "call-wasm-lib"
 version = "0.1.0"
 
 [dependencies]
-wasmedge-sdk = {version = "0.7.1"}
+wasmedge-sdk = {git = "https://github.com/apepkuss/WasmEdge", branch = "rust/feat-rust-vm"}

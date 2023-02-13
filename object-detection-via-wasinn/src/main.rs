@@ -37,7 +37,7 @@ fn infer() -> Result<(), Box<dyn std::error::Error>> {
     let module = Module::from_file(Some(&config), wasm_file)?;
 
     // create a Vm
-    let mut vm = Vm::new(Some(config))?;
+    let mut vm = Vm::new(Some(config), None)?;
 
     // init wasi module
     vm.wasi_module()?.initialize(

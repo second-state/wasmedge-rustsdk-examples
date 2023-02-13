@@ -3,7 +3,10 @@ use wasmedge_sdk::{
 };
 
 #[async_host_function]
-async fn read_book(_caller: Caller, _args: Vec<WasmValue>) -> Result<Vec<WasmValue>, HostFuncError> {
+async fn read_book(
+    _caller: Caller,
+    _args: Vec<WasmValue>,
+) -> Result<Vec<WasmValue>, HostFuncError> {
     println!("[read_book] sleep 2 second");
     tokio::time::sleep(std::time::Duration::from_secs(2)).await;
 
@@ -13,7 +16,10 @@ async fn read_book(_caller: Caller, _args: Vec<WasmValue>) -> Result<Vec<WasmVal
 }
 
 #[async_host_function]
-async fn enjoy_music(_caller: Caller, _args: Vec<WasmValue>) -> Result<Vec<WasmValue>, HostFuncError> {
+async fn enjoy_music(
+    _caller: Caller,
+    _args: Vec<WasmValue>,
+) -> Result<Vec<WasmValue>, HostFuncError> {
     println!("[enjoy_music] sleep 1 second");
     tokio::time::sleep(std::time::Duration::from_secs(1)).await;
 
@@ -30,7 +36,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .with_func_async::<(), ()>("enjoy_music", enjoy_music)?
         .build("extern")?;
 
-    let vm = Vm::new(None)?.register_import_module(import)?;
+    let vm = Vm::new(None, None)?.register_import_module(import)?;
 
     let (_, _) = tokio::join!(
         vm.run_func_async(Some("extern"), "read_book", params!()),

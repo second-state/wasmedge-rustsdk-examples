@@ -1,7 +1,7 @@
 [package]
+edition = "2021"
 name = "host-app"
 version = "0.1.0"
-edition = "2021"
 
 [dependencies]
-wasmedge-sdk = "0.7.1"
+wasmedge-sdk = {git = "https://github.com/apepkuss/WasmEdge", branch = "rust/feat-rust-vm"}

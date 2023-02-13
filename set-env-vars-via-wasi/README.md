@@ -65,7 +65,6 @@ Now let's build and run this example.
 - Build and run `set-env-vars-via-wasi`
 
   ```bash
-  // in wasmedge-rust-examples/set-env-vars-via-wasi
   cargo run -p set-env-vars-via-wasi -- ./target/wasm32-wasi/release/print_env_vars.wasm
   ```
 

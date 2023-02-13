@@ -3,8 +3,7 @@ use wasmedge_sdk::{
     error::HostFuncError,
     host_function, params,
     types::Val,
-    Caller,  Func, ImportObjectBuilder, RefType,  Table, TableType, ValType,
-    WasmVal, WasmValue, Vm
+    Caller, Func, ImportObjectBuilder, RefType, Table, TableType, ValType, Vm, WasmVal, WasmValue,
 };
 
 #[host_function]
@@ -32,7 +31,6 @@ fn real_add(_: Caller, input: Vec<WasmValue>) -> Result<Vec<WasmValue>, HostFunc
 
 #[cfg_attr(test, test)]
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    
     // create a table instance
     let result = Table::new(TableType::new(RefType::FuncRef, 10, Some(20)));
     assert!(result.is_ok());
@@ -45,7 +43,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     // create a Vm and register the import object into it
     let config = ConfigBuilder::new(CommonConfigOptions::default()).build()?;
-    let mut vm = Vm::new(Some(config))?.register_import_module(import)?;
+    let mut vm = Vm::new(Some(config), None)?.register_import_module(import)?;
 
     // get the module instance named "extern"
     let extern_instance = vm.named_module("extern")?;
@@ -65,20 +63,24 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let value = table.get(3)?;
     if let Val::FuncRef(Some(func_ref)) = value {
         // get the function type by func_ref
-        let func_ty = func_ref.ty()?;
+        let func_ty = func_ref.ty();
 
         // arguments
         println!("num of argument types: {}", func_ty.args_len());
-        let param_tys = func_ty.args().expect("Failed to get argument types from func type");
+        let param_tys = func_ty
+            .args()
+            .expect("Failed to get argument types from func type");
         println!("types of arguments: {:?}", param_tys);
 
         // returns
         println!("num of return types: {}", func_ty.args_len());
-        let return_tys = func_ty.returns().expect("Failed to get return types from func type");
+        let return_tys = func_ty
+            .returns()
+            .expect("Failed to get return types from func type");
         println!("types of return: {:?}", return_tys);
 
         // call the function by func_ref
-        let returns = func_ref.call(&mut vm, params!(1, 2))?;
+        let returns = func_ref.run(vm.executor_mut(), params!(1, 2))?;
         println!("real_add(1, 2) = {}", returns[0].to_i32());
     }
 

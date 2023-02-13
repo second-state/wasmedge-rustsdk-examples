@@ -13,9 +13,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     assert!(config.wasi_enabled());
 
     // create a VM with the config
-    let mut vm = Vm::new(Some(config))?;
+    let mut vm = Vm::new(Some(config), None)?;
 
-    vm.wasi_module()?.initialize(None, None, None);
+    vm.wasi_module_mut()?.initialize(None, None, None);
 
     vm.register_module_from_file("wasm-app", &wasm_app_file)?
         .run_func(Some("wasm-app"), "_start", params!())?;

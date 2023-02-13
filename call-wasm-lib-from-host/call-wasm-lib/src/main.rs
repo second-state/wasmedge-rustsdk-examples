@@ -11,7 +11,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let config = ConfigBuilder::default().build()?;
 
     // create a VM with the config
-    let vm = Vm::new(Some(config))?;
+    let vm = Vm::new(Some(config), None)?;
 
     let res = vm
         .register_module_from_file("wasm-lib", &wasm_lib_file)?

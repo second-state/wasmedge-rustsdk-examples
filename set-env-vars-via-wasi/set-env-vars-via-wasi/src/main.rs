@@ -1,20 +1,24 @@
-
-use wasmedge_sdk::{config::{ConfigBuilder, CommonConfigOptions, HostRegistrationConfigOptions}, Vm, params};
+use wasmedge_sdk::{
+    config::{CommonConfigOptions, ConfigBuilder, HostRegistrationConfigOptions},
+    params, Vm,
+};
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args: Vec<String> = std::env::args().collect();
     let wasm_file = std::path::PathBuf::from(&args[1]);
-    
+
     // enable the `wasi` option
-    let config = ConfigBuilder::new(CommonConfigOptions::default()).with_host_registration_config(HostRegistrationConfigOptions::default().wasi(true)).build()?;
+    let config = ConfigBuilder::new(CommonConfigOptions::default())
+        .with_host_registration_config(HostRegistrationConfigOptions::default().wasi(true))
+        .build()?;
 
     // create a vm
-    let mut vm = Vm::new(Some(config))?;
+    let mut vm = Vm::new(Some(config), None)?;
 
     // set the envs and args for the wasi module
     let args = vec!["arg1", "arg2"];
     let envs = vec!["ENV1=VAL1", "ENV2=VAL2", "ENV3=VAL3"];
-    let mut wasi_module = vm.wasi_module()?;
+    let wasi_module = vm.wasi_module_mut()?;
     wasi_module.initialize(Some(args), Some(envs), None);
     assert_eq!(wasi_module.exit_code(), 0);
 

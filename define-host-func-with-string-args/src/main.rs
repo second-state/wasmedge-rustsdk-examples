@@ -1,6 +1,6 @@
-
 use wasmedge_sdk::{
-    error::HostFuncError, host_function,  Caller, ImportObjectBuilder, Vm, WasmValue, types::ExternRef
+    error::HostFuncError, host_function, types::ExternRef, Caller, ImportObjectBuilder, Vm,
+    WasmValue,
 };
 
 // The host function takes two arguments of WasmValue type:
@@ -26,23 +26,22 @@ fn hello(_caller: Caller, args: Vec<WasmValue>) -> Result<Vec<WasmValue>, HostFu
 // MyString is similar to Rust built-in String
 #[derive(Debug)]
 pub struct MyString {
-    pub s: String
+    pub s: String,
 }
 
 // MyStr is similar to Rust built-in string slice, namely str
 #[derive(Debug)]
 pub struct MyStr<'a> {
-    pub s: &'a str
+    pub s: &'a str,
 }
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-
     let import = ImportObjectBuilder::new()
         .with_func::<(ExternRef, ExternRef), ()>("say_hello", hello)?
         .build("extern")?;
 
     // create a vm
-    let vm = Vm::new(None)?;
+    let vm = Vm::new(None, None)?;
 
     // register the wasm lib as a named module into the vm
     let vm = vm.register_import_module(import)?;
@@ -54,8 +53,15 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     // create a MyStr instance
     let s = "Moon";
     let mut my_str = MyStr { s };
-   
-    vm.run_func(Some("extern"), "say_hello", vec![WasmValue::from_extern_ref(&mut my_string), WasmValue::from_extern_ref(&mut my_str)])?;
-   
+
+    vm.run_func(
+        Some("extern"),
+        "say_hello",
+        vec![
+            WasmValue::from_extern_ref(&mut my_string),
+            WasmValue::from_extern_ref(&mut my_str),
+        ],
+    )?;
+
     Ok(())
 }

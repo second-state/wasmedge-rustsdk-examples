@@ -3,7 +3,5 @@ edition = "2021"
 name = "object-detection-via-wasinn"
 version = "0.1.0"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
-wasmedge-sdk = {version = "0.7.1", features = ["wasi_nn"]}
+wasmedge-sdk = {git = "https://github.com/apepkuss/WasmEdge", branch = "rust/feat-rust-vm", features = ["wasi_nn"]}

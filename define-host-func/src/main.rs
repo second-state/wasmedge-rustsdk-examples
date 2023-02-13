@@ -36,11 +36,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .build("extern")?;
 
     // create a new Vm with default config
-    let res = Vm::new(None)?.register_import_module(import)?.run_func(
-        Some("extern"),
-        "add",
-        params!(15, 51),
-    )?;
+    let res = Vm::new(None, None)?
+        .register_import_module(import)?
+        .run_func(Some("extern"), "add", params!(15, 51))?;
 
     println!("add({}, {}) = {}", 15, 51, res[0].to_i32());
 

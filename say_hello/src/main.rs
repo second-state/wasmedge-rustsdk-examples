@@ -12,7 +12,7 @@ fn hello(_caller: Caller, _args: Vec<WasmValue>) -> Result<Vec<WasmValue>, HostF
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     // create a new WasmEdge Vm instance
-    let vm = Vm::new(None)?;
+    let vm = Vm::new(None, None)?;
 
     // create an import_object module with the host function
     let import: ImportObject = ImportObjectBuilder::new()
