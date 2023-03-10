@@ -1,7 +1,7 @@
 #[cfg(all(target_os = "linux", target_arch = "x86_64"))]
 use wasmedge_sdk::{
     config::{CommonConfigOptions, ConfigBuilder, HostRegistrationConfigOptions},
-    params, Module, PluginManager, Vm,
+    params, Module, PluginManager, VmBuilder,
 };
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -14,6 +14,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 #[cfg(all(target_os = "linux", target_arch = "x86_64"))]
 fn infer() -> Result<(), Box<dyn std::error::Error>> {
     // parse arguments
+
+    use wasmedge_sdk::VmBuilder;
     let args: Vec<String> = std::env::args().collect();
     let dir_mapping = &args[1];
     let wasm_file = &args[2];
@@ -37,10 +39,10 @@ fn infer() -> Result<(), Box<dyn std::error::Error>> {
     let module = Module::from_file(Some(&config), wasm_file)?;
 
     // create a Vm
-    let mut vm = Vm::new(Some(config), None)?;
+    let mut vm = VmBuilder::new().with_config(config).build()?;
 
     // init wasi module
-    vm.wasi_module()?.initialize(
+    vm.wasi_module().expect("Not found wasi module").initialize(
         Some(vec![wasm_file, model_bin, image_file]),
         None,
         Some(vec![dir_mapping]),

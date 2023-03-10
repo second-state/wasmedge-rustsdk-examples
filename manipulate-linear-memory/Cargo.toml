@@ -7,4 +7,4 @@ version = "0.1.0"
 
 [dependencies]
 anyhow = "1"
-wasmedge-sdk = {git = "https://github.com/apepkuss/WasmEdge", branch = "rust/feat-rust-vm"}
+wasmedge-sdk = {git = "https://github.com/apepkuss/WasmEdge", branch = "master"}

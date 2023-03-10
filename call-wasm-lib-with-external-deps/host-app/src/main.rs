@@ -1,7 +1,7 @@
 use wasmedge_sdk::{
     config::{CommonConfigOptions, ConfigBuilder, HostRegistrationConfigOptions},
     error::HostFuncError,
-    host_function, params, Caller, ImportObjectBuilder, ValType, Vm, WasmVal, WasmValue,
+    host_function, params, Caller, ImportObjectBuilder, ValType, VmBuilder, WasmVal, WasmValue,
 };
 
 #[host_function]
@@ -48,7 +48,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .with_host_registration_config(HostRegistrationConfigOptions::default().wasi(true))
         .build()?;
 
-    let res = Vm::new(Some(config), None)?
+    let res = VmBuilder::new()
+        .with_config(config)
+        .build()?
         .register_import_module(import)?
         .register_module_from_file("extern", wasm_lib_file)?
         .run_func(Some("extern"), "add", params!(num1, num2))?;

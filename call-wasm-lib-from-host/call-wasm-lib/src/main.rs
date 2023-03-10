@@ -1,4 +1,4 @@
-use wasmedge_sdk::{config::ConfigBuilder, params, Vm, WasmVal};
+use wasmedge_sdk::{config::ConfigBuilder, params, VmBuilder, WasmVal};
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args: Vec<String> = std::env::args().collect();
@@ -11,7 +11,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let config = ConfigBuilder::default().build()?;
 
     // create a VM with the config
-    let vm = Vm::new(Some(config), None)?;
+    let vm = VmBuilder::new().with_config(config).build()?;
 
     let res = vm
         .register_module_from_file("wasm-lib", &wasm_lib_file)?

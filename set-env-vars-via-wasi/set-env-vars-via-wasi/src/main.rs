@@ -1,6 +1,6 @@
 use wasmedge_sdk::{
     config::{CommonConfigOptions, ConfigBuilder, HostRegistrationConfigOptions},
-    params, Vm,
+    params, VmBuilder,
 };
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -13,12 +13,12 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .build()?;
 
     // create a vm
-    let mut vm = Vm::new(Some(config), None)?;
+    let mut vm = VmBuilder::new().with_config(config).build()?;
 
     // set the envs and args for the wasi module
     let args = vec!["arg1", "arg2"];
     let envs = vec!["ENV1=VAL1", "ENV2=VAL2", "ENV3=VAL3"];
-    let wasi_module = vm.wasi_module_mut()?;
+    let wasi_module = vm.wasi_module_mut().expect("Not found wasi module");
     wasi_module.initialize(Some(args), Some(envs), None);
     assert_eq!(wasi_module.exit_code(), 0);
 

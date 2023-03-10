@@ -1,6 +1,6 @@
 use wasmedge_sdk::{
     config::{CommonConfigOptions, ConfigBuilder, HostRegistrationConfigOptions},
-    params, Vm, WasmVal,
+    params, VmBuilder, WasmVal,
 };
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -16,7 +16,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .build()?;
 
     // create a vm and register bob and alice wasm modules into the vm
-    let vm = Vm::new(Some(config), None)?
+    let vm = VmBuilder::new()
+        .with_config(config)
+        .build()?
         .register_module_from_file(
             "my_math_lib",
             "target/wasm32-wasi/release/bob_wasm_lib.wasm",

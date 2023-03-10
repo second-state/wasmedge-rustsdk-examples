@@ -3,7 +3,8 @@ use wasmedge_sdk::{
     error::HostFuncError,
     host_function, params,
     types::Val,
-    Caller, Func, ImportObjectBuilder, RefType, Table, TableType, ValType, Vm, WasmVal, WasmValue,
+    Caller, Func, ImportObjectBuilder, RefType, Table, TableType, ValType, VmBuilder, WasmVal,
+    WasmValue,
 };
 
 #[host_function]
@@ -43,7 +44,10 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     // create a Vm and register the import object into it
     let config = ConfigBuilder::new(CommonConfigOptions::default()).build()?;
-    let mut vm = Vm::new(Some(config), None)?.register_import_module(import)?;
+    let mut vm = VmBuilder::new()
+        .with_config(config)
+        .build()?
+        .register_import_module(import)?;
 
     // get the module instance named "extern"
     let extern_instance = vm.named_module("extern")?;

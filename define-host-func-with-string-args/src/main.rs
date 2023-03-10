@@ -1,5 +1,5 @@
 use wasmedge_sdk::{
-    error::HostFuncError, host_function, types::ExternRef, Caller, ImportObjectBuilder, Vm,
+    error::HostFuncError, host_function, types::ExternRef, Caller, ImportObjectBuilder, VmBuilder,
     WasmValue,
 };
 
@@ -40,11 +40,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .with_func::<(ExternRef, ExternRef), ()>("say_hello", hello)?
         .build("extern")?;
 
-    // create a vm
-    let vm = Vm::new(None, None)?;
-
-    // register the wasm lib as a named module into the vm
-    let vm = vm.register_import_module(import)?;
+    // create a vm and register the wasm lib as a named module into the vm
+    let vm = VmBuilder::new().build()?.register_import_module(import)?;
 
     // create a MyString instance
     let s = "Earth";

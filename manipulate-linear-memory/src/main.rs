@@ -1,4 +1,4 @@
-use wasmedge_sdk::{params, wat2wasm, Vm, WasmVal};
+use wasmedge_sdk::{params, wat2wasm, VmBuilder, WasmVal};
 
 #[cfg_attr(test, test)]
 fn main() -> anyhow::Result<()> {
@@ -29,7 +29,9 @@ fn main() -> anyhow::Result<()> {
     )?;
 
     // create a Vm instance and register the module into it
-    let mut vm = Vm::new(None, None)?.register_module_from_bytes("extern", &wasm_bytes)?;
+    let mut vm = VmBuilder::new()
+        .build()?
+        .register_module_from_bytes("extern", &wasm_bytes)?;
 
     // get the module instance named "extern"
     let extern_instance = vm.named_module("extern")?;

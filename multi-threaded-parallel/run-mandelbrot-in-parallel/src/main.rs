@@ -30,7 +30,7 @@ use std::{
 };
 use wasmedge_sdk::{
     config::{CommonConfigOptions, CompilerConfigOptions, ConfigBuilder},
-    params, Compiler, CompilerOutputFormat, ImportObjectBuilder, Memory, MemoryType, Vm,
+    params, Compiler, CompilerOutputFormat, ImportObjectBuilder, Memory, MemoryType, VmBuilder,
     WasmEdgeResult, WasmVal,
 };
 
@@ -73,7 +73,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             .reference_types(false),
     )
     .build()?;
-    let vm = Vm::new(Some(config), None)?
+    let vm = VmBuilder::new()
+        .with_config(config)
+        .build()?
         .register_import_module(import)?
         .register_module_from_file("mandelbrot", aot_file_path)?;
 

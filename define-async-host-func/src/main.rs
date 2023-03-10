@@ -1,5 +1,6 @@
 use wasmedge_sdk::{
-    async_host_function, error::HostFuncError, params, Caller, ImportObjectBuilder, Vm, WasmValue,
+    async_host_function, error::HostFuncError, params, Caller, ImportObjectBuilder, VmBuilder,
+    WasmValue,
 };
 
 #[async_host_function]
@@ -36,7 +37,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .with_func_async::<(), ()>("enjoy_music", enjoy_music)?
         .build("extern")?;
 
-    let vm = Vm::new(None, None)?.register_import_module(import)?;
+    let vm = VmBuilder::new().build()?.register_import_module(import)?;
 
     let (_, _) = tokio::join!(
         vm.run_func_async(Some("extern"), "read_book", params!()),

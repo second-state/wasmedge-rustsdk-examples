@@ -6,4 +6,4 @@ version = "0.1.0"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-wasmedge-sdk = {git = "https://github.com/apepkuss/WasmEdge", branch = "rust/feat-rust-vm", features = ["aot"]}
+wasmedge-sdk = {git = "https://github.com/apepkuss/WasmEdge", branch = "master", features = ["aot"]}

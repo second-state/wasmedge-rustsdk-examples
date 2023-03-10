@@ -1,6 +1,6 @@
 use wasmedge_sdk::{
-    error::HostFuncError, host_function, params, Caller, ImportObjectBuilder, ValType, Vm, WasmVal,
-    WasmValue,
+    error::HostFuncError, host_function, params, Caller, ImportObjectBuilder, ValType, VmBuilder,
+    WasmVal, WasmValue,
 };
 
 #[host_function]
@@ -36,7 +36,8 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .build("extern")?;
 
     // create a new Vm with default config
-    let res = Vm::new(None, None)?
+    let res = VmBuilder::new()
+        .build()?
         .register_import_module(import)?
         .run_func(Some("extern"), "add", params!(15, 51))?;
 
