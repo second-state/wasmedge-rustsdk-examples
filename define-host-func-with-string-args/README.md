@@ -39,7 +39,7 @@ Now let's build and run this example.
 
   ```bash
   git clone git@github.com:second-state/wasmedge-rustsdk-examples.git
-  cd wasmedge-rust-examples/define-host-func-with-string-args
+  cd wasmedge-rustsdk-examples/define-host-func-with-string-args
   ```
 
 - Build & run

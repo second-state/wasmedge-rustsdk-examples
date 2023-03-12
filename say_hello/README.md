@@ -39,7 +39,7 @@ Now let's build and run this example.
 
   ```bash
   git clone git@github.com:second-state/wasmedge-rustsdk-examples.git
-  cd wasmedge-rust-examples/say_hello
+  cd wasmedge-rustsdk-examples/say_hello
   ```
 
 - Build & run

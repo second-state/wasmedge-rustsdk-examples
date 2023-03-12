@@ -53,7 +53,7 @@ Now let's build and run this example.
 
   ```bash
   git clone git@github.com:second-state/wasmedge-rustsdk-examples.git
-  cd wasmedge-rust-examples/load-module-in-module
+  cd wasmedge-rustsdk-examples/load-module-in-module
   ```
 
 - Build `alice-wasm-lib`

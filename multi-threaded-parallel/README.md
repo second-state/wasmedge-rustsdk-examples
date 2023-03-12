@@ -57,7 +57,7 @@ Now let's build and run this example.
 
   ```bash
   git clone git@github.com:second-state/wasmedge-rustsdk-examples.git
-  cd wasmedge-rust-examples/multi-threaded-parallel
+  cd wasmedge-rustsdk-examples/multi-threaded-parallel
   ```
 
 - Compile `mandelbrot-c` into `mandelbrot.wasm`

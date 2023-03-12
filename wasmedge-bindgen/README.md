@@ -51,7 +51,7 @@ Now let's build and run this example.
 
   ```bash
   git clone git@github.com:second-state/wasmedge-rustsdk-examples.git
-  cd wasmedge-rust-examples/wasmedge-bindgen
+  cd wasmedge-rustsdk-examples/wasmedge-bindgen
   ```
 
 - Build `wasm-lib`

@@ -74,7 +74,7 @@ Now let's build and run this example.
 
   ```bash
   git clone git@github.com:second-state/wasmedge-rustsdk-examples.git
-  cd wasmedge-rust-examples/object-detection-via-wasinn
+  cd wasmedge-rustsdk-examples/object-detection-via-wasinn
   ```
 
 - Build & run

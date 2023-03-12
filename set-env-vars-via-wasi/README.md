@@ -51,7 +51,7 @@ Now let's build and run this example.
 
   ```bash
   git clone git@github.com:second-state/wasmedge-rustsdk-examples.git
-  cd wasmedge-rust-examples/set-env-vars-via-wasi
+  cd wasmedge-rustsdk-examples/set-env-vars-via-wasi
   ```
 
 - Build `print-env-vars`
