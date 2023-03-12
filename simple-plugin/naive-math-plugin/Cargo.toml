@@ -1,0 +1,10 @@
+[package]
+edition = "2021"
+name = "naive-math-plugin"
+version = "0.1.0"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+wasmedge-sdk = {path = "/root/workspace/me/WasmEdge/bindings/rust/wasmedge-sdk", features = ["ffi"]}

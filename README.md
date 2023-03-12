@@ -15,6 +15,7 @@
   - [Example 9: Run wasm functions in AOT mode](#example-9-run-wasm-functions-in-aot-mode)
   - [Example 10: Set environment variables and arguments via WasmEdge `wasi` interface](#example-10-set-environment-variables-and-arguments-via-wasmedge-wasi-interface)
   - [Example 11: Multi-threaded parallel execution with memory sharing](#example-11-multi-threaded-parallel-execution-with-memory-sharing)
+  - [Example 12: Create a simple plugin](#example-12-create-a-simple-plugin)
 
 ## Example 1: Run a wasm app from host
 
@@ -138,6 +139,15 @@ This example demonstrates how to set environment variables and arguments via Was
 This example demonstrates how to use WasmEdge Rust SDK to create multiple threads to help us render [Mandelbrot set](https://en.wikipedia.org/wiki/Mandelbrot_set) in parallel, which is a compute-intensive workload. This example also present sharing the image memory between threads while rendering the image parallelly.
 
 - [Run in multi-threaded parallel](multi-threaded-parallel)
+  - [x] Source Code
+  - [x] README
+  - [ ] Tutorial
+
+## Example 12: Create a simple plugin
+
+This example demonstrates how to create a simple plugin with WasmEdge Rust SDK.
+
+- [Create a math plugin](simple-plugin)
   - [x] Source Code
   - [x] README
   - [ ] Tutorial
