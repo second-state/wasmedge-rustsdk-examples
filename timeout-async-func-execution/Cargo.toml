@@ -1,0 +1,10 @@
+[package]
+edition = "2021"
+name = "timeout-async-func-execution"
+version = "0.1.0"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+tokio = {version = "1", features = ["full"]}
+wasmedge-sdk = {path = "/root/workspace/me/WasmEdge/bindings/rust/wasmedge-sdk", features = ["async"]}
