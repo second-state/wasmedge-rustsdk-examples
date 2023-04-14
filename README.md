@@ -9,6 +9,7 @@
   - [Example 4: Define and register a host function](#example-4-define-and-register-a-host-function)
     - [Example 4-1: Define a host function with string arguments](#example-4-1-define-a-host-function-with-string-arguments)
   - [Example 5: Define and register async host functions](#example-5-define-and-register-async-host-functions)
+    - [Example 5-1: Cancel an async host function execution when the timeout is checked](#example-5-1-cancel-an-async-host-function-execution-when-the-timeout-is-checked)
   - [Example 6: AI inference over WasmEdge WASI-NN Plugin (PyTroch)](#example-6-ai-inference-over-wasmedge-wasi-nn-plugin-pytroch)
   - [Example 7: Manipulate WebAssembly linear memory](#example-7-manipulate-webassembly-linear-memory)
   - [Example 8: Use WebAssembly `Table` and `FuncRef` to invoke host functions](#example-8-use-webassembly-table-and-funcref-to-invoke-host-functions)
@@ -85,6 +86,15 @@ This example demonstrates how to define a host function that takes two arguments
 This example demonstrates how to define a native async function as an async host function with `#[async_host_function]` macro, and register it into a WasmEdge `Vm` and run it over WasmEdge Runtime.
 
 - [Define async host functions](define-async-host-func)
+  - [x] Source Code
+  - [x] README
+  - [ ] Tutorial
+
+### Example 5-1: Cancel an async host function execution when the timeout is checked
+
+This example demonstrates how to cancel an async host function when the specified time is out.
+
+- [Cancel async host functions in execution](timeout-async-func-execution)
   - [x] Source Code
   - [x] README
   - [ ] Tutorial

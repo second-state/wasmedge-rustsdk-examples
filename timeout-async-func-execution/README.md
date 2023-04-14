@@ -1,4 +1,4 @@
-# Cancel Async Host Functions When Time's Out
+# Cancel Async Host Functions in Exeuction
 
 This example demonstrates how to cancel an async host function when the specified time is out.
 
