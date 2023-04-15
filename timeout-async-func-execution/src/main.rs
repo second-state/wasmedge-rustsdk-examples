@@ -9,7 +9,11 @@ async fn say_hello(
     _args: Vec<WasmValue>,
 ) -> Result<Vec<WasmValue>, HostFuncError> {
     for i in 0..20 {
-        tokio::time::sleep(std::time::Duration::from_secs(1)).await;
+        // sleeping 0 second is used to yield context
+        tokio::time::sleep(std::time::Duration::from_secs(0)).await;
+
+        // "sleep" here is used to simulate a computation
+        std::thread::sleep(std::time::Duration::from_secs(1));
 
         println!("{i}: Hello, world!");
     }
