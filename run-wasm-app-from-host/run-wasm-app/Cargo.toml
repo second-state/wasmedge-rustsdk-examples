@@ -4,4 +4,4 @@ name = "run-wasm-app"
 version = "0.1.0"
 
 [dependencies]
-wasmedge-sdk = {git = "https://github.com/apepkuss/WasmEdge", branch = "master"}
+wasmedge-sdk = "0.8"

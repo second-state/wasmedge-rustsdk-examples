@@ -7,4 +7,4 @@ version = "0.1.0"
 
 [dependencies]
 tokio = {version = "1", features = ["full"]}
-wasmedge-sdk = {path = "/root/workspace/me/WasmEdge/bindings/rust/wasmedge-sdk", features = ["async"]}
+wasmedge-sdk = {version = "0.8", features = ["async"]}

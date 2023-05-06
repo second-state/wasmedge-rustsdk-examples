@@ -7,4 +7,4 @@ version = "0.1.0"
 
 [dependencies]
 tokio = {version = "1.0", features = ["full"]}
-wasmedge-sdk = {git = "https://github.com/apepkuss/WasmEdge", branch = "master", features = ["async"]}
+wasmedge-sdk = {version = "0.8", features = ["async"]}
