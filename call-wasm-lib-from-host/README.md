@@ -27,17 +27,18 @@ Now let's build and run this example.
   Refer to the [Quick Install](https://wasmedge.org/book/en/quick_start/install.html#quick-install) section of WasmEdge Runtime Book to install WasmEdge Runtime. Or, use the following command directly
 
   ```bash
+  # NOTICE that the installation script needs `sudo` access
+
   # install wasmedge to the directory /usr/local/
   curl -sSf https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash -s -- -v 0.12.0 -p /usr/local
-
-  source /root/.bashrc
   ```
 
   > For users in China mainland (中国大陆地区), try the following command to install WasmEdge Runtime if failed to run the command above
   >
   > ```bash
+  > # NOTICE that the installation script needs `sudo` access
+  >
   > bash install_zh.sh -v 0.12.0 -p /usr/local
-  > source /root/.bashrc
   > ```
 
 - Download example
