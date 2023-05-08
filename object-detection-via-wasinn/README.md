@@ -12,31 +12,31 @@ Now let's build and run this example.
 
   Go to the [official Rust webpage](https://www.rust-lang.org/tools/install) and follow the instructions to install `rustup` and `Rust`.
 
-  > It is recommended to use Rust 1.63 or above in the stable channel.
+  > It is recommended to use Rust 1.66 or above in the stable channel.
 
-- Install `libwasmedge`
-
-  Refer to the [Quick Install](https://wasmedge.org/book/en/quick_start/install.html#quick-install) section of WasmEdge Runtime Book to install `libwasmedge`. Or, use the following command directly
+  Then, add `wasm32-wasi` target to the Rustup toolchain:
 
   ```bash
-  // The command will create a directory `$HOME/.wasmedge`
-  ./install_libwasmedge.sh
-
-  source $HOME/.wasmedge/env
+  rustup target add wasm32-wasi
   ```
 
-  > For users in China mainland (中国大陆地区), try the following command to install `libwasmedge` if failed to run the command above
-  >
-  > ```bash
-  > ./install_libwasmedge_zh.sh
-  > source $HOME/.wasmedge/env
-  > ```
+- Install WasmEdge Runtime
 
-  > To install a specific version of `libwasmedge`, use `-v` option. For example, the following command installs `libwasmedge 0.11.2` to `$HOME/.wasmedge`
+  Refer to the [Quick Install](https://wasmedge.org/book/en/quick_start/install.html#quick-install) section of WasmEdge Runtime Book to install WasmEdge Runtime. Or, use the following command directly
+
+  ```bash
+  # NOTICE that the installation script needs `sudo` access
+
+  # install wasmedge to the directory /usr/local/
+  curl -sSf https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash -s -- -v 0.12.0 -p /usr/local
+  ```
+
+  > For users in China mainland (中国大陆地区), try the following command to install WasmEdge Runtime if failed to run the command above
   >
   > ```bash
-  > ./install_libwasmedge.sh -v 0.11.2
-  > source $HOME/.wasmedge/env
+  > # NOTICE that the installation script needs `sudo` access
+  >
+  > bash install_zh.sh -v 0.12.0 -p /usr/local
   > ```
 
 - Install `libtorch` and `WasmEdge WASI-NN PyTorch Backend`
@@ -48,26 +48,31 @@ Now let's build and run this example.
     ```bash
     export PYTORCH_VERSION="1.8.2"
     
-    // download and unzip libtorch-1.8.2
+    # download and unzip libtorch-1.8.2
     curl -s -L -O --remote-name-all https://download.pytorch.org/libtorch/lts/1.8/cpu/libtorch-cxx11-abi-shared-with-deps-${PYTORCH_VERSION}%2Bcpu.zip
+
+    # unzip
     unzip -q "libtorch-cxx11-abi-shared-with-deps-${PYTORCH_VERSION}%2Bcpu.zip"
 
-    // set LD_LIBRARY_PATH
+    # set LD_LIBRARY_PATH
     export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:$(pwd)/libtorch/lib
     ```
 
-  - Install `WasmEdge WASI-NN PyTorch Backend`
+  - Download `WasmEdge WASI-NN Plugin PyTorch Backend`
 
     ```bash
-    // download and unzip WASI-NN plugin PyTorch Backend
-    curl -sLO https://github.com/WasmEdge/WasmEdge/releases/download/0.11.2/WasmEdge-plugin-wasi_nn-pytorch-0.11.2-ubuntu20.04_x86_64.tar.gz
-    tar -zxf WasmEdge-plugin-wasi_nn-pytorch-0.11.2-ubuntu20.04_x86_64.tar.gz
-    
-    // put the plugin into the directory of WasmEdge Runtime library
-    mv libwasmedgePluginWasiNN.so $HOME/.wasmedge/lib/wasmedge
-    
-    // set WASMEDGE_PLUGIN_PATH
-    export WASMEDGE_PLUGIN_PATH=$HOME/.wasmedge/lib/wasmedge
+    # Assume that the installation path of WasmEdge is `/usr/local/`
+    # go to the plugin directory.
+    cd /usr/local/lib/wasmedge
+
+    # download and unzip WASI-NN plugin PyTorch Backend
+    curl -sLO https://github.com/WasmEdge/WasmEdge/releases/download/0.12.0/WasmEdge-plugin-wasi_nn-pytorch-0.12.0-ubuntu20.04_x86_64.tar.gz
+
+    # unzip plugin
+    tar -zxf WasmEdge-plugin-wasi_nn-pytorch-0.12.0-ubuntu20.04_x86_64.tar.gz
+
+    # set WASMEDGE_PLUGIN_PATH environment variable
+    export WASMEDGE_PLUGIN_PATH=/usr/local/lib/wasmedge
     ```
 
 - Download example
