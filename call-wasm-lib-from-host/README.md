@@ -14,7 +14,7 @@ Now let's build and run this example.
 
   Go to the [official Rust webpage](https://www.rust-lang.org/tools/install) and follow the instructions to install `rustup` and `Rust`.
 
-  > It is recommended to use Rust 1.63 or above in the stable channel.
+  > It is recommended to use Rust 1.66 or above in the stable channel.
 
   Then, add `wasm32-wasi` target to the Rustup toolchain:
 
@@ -22,35 +22,30 @@ Now let's build and run this example.
   rustup target add wasm32-wasi
   ```
 
-- Install `libwasmedge`
+- Install WasmEdge Runtime
 
-  Refer to the [Quick Install](https://wasmedge.org/book/en/quick_start/install.html#quick-install) section of WasmEdge Runtime Book to install `libwasmedge`. Or, use the following command directly
+  Refer to the [Quick Install](https://wasmedge.org/book/en/quick_start/install.html#quick-install) section of WasmEdge Runtime Book to install WasmEdge Runtime. Or, use the following command directly
 
   ```bash
-  // The command will create a directory `$HOME/.wasmedge`
-  ./install_libwasmedge.sh
+  # install wasmedge to the directory /usr/local/
+  curl -sSf https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash -s -- -v 0.12.0 -p /usr/local
 
-  source $HOME/.wasmedge/env
+  source /root/.bashrc
   ```
 
-  > For users in China mainland (中国大陆地区), try the following command to install `libwasmedge` if failed to run the command above
+  > For users in China mainland (中国大陆地区), try the following command to install WasmEdge Runtime if failed to run the command above
   >
   > ```bash
-  > ./install_libwasmedge_zh.sh
-  > source $HOME/.wasmedge/env
-  > ```
-
-  > To install a specific version of `libwasmedge`, use `-v` option. For example, the following command installs `libwasmedge 0.11.2` to `$HOME/.wasmedge`
-  >
-  > ```bash
-  > ./install_libwasmedge.sh -v 0.11.2
-  > source $HOME/.wasmedge/env
+  > bash install_zh.sh -v 0.12.0 -p /usr/local
+  > source /root/.bashrc
   > ```
 
 - Download example
 
   ```bash
   git clone git@github.com:second-state/wasmedge-rustsdk-examples.git
+  
+  # go to the example directory
   cd wasmedge-rustsdk-examples/call-wasm-lib-from-host
   ```
 
