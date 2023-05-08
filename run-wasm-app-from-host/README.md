@@ -45,13 +45,12 @@ Now let's build and run this example.
 
   ```bash
   git clone git@github.com:second-state/wasmedge-rustsdk-examples.git
-  cd wasmedge-rustsdk-examples
+  cd wasmedge-rustsdk-examples/run-wasm-app-from-host
   ```
 
 - Build `wasm-app`
 
   ```bash
-  cd run-wasm-app-from-host
   cargo build -p wasm-app --target wasm32-wasi --release
   ```
 
