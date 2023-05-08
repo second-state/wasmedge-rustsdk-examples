@@ -55,10 +55,10 @@ Now let's build and run this example.
   cargo build -p naive-math-plugin --release
   ```
 
-  If the command runs successfully, `libnaive_math_plugin.so` can be found in the directory of `./target/release/`. Then, copy the generated `libnaive_math_plugin.so` to the default plugin sub-directory in the WasmEdge installation path. In this example, we assume that the WasmEdge installation path is `~/.wasmedge`:
+  If the command runs successfully, `libnaive_math_plugin.so` can be found in the directory of `./target/release/`. Then, copy the generated `libnaive_math_plugin.so` to the plugin sub-directory in the WasmEdge installation path. In this example, we assume that the WasmEdge installation path is `/usr/local/`:
 
   ```bash
-  cp target/release/libnaive_math_plugin.so ~/.wasmedge/lib/wasmedge
+  cp target/release/libnaive_math_plugin.so /usr/local/lib/wasmedge
   ```
 
 - Build `naive-math-wasm`
