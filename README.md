@@ -1,5 +1,7 @@
 # Examples of WasmEdge Rust SDK
 
+> All examples have been verified on Ubuntu-20.04/22.04.
+
 - [Examples of WasmEdge Rust SDK](#examples-of-wasmedge-rust-sdk)
   - [Example 1: Run a wasm app from host](#example-1-run-a-wasm-app-from-host)
   - [Example 2: Call a wasm library from host](#example-2-call-a-wasm-library-from-host)
