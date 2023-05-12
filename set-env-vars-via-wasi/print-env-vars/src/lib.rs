@@ -11,4 +11,7 @@ pub fn print_env() {
     for argument in env::args() {
         println!("{}", argument);
     }
+
+    // write to the pre-opened directory
+    std::fs::write("hello.txt", "Hi").expect("Unable to write file");
 }
