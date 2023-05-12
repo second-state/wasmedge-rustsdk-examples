@@ -18,8 +18,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     // set the envs and args for the wasi module
     let args = vec!["arg1", "arg2"];
     let envs = vec!["ENV1=VAL1", "ENV2=VAL2", "ENV3=VAL3"];
+    let preopens = vec![("/:/")];
     let wasi_module = vm.wasi_module_mut().expect("Not found wasi module");
-    wasi_module.initialize(Some(args), Some(envs), None);
+    wasi_module.initialize(Some(args), Some(envs), Some(preopens));
     assert_eq!(wasi_module.exit_code(), 0);
 
     // load wasm module and run the wasm function named `print_env`
