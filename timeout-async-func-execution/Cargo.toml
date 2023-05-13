@@ -6,5 +6,7 @@ version = "0.1.0"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
-tokio = {version = "1", features = ["full"]}
-wasmedge-sdk = {version = "0.8", features = ["async"]}
+tokio = { version = "1", features = ["full"] }
+wasmedge-sdk = { path = "/home/sam/workspace/downloads/WasmEdge/bindings/rust/wasmedge-sdk", features = [
+    "async",
+] }
