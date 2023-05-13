@@ -1,7 +1,8 @@
 use wasmedge_sdk::{
     config::{CommonConfigOptions, ConfigBuilder, HostRegistrationConfigOptions},
     error::HostFuncError,
-    host_function, params, Caller, ImportObjectBuilder, ValType, VmBuilder, WasmVal, WasmValue,
+    host_function, params, Caller, ImportObjectBuilder, NeverType, ValType, VmBuilder, WasmVal,
+    WasmValue,
 };
 
 #[host_function]
@@ -40,7 +41,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     // create an import module
     let import = ImportObjectBuilder::new()
-        .with_func::<(i32, i32), i32>("real_add", my_add)?
+        .with_func::<(i32, i32), i32, NeverType>("real_add", my_add, None)?
         .build("my_math_lib")?;
 
     // create a new Vm with default config
