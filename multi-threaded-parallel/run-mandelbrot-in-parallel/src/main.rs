@@ -54,7 +54,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .with_compiler_config(CompilerConfigOptions::new().out_format(CompilerOutputFormat::Native))
         .build()?;
     let compiler = Compiler::new(Some(&config))?;
-    // let wasm_file = std::path::PathBuf::from("/Volumes/Dev/secondstate/me/wasmedge-rust-examples/multi-threaded-parallel/mandelbrot-c/mandelbrot.wasm");
     let out_dir = std::env::current_dir()?;
     let aot_filename = "mandelbrot";
     let aot_file_path = compiler.compile_from_file(wasm_file, aot_filename, out_dir)?;
