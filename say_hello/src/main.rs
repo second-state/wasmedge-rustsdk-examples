@@ -1,6 +1,6 @@
 use wasmedge_sdk::{
     error::HostFuncError, host_function, params, Caller, ImportObject, ImportObjectBuilder,
-    VmBuilder, WasmValue,
+    NeverType, VmBuilder, WasmValue,
 };
 
 #[host_function]
@@ -16,7 +16,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     // create an import_object module with the host function
     let import: ImportObject = ImportObjectBuilder::new()
-        .with_func::<(), ()>("say_hello", hello)?
+        .with_func::<(), (), NeverType>("say_hello", hello, None)?
         .build("extern")?;
 
     // register the import module into vm
