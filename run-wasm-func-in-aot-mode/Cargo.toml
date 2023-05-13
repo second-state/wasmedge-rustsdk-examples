@@ -4,4 +4,4 @@ name = "run-wasm-func-in-aot-mode"
 version = "0.1.0"
 
 [dependencies]
-wasmedge-sdk = {version = "0.8", features = ["aot"]}
+wasmedge-sdk = {path = "/Volumes/Dev/secondstate/me/WasmEdge/bindings/rust/wasmedge-sdk", features = ["aot"]}
