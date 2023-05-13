@@ -1,6 +1,6 @@
 use wasmedge_sdk::{
-    error::HostFuncError, host_function, params, Caller, ImportObjectBuilder, ValType, VmBuilder,
-    WasmVal, WasmValue,
+    error::HostFuncError, host_function, params, Caller, ImportObjectBuilder, NeverType, ValType,
+    VmBuilder, WasmVal, WasmValue,
 };
 
 #[host_function]
@@ -32,7 +32,7 @@ fn my_add(_caller: Caller, input: Vec<WasmValue>) -> Result<Vec<WasmValue>, Host
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     // create an import module
     let import = ImportObjectBuilder::new()
-        .with_func::<(i32, i32), i32>("add", my_add)?
+        .with_func::<(i32, i32), i32, NeverType>("add", my_add, None)?
         .build("extern")?;
 
     // create a new Vm with default config
