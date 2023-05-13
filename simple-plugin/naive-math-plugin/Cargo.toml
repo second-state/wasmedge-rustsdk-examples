@@ -7,4 +7,6 @@ version = "0.1.0"
 crate-type = ["cdylib"]
 
 [dependencies]
-wasmedge-sdk = {version = "0.8", features = ["ffi"]}
+wasmedge-sdk = { path = "/home/sam/workspace/downloads/WasmEdge/bindings/rust/wasmedge-sdk", features = [
+    "ffi",
+] }

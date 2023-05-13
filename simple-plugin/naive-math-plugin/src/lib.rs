@@ -2,7 +2,7 @@ use wasmedge_sdk::{
     error::HostFuncError,
     host_function,
     plugin::{ffi, PluginDescriptor, PluginVersion},
-    Caller, ImportObjectBuilder, ValType, WasmValue,
+    Caller, ImportObjectBuilder, NeverType, ValType, WasmValue,
 };
 
 // A native function to be wrapped as a host function
@@ -37,7 +37,7 @@ unsafe extern "C" fn create_test_module(
     let module_name = "naive-math";
     let import = ImportObjectBuilder::new()
         // add a function
-        .with_func::<(i32, i32), i32>("add", real_add)
+        .with_func::<(i32, i32), i32, NeverType>("add", real_add, None)
         .expect("failed to create host function")
         .build(module_name)
         .expect("failed to create import object");
