@@ -1,6 +1,6 @@
 use wasmedge_sdk::{
-    error::HostFuncError, host_function, types::ExternRef, Caller, ImportObjectBuilder, VmBuilder,
-    WasmValue,
+    error::HostFuncError, host_function, types::ExternRef, Caller, ImportObjectBuilder, NeverType,
+    VmBuilder, WasmValue,
 };
 
 // The host function takes two arguments of WasmValue type:
@@ -37,7 +37,7 @@ pub struct MyStr<'a> {
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let import = ImportObjectBuilder::new()
-        .with_func::<(ExternRef, ExternRef), ()>("say_hello", hello)?
+        .with_func::<(ExternRef, ExternRef), (), NeverType>("say_hello", hello, None)?
         .build("extern")?;
 
     // create a vm and register the wasm lib as a named module into the vm
