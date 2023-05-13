@@ -3,8 +3,8 @@ use wasmedge_sdk::{
     error::HostFuncError,
     host_function, params,
     types::Val,
-    Caller, Func, ImportObjectBuilder, RefType, Table, TableType, ValType, VmBuilder, WasmVal,
-    WasmValue,
+    Caller, Func, ImportObjectBuilder, NeverType, RefType, Table, TableType, ValType, VmBuilder,
+    WasmVal, WasmValue,
 };
 
 #[host_function]
@@ -58,7 +58,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .expect("Not found table instance named 'my-table'");
 
     // create a host function
-    let host_func = Func::wrap::<(i32, i32), i32>(Box::new(real_add))?;
+    let host_func = Func::wrap::<(i32, i32), i32, NeverType>(Box::new(real_add), None)?;
 
     // store the reference to host_func at the given index of the table instance
     table.set(3, Val::FuncRef(Some(host_func.as_ref())))?;
