@@ -56,6 +56,9 @@ Now let's build and run this example.
 
     # set LD_LIBRARY_PATH
     export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:$(pwd)/libtorch/lib
+
+    # set Torch_DIR
+    export Torch_DIR=$(pwd)/libtorch
     ```
 
   - Download `WasmEdge WASI-NN Plugin PyTorch Backend`
