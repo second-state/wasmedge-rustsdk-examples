@@ -4,4 +4,4 @@ name = "run-wasm-app"
 version = "0.1.0"
 
 [dependencies]
-wasmedge-sdk = "0.8"
+wasmedge-sdk = {path = "/Volumes/Dev/secondstate/me/WasmEdge/bindings/rust/wasmedge-sdk"}
