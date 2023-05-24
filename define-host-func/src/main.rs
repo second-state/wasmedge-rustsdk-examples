@@ -4,7 +4,11 @@ use wasmedge_sdk::{
 };
 
 #[host_function]
-fn my_add(_caller: Caller, input: Vec<WasmValue>) -> Result<Vec<WasmValue>, HostFuncError> {
+fn my_add<T>(
+    _caller: Caller,
+    input: Vec<WasmValue>,
+    _ctx: Option<&mut T>,
+) -> Result<Vec<WasmValue>, HostFuncError> {
     // check the number of inputs
     if input.len() != 2 {
         return Err(HostFuncError::User(1));
