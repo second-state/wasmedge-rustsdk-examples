@@ -45,7 +45,7 @@ Now let's build and run this example.
 
 - Install `zig`
 
-  Go to the [official Zig webpage](https://ziglang.org/download/) and follow the instructions to install `zig`. With Zig, you will not need to separately install the WASI SDK, as it is included with the toolchain.
+  Go to the [Install Zig from a Package Manager](https://github.com/ziglang/zig/wiki/Install-Zig-from-a-Package-Manager) and follow the instructions to install `zig`. With Zig, you will not need to separately install the WASI SDK, as it is included with the toolchain.
 
 - Download example
 
@@ -68,6 +68,8 @@ Now let's build and run this example.
   # go back to the root directory of `multi-threaded-parallel`
   cd ..
   ```
+
+  > If `wasm-ld` command is not found, use the command `$ dpkg -L lld-12 | grep wasm-ld` to check if it is installed along with `llvm`.
 
   If the commands run successfully, `mandelbrot.wasm` can be found in the directory of `mandelbrot-c`.
 
