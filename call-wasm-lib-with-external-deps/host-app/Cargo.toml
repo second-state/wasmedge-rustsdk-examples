@@ -4,4 +4,4 @@ name = "host-app"
 version = "0.1.0"
 
 [dependencies]
-wasmedge-sdk = {path = "/Volumes/Dev/secondstate/me/WasmEdge/bindings/rust/wasmedge-sdk"}
+wasmedge-sdk = {path = "/root/workspace/WasmEdge/bindings/rust/wasmedge-sdk"}
