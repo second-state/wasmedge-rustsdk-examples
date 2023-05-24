@@ -7,7 +7,11 @@ use wasmedge_sdk::{
 
 // A native function to be wrapped as a host function
 #[host_function]
-fn real_add(_: Caller, input: Vec<WasmValue>) -> Result<Vec<WasmValue>, HostFuncError> {
+fn real_add<T>(
+    _: Caller,
+    input: Vec<WasmValue>,
+    _ctx: Option<&mut T>,
+) -> Result<Vec<WasmValue>, HostFuncError> {
     println!("Welcome! This is NaiveMath plugin.");
 
     if input.len() != 2 {
