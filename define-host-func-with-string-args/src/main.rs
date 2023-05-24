@@ -7,7 +7,11 @@ use wasmedge_sdk::{
 // the first argument is a reference to MyString
 // the second argument is a reference to MyStr
 #[host_function]
-fn hello(_caller: Caller, args: Vec<WasmValue>) -> Result<Vec<WasmValue>, HostFuncError> {
+fn hello<T>(
+    _caller: Caller,
+    args: Vec<WasmValue>,
+    _ctx: Option<&mut T>,
+) -> Result<Vec<WasmValue>, HostFuncError> {
     // parse the first argument of WasmValue type
     let result = args[0].extern_ref::<MyString>();
     assert!(result.is_some());
