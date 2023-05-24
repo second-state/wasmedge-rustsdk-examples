@@ -24,7 +24,7 @@ fn infer() -> Result<(), Box<dyn std::error::Error>> {
     let model_bin = &args[3];
     let image_file = &args[4];
 
-    dbg!("load plugin");
+    println!("load plugin");
 
     // load wasinn-pytorch-plugin
     let p = std::path::PathBuf::from_str("/usr/local/lib/wasmedge")?;

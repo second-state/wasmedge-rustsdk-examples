@@ -69,10 +69,10 @@ Now let's build and run this example.
     cd /usr/local/lib/wasmedge
 
     # download and unzip WASI-NN plugin PyTorch Backend
-    curl -sLO https://github.com/WasmEdge/WasmEdge/releases/download/0.12.0/WasmEdge-plugin-wasi_nn-pytorch-0.12.0-ubuntu20.04_x86_64.tar.gz
+    wget https://github.com/WasmEdge/WasmEdge/releases/download/0.12.1/WasmEdge-plugin-wasi_nn-pytorch-0.12.1-ubuntu20.04_x86_64.tar.gz
 
     # unzip plugin
-    tar -zxf WasmEdge-plugin-wasi_nn-pytorch-0.12.0-ubuntu20.04_x86_64.tar.gz
+    tar -zxf WasmEdge-plugin-wasi_nn-pytorch-0.12.1-ubuntu20.04_x86_64.tar.gz
 
     # set WASMEDGE_PLUGIN_PATH environment variable
     export WASMEDGE_PLUGIN_PATH=/usr/local/lib/wasmedge

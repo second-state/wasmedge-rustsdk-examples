@@ -4,6 +4,6 @@ name = "object-detection-via-wasinn"
 version = "0.1.0"
 
 [dependencies]
-wasmedge-sdk = { path = "/home/sam/workspace/downloads/WasmEdge/bindings/rust/wasmedge-sdk", features = [
+wasmedge-sdk = { path = "/root/workspace/WasmEdge/bindings/rust/wasmedge-sdk", features = [
     "wasi_nn",
 ] }
