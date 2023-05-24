@@ -4,7 +4,11 @@ use wasmedge_sdk::{
 };
 
 #[host_function]
-fn hello(_caller: Caller, _args: Vec<WasmValue>) -> Result<Vec<WasmValue>, HostFuncError> {
+fn hello<T>(
+    _caller: Caller,
+    _args: Vec<WasmValue>,
+    _ctx: Option<&mut T>,
+) -> Result<Vec<WasmValue>, HostFuncError> {
     println!("Hello, world!");
 
     Ok(vec![])
