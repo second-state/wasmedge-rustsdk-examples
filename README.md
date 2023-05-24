@@ -92,15 +92,6 @@ This example demonstrates how to define a native async function as an async host
   - [x] README
   - [ ] Tutorial
 
-### Example 5-1: Cancel an async host function execution when the timeout is checked
-
-This example demonstrates how to cancel an async host function when the specified time is out.
-
-- [Cancel async host functions in execution](timeout-async-func-execution)
-  - [x] Source Code
-  - [x] README
-  - [ ] Tutorial
-
 ## Example 6: AI inference over WasmEdge WASI-NN Plugin (PyTroch)
 
 This example demonstrates how to perform an object detection task over WasmEdge Runtime.
