@@ -3,7 +3,5 @@ edition = "2021"
 name = "define-host-func-with-string-args"
 version = "0.1.0"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
-wasmedge-sdk = {path = "/root/workspace/WasmEdge/bindings/rust/wasmedge-sdk"}
+wasmedge-sdk = {git = "https://github.com/WasmEdge/wasmedge-rust-sdk.git", branch = "main"}
