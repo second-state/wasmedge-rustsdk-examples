@@ -7,4 +7,4 @@ version = "0.1.0"
 
 [dependencies]
 anyhow = "1"
-wasmedge-sdk = {path = "/root/workspace/WasmEdge/bindings/rust/wasmedge-sdk"}
+wasmedge-sdk = {git = "https://github.com/WasmEdge/wasmedge-rust-sdk.git", branch = "main"}
