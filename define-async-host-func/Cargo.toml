@@ -3,8 +3,6 @@ edition = "2021"
 name = "define-async-host-func"
 version = "0.1.0"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
 tokio = {version = "1.28", features = ["full"]}
-wasmedge-sdk = {path = "/root/workspace/WasmEdge/bindings/rust/wasmedge-sdk", features = ["async"]}
+wasmedge-sdk = {git = "https://github.com/WasmEdge/wasmedge-rust-sdk.git", branch = "main", features = ["async"]}
