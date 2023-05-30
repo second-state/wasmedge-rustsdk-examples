@@ -1,0 +1,46 @@
+name: rust-sdk-examples
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+      - "sdk/*"
+
+  pull_request:
+    branches:
+      - main
+      - dev
+
+jobs:
+  build_ubuntu:
+    name: Ubuntu
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-22.04]
+        rust: [1.69, 1.68]
+    container:
+      image: wasmedge/wasmedge:ubuntu-build-clang
+
+    steps:
+      - name: Checkout WasmEdge Rust SDK
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Install Rust-stable
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: ${{ matrix.rust }}
+          targets: wasm32-wasi
+
+      - name: run call-wasm-lib-from-host example
+        working-directory: wasmedge-rust-sdk/examples/call-wasm-lib-from-host
+        run: |
+          cargo build -p wasm-lib --target wasm32-wasi --release
+          cargo run -p call-wasm-lib -- ./target/wasm32-wasi/release/wasm_lib.wasm 5
