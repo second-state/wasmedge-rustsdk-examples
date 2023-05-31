@@ -92,6 +92,15 @@ This example demonstrates how to define a native async function as an async host
   - [x] README
   - [ ] Tutorial
 
+### Example 5-1: Call a wasm function in asynchromous way
+
+This example demonstrates how to call a wasm function in asynchronous way.
+
+- [Async wasi](async-wasi)
+  - [x] Source Code
+  - [x] README
+  - [ ] Tutorial
+
 ## Example 6: AI inference over WasmEdge WASI-NN Plugin (PyTroch)
 
 This example demonstrates how to perform an object detection task over WasmEdge Runtime.
