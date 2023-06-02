@@ -21,6 +21,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let mut wasi_ctx = WasiCtx::new();
     wasi_ctx.push_env(format!("ENV=VAL"));
+    wasi_ctx.push_preopen(std::path::PathBuf::from("."), std::path::PathBuf::from("."));
 
     let config = ConfigBuilder::new(CommonConfigOptions::default())
         .with_host_registration_config(

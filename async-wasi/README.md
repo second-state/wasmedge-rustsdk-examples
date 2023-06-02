@@ -68,6 +68,13 @@ Now let's build and run this example.
   [tick] i=0
   [wasm-app] enter >>>>>
   [wasm-app] ENV=VAL
+  [wasm-app] entry in the current guest preopened dir:
+    "/README.md"
+    "/run-wasm-app"
+    "/Cargo.lock"
+    "/Cargo.toml"
+    "/target"
+    "/wasm-app"
   [wasm-app] say hello: 0
   [tick] i=1
   [tick] i=2
@@ -82,14 +89,14 @@ Now let's build and run this example.
   [tick] i=8
   [wasm-app] say hello: 4
   [tick] i=9
-  [wasm-app] say hello: 5
   [tick] i=10
+  [wasm-app] say hello: 5
   [tick] i=11
-  [wasm-app] say hello: 6
   [tick] i=12
+  [wasm-app] say hello: 6
   [tick] i=13
-  [wasm-app] say hello: 7
   [tick] i=14
+  [wasm-app] say hello: 7
   [tick] i=15
   [wasm-app] say hello: 8
   [tick] i=16
