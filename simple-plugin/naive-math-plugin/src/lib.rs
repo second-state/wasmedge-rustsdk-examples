@@ -46,6 +46,9 @@ unsafe extern "C" fn create_test_module(
         .build(module_name)
         .expect("failed to create import object");
 
+    let boxed_import = Box::new(import);
+    let import = Box::leak(boxed_import);
+
     import.as_raw_ptr() as *mut _
 }
 
@@ -64,5 +67,8 @@ pub extern "C" fn plugin_hook() -> *const ffi::WasmEdge_PluginDescriptor {
         )
         .expect("Failed to add module descriptor");
 
-    plugin_descriptor.as_raw_ptr()
+    let boxed_plugin = Box::new(plugin_descriptor);
+    let plugin = Box::leak(boxed_plugin);
+
+    plugin.as_raw_ptr()
 }
