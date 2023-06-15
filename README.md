@@ -17,7 +17,7 @@
     - [Example: Use extern functions in a wasm library](#example-use-extern-functions-in-a-wasm-library)
     - [Example: Dependencies between wasm libraries](#example-dependencies-between-wasm-libraries)
   - [Wasm App](#wasm-app)
-  - [Example: Run a wasm app from host](#example-run-a-wasm-app-from-host)
+    - [Example: Run a wasm app from host](#example-run-a-wasm-app-from-host)
   - [AOT](#aot)
     - [Example: Call wasm library in AOT mode](#example-call-wasm-library-in-aot-mode)
   - [WASI](#wasi)
@@ -76,9 +76,6 @@ This example demonstrates how to call a wasm function in asynchronous way.
   - [x] README
   - [ ] Tutorial
 
-
-
-
 ## Memory and Table
 
 ### Example: Manipulate WebAssembly linear memory
@@ -99,10 +96,6 @@ This example demonstrates how to use WebAssembly `Table` and `FuncRef` together 
   - [x] README
   - [ ] Tutorial
 
-
-
-
-
 ## Wasm Library
 
 ### Example: Define a wasm library
@@ -114,7 +107,6 @@ This example demonstrates how to define a wasm library and call the APIs exporte
   - [x] README
   - [ ] Tutorial
 
-
 ### Example: Use extern functions in a wasm library
 
 This example demonstrates how to use external functions in a wasm library, and how to call such a wasm library with WasmEdge Rust SDK.
@@ -123,7 +115,6 @@ This example demonstrates how to use external functions in a wasm library, and h
   - [x] Source Code
   - [x] README
   - [ ] Tutorial
-
 
 ### Example: Dependencies between wasm libraries
 
@@ -136,7 +127,7 @@ This example demonstrates how a wasm function defined in one wasm library can be
 
 ## Wasm App
 
-## Example: Run a wasm app from host
+### Example: Run a wasm app from host
 
 This example demonstrates how to create a WebAssembly application and run it as a wasm module over WasmEdge Runtime.
 
@@ -144,7 +135,6 @@ This example demonstrates how to create a WebAssembly application and run it as 
   - [x] Source Code
   - [x] README
   - [x] Tutorial
-
 
 ## AOT
 
