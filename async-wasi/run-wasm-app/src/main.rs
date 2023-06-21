@@ -6,6 +6,13 @@ use wasmedge_sdk::{
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
+    let args: Vec<String> = std::env::args().collect();
+    if args.len() != 2 {
+        println!("Usage: main-app <wasm_file>");
+        return Ok(());
+    }
+    let wasm_file = &args[1];
+
     async fn tick() {
         let mut i = 0;
         loop {
@@ -42,7 +49,6 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     // run the wasm function from a specified wasm file
     let async_state = AsyncState::new();
-    let wasm_file = "target/wasm32-wasi/release/wasm-app.wasm";
     let _ = vm
         .run_func_from_file_async(&async_state, wasm_file, "_start", [])
         .await
