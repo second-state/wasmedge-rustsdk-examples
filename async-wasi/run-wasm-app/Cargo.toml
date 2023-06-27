@@ -4,5 +4,5 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-wasmedge-sdk = {git = "https://ghproxy.com/https://github.com/apepkuss/wasmedge-rust-sdk.git", branch = "main", features = ["async"]}
+wasmedge-sdk = {git = "https://github.com/WasmEdge/wasmedge-rust-sdk.git", branch = "main", features = ["async"]}
 tokio = {version = "1", features = ["full"]}

@@ -1,7 +1,7 @@
 use wasmedge_sdk::{
     config::{CommonConfigOptions, ConfigBuilder, HostRegistrationConfigOptions},
     r#async::AsyncState,
-    VmBuilder,
+    NeverType, VmBuilder,
 };
 
 #[tokio::main]
@@ -32,9 +32,9 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     assert!(config.wasi_enabled());
 
     // create a Vm
-    let mut vm = VmBuilder::default()
+    let mut vm = VmBuilder::new()
         .with_config(config)
-        .build()
+        .build::<NeverType>()
         .expect("failed to create vm");
 
     let wasi_module = vm.wasi_module_mut().ok_or("failed to get wasi module")?;
