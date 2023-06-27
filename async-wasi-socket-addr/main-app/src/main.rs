@@ -1,7 +1,7 @@
 use wasmedge_sdk::{
     config::{CommonConfigOptions, ConfigBuilder, HostRegistrationConfigOptions},
     r#async::AsyncState,
-    VmBuilder,
+    VmBuilder, NeverType,
 };
 
 #[tokio::main]
@@ -22,7 +22,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // create a Vm
     let mut vm = VmBuilder::default()
         .with_config(config)
-        .build()
+        .build::<NeverType>()
         .expect("failed to create vm");
 
     // run the wasm function from a specified wasm file

@@ -3,8 +3,6 @@ name = "main-app"
 version = "0.1.0"
 edition = "2021"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
-wasmedge-sdk = {git = "https://ghproxy.com/https://github.com/apepkuss/wasmedge-rust-sdk.git", branch = "feat/support-wasi-socket-0.4.0", features = ["async"]}
+wasmedge-sdk = {git = "https://github.com/apepkuss/wasmedge-rust-sdk.git", branch = "main", features = ["async"]}
 tokio = {version = "1", features = ["full"]}
