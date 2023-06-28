@@ -30,8 +30,8 @@ use std::{
 };
 use wasmedge_sdk::{
     config::{CommonConfigOptions, CompilerConfigOptions, ConfigBuilder},
-    params, Compiler, CompilerOutputFormat, ImportObjectBuilder, Memory, MemoryType, VmBuilder,
-    WasmEdgeResult, WasmVal,
+    params, Compiler, CompilerOutputFormat, ImportObjectBuilder, Memory, MemoryType, NeverType,
+    VmBuilder, WasmEdgeResult, WasmVal,
 };
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -47,7 +47,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     // create an import object containing the shared memory
     let import = ImportObjectBuilder::new()
-        .with_memory("memory", mem)?
+        .with_memory("memory", mem)
         .build("env")?;
 
     let config = ConfigBuilder::new(CommonConfigOptions::new().threads(true))
@@ -74,7 +74,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     .build()?;
     let vm = VmBuilder::new()
         .with_config(config)
-        .build()?
+        .build::<NeverType>()?
         .register_import_module(import)?
         .register_module_from_file("mandelbrot", aot_file_path)?;
 

@@ -1,9 +1,9 @@
 [package]
 edition = "2021"
 name = "run-mandelbrot-in-parallel"
-version = "0.1.0"
+version = "0.3.0"
 
 [dependencies]
-wasmedge-sdk = { git = "https://github.com/WasmEdge/wasmedge-rust-sdk.git", branch = "main", features = [
+wasmedge-sdk = { git = "https://github.com/apepkuss/wasmedge-rust-sdk", branch = "test/release-0.9.0-alpha.1", features = [
     "aot",
 ] }
