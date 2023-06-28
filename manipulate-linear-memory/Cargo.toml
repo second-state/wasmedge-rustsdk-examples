@@ -1,10 +1,8 @@
 [package]
 edition = "2021"
 name = "manipulate-linear-memory"
-version = "0.1.0"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+version = "0.3.0"
 
 [dependencies]
 anyhow = "1"
-wasmedge-sdk = {git = "https://github.com/WasmEdge/wasmedge-rust-sdk.git", branch = "main"}
+wasmedge-sdk = {git = "https://github.com/apepkuss/wasmedge-rust-sdk", branch = "test/release-0.9.0-alpha.1"}
