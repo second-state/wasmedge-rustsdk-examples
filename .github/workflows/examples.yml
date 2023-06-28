@@ -23,7 +23,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-22.04, ubuntu-20.04]
-        rust: [1.69, 1.68]
+        rust: [1.70.0, 1.69, 1.68]
     container:
       image: wasmedge/wasmedge:ubuntu-build-clang
 
@@ -54,6 +54,18 @@ jobs:
         with:
           toolchain: ${{ matrix.rust }}
           targets: wasm32-wasi
+      
+      - name: async-wasi
+        working-directory: async-wasi
+        run: |
+          cargo build -p wasm-app --target wasm32-wasi --release
+          cargo run -p run-wasm-app -- ./target/wasm32-wasi/release/wasm-app.wasm
+      
+      - name: async-wasi-socket
+        working-directory: async-wasi-socket
+        run: |
+          cargo build -p socket-addr --target wasm32-wasi --release
+          cargo run -p main-app -- ./target/wasm32-wasi/release/socket-addr.wasm
 
       - name: run call-wasm-lib-from-host example
         working-directory: call-wasm-lib-from-host
