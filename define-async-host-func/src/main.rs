@@ -1,6 +1,6 @@
 use wasmedge_sdk::{
-    async_host_function, error::HostFuncError, params, Caller, ImportObjectBuilder, VmBuilder,
-    WasmValue, NeverType, r#async::AsyncState
+    async_host_function, error::HostFuncError, params, r#async::AsyncState, Caller,
+    ImportObjectBuilder, NeverType, VmBuilder, WasmValue,
 };
 
 #[async_host_function]
@@ -35,11 +35,13 @@ async fn enjoy_music<T>(
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // create an import module
     let import = ImportObjectBuilder::new()
-        .with_func_async::<(), (), NeverType>("read_book", read_book, None)?
-        .with_func_async::<(), (), NeverType>("enjoy_music", enjoy_music, None)?
+        .with_func_async::<(), ()>("read_book", read_book)?
+        .with_func_async::<(), ()>("enjoy_music", enjoy_music)?
         .build("extern")?;
 
-    let vm = VmBuilder::new().build()?.register_import_module(import)?;
+    let vm = VmBuilder::new()
+        .build::<NeverType>()?
+        .register_import_module(import)?;
 
     let async_state1 = AsyncState::new();
     let async_state2 = AsyncState::new();
