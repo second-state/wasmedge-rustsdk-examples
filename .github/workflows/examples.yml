@@ -9,7 +9,7 @@ on:
     branches:
       - main
       - dev
-      - "sdk/*"
+      - "sdk-*"
 
   pull_request:
     branches:
@@ -22,16 +22,32 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-22.04]
+        os: [ubuntu-22.04, ubuntu-20.04]
         rust: [1.69, 1.68]
     container:
       image: wasmedge/wasmedge:ubuntu-build-clang
 
     steps:
-      - name: Checkout WasmEdge Rust SDK
+      - name: Checkout WasmEdge RustSDK Examples
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
+
+      - name: Checkout WasmEdge Runtime
+        uses: actions/checkout@v3
+        with:
+          repository: WasmEdge/WasmEdge
+          path: WasmEdge
+
+      - name: Build WasmEdge with Release mode
+        working-directory: WasmEdge
+        run: |
+          apt update
+          apt install -y software-properties-common libboost-all-dev llvm-15-dev liblld-15-dev ninja-build
+          cmake -Bbuild -GNinja -DCMAKE_BUILD_TYPE=Release -DWASMEDGE_PLUGIN_PROCESS=On .
+          cmake --build build
+          cmake --install build
+          ldconfig
 
       - name: Install Rust-stable
         uses: dtolnay/rust-toolchain@stable
@@ -40,7 +56,7 @@ jobs:
           targets: wasm32-wasi
 
       - name: run call-wasm-lib-from-host example
-        working-directory: wasmedge-rust-sdk/examples/call-wasm-lib-from-host
+        working-directory: call-wasm-lib-from-host
         run: |
           cargo build -p wasm-lib --target wasm32-wasi --release
           cargo run -p call-wasm-lib -- ./target/wasm32-wasi/release/wasm_lib.wasm 5
