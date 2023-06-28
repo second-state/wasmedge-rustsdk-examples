@@ -36,12 +36,12 @@ fn my_add<T>(
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     // create an import module
     let import = ImportObjectBuilder::new()
-        .with_func::<(i32, i32), i32, NeverType>("add", my_add, None)?
+        .with_func::<(i32, i32), i32>("add", my_add)?
         .build("extern")?;
 
     // create a new Vm with default config
     let res = VmBuilder::new()
-        .build()?
+        .build::<NeverType>()?
         .register_import_module(import)?
         .run_func(Some("extern"), "add", params!(15, 51))?;
 
