@@ -62,7 +62,7 @@ jobs:
           cargo run -p run-wasm-app -- ./target/wasm32-wasi/release/wasm-app.wasm
       
       - name: async-wasi-socket
-        working-directory: async-wasi-socket
+        working-directory: async-wasi-socket-addr
         run: |
           cargo build -p socket-addr --target wasm32-wasi --release
           cargo run -p main-app -- ./target/wasm32-wasi/release/socket-addr.wasm
