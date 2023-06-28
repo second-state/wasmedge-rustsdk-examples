@@ -26,7 +26,7 @@
     - [Example: AI inference over WasmEdge PyTorch Plugin](#example-ai-inference-over-wasmedge-pytorch-plugin)
   - [Plugin Development](#plugin-development)
     - [Example: Create a simple plugin](#example-create-a-simple-plugin)
-  - [Multi-threaded Parallelism](#multi-threaded-parallelism)
+  - [Multi-threading](#multi-threading)
     - [Example: Multi-threaded parallel execution with memory sharing](#example-multi-threaded-parallel-execution-with-memory-sharing)
   - [Async\\await](#asyncawait)
     - [Example: Define and register async host functions](#example-define-and-register-async-host-functions)
@@ -183,7 +183,7 @@ This example demonstrates how to create a simple plugin with WasmEdge Rust SDK.
   - [x] README
   - [ ] Tutorial
 
-## Multi-threaded Parallelism
+## Multi-threading
 
 ### Example: Multi-threaded parallel execution with memory sharing
 
