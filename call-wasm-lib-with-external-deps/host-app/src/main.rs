@@ -45,7 +45,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     // create an import module
     let import = ImportObjectBuilder::new()
-        .with_func::<(i32, i32), i32, NeverType>("real_add", my_add, None)?
+        .with_func::<(i32, i32), i32>("real_add", my_add)?
         .build("my_math_lib")?;
 
     // create a new Vm with default config
@@ -55,7 +55,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let res = VmBuilder::new()
         .with_config(config)
-        .build()?
+        .build::<NeverType>()?
         .register_import_module(import)?
         .register_module_from_file("extern", wasm_lib_file)?
         .run_func(Some("extern"), "add", params!(num1, num2))?;
