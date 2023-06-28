@@ -41,11 +41,13 @@ pub struct MyStr<'a> {
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let import = ImportObjectBuilder::new()
-        .with_func::<(ExternRef, ExternRef), (), NeverType>("say_hello", hello, None)?
+        .with_func::<(ExternRef, ExternRef), ()>("say_hello", hello)?
         .build("extern")?;
 
     // create a vm and register the wasm lib as a named module into the vm
-    let vm = VmBuilder::new().build()?.register_import_module(import)?;
+    let vm = VmBuilder::new()
+        .build::<NeverType>()?
+        .register_import_module(import)?;
 
     // create a MyString instance
     let s = "Earth";
