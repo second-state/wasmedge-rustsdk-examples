@@ -1,6 +1,6 @@
 use wasmedge_sdk::{
     config::{CommonConfigOptions, ConfigBuilder, HostRegistrationConfigOptions},
-    params, VmBuilder,
+    params, NeverType, VmBuilder,
 };
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -13,7 +13,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     assert!(config.wasi_enabled());
 
     // create a VM with the config
-    let mut vm = VmBuilder::new().with_config(config).build()?;
+    let mut vm = VmBuilder::new().with_config(config).build::<NeverType>()?;
 
     vm.wasi_module_mut()
         .expect("Not found wasi module")
