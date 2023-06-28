@@ -1,8 +1,8 @@
 use wasmedge_sdk::{
     error::HostFuncError,
     host_function,
-    plugin::{ffi, PluginDescriptor, PluginVersion},
-    Caller, ImportObjectBuilder, NeverType, ValType, WasmValue,
+    plugin::{ffi, PluginDescriptor, PluginModuleBuilder, PluginVersion},
+    Caller, NeverType, ValType, WasmValue,
 };
 
 // A native function to be wrapped as a host function
@@ -39,17 +39,17 @@ unsafe extern "C" fn create_test_module(
     _arg1: *const ffi::WasmEdge_ModuleDescriptor,
 ) -> *mut ffi::WasmEdge_ModuleInstanceContext {
     let module_name = "naive-math";
-    let import = ImportObjectBuilder::new()
-        // add a function
-        .with_func::<(i32, i32), i32, NeverType>("add", real_add, None)
+
+    let plugin_module = PluginModuleBuilder::<NeverType>::new()
+        .with_func::<(i32, i32), i32>("add", real_add)
         .expect("failed to create host function")
         .build(module_name)
-        .expect("failed to create import object");
+        .expect("failed to create plugin module");
 
-    let boxed_import = Box::new(import);
-    let import = Box::leak(boxed_import);
+    let boxed_module = Box::new(plugin_module);
+    let module = Box::leak(boxed_module);
 
-    import.as_raw_ptr() as *mut _
+    module.as_raw_ptr() as *mut _
 }
 
 /// Defines PluginDescriptor
