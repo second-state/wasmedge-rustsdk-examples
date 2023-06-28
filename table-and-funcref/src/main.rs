@@ -42,15 +42,15 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let table = result.unwrap();
 
     // create an import object
-    let import = ImportObjectBuilder::new()
-        .with_table("my-table", table)?
+    let import = ImportObjectBuilder::<NeverType>::new()
+        .with_table("my-table", table)
         .build("extern")?;
 
     // create a Vm and register the import object into it
     let config = ConfigBuilder::new(CommonConfigOptions::default()).build()?;
     let mut vm = VmBuilder::new()
         .with_config(config)
-        .build()?
+        .build::<NeverType>()?
         .register_import_module(import)?;
 
     // get the module instance named "extern"
