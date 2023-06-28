@@ -1,6 +1,6 @@
 use wasmedge_sdk::{
-    error::HostFuncError, host_function, params, Caller, ImportObject, ImportObjectBuilder,
-    NeverType, VmBuilder, WasmValue,
+    error::HostFuncError, host_function, params, Caller, ImportObjectBuilder, NeverType, VmBuilder,
+    WasmValue,
 };
 
 #[host_function]
@@ -16,11 +16,11 @@ fn hello<T>(
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     // create a new WasmEdge Vm instance
-    let vm = VmBuilder::new().build()?;
+    let vm = VmBuilder::new().build::<NeverType>()?;
 
     // create an import_object module with the host function
-    let import: ImportObject = ImportObjectBuilder::new()
-        .with_func::<(), (), NeverType>("say_hello", hello, None)?
+    let import = ImportObjectBuilder::<NeverType>::new()
+        .with_func::<(), ()>("say_hello", hello)?
         .build("extern")?;
 
     // register the import module into vm
