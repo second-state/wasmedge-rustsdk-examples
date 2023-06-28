@@ -2,7 +2,7 @@ use std::path::Path;
 use wasmedge_sdk::{
     config::{CommonConfigOptions, ConfigBuilder, HostRegistrationConfigOptions},
     dock::{Param, VmDock},
-    Module, VmBuilder,
+    Module, NeverType, VmBuilder,
 };
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -15,7 +15,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .build()?;
     let vm = VmBuilder::new()
         .with_config(config)
-        .build()?
+        .build::<NeverType>()?
         .register_module(None, module)?;
 
     let vm = VmDock::new(vm);
