@@ -3,7 +3,7 @@ use wasmedge_sdk::{
     config::{CommonConfigOptions, ConfigBuilder, HostRegistrationConfigOptions},
     params,
     plugin::PluginManager,
-    Module, VmBuilder,
+    Module, NeverType, VmBuilder,
 };
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -15,8 +15,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 #[cfg(all(target_os = "linux", target_arch = "x86_64"))]
 fn infer() -> Result<(), Box<dyn std::error::Error>> {
-    use std::str::FromStr;
-
     // parse arguments
     let args: Vec<String> = std::env::args().collect();
     let dir_mapping = &args[1];
@@ -26,9 +24,8 @@ fn infer() -> Result<(), Box<dyn std::error::Error>> {
 
     println!("load plugin");
 
-    // load wasinn-pytorch-plugin
-    let p = std::path::PathBuf::from_str("/usr/local/lib/wasmedge")?;
-    PluginManager::load(Some(p.as_path()))?;
+    // load wasinn-pytorch-plugin from the default plugin directory: /usr/local/lib/wasmedge
+    PluginManager::load(None)?;
 
     let config = ConfigBuilder::new(CommonConfigOptions::default())
         .with_host_registration_config(HostRegistrationConfigOptions::default().wasi(true))
@@ -43,7 +40,7 @@ fn infer() -> Result<(), Box<dyn std::error::Error>> {
     let mut vm = VmBuilder::new()
         .with_config(config)
         .with_plugin_wasi_nn()
-        .build()?
+        .build::<NeverType>()?
         .register_module(Some("extern"), module)?;
 
     // init wasi module
