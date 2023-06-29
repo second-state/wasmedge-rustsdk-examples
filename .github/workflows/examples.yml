@@ -58,11 +58,11 @@ jobs:
           cmake --install build
           ldconfig
 
-      # - name: Install Rust-stable
-      #   uses: dtolnay/rust-toolchain@stable
-      #   with:
-      #     toolchain: ${{ matrix.rust }}
-      #     targets: wasm32-wasi
+      - name: Install Rust-stable
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: ${{ matrix.rust }}
+          targets: wasm32-wasi
       
       # - name: async-wasi
       #   working-directory: async-wasi
