@@ -34,14 +34,9 @@
 
 ## Wasm App
 
-### Example: Run a wasm app from host
+### [Example: Run a wasm app from host](run-wasm-app-from-host)
 
 This example demonstrates how to create a WebAssembly application and run it as a wasm module over WasmEdge Runtime.
-
-- [Run wasm app from host](run-wasm-app-from-host)
-  - [x] Source Code
-  - [x] README
-  - [x] Tutorial
 
 ## Wasm Library
 
