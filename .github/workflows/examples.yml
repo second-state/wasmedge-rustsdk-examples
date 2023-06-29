@@ -44,9 +44,7 @@ jobs:
         run: |
           apt update
           apt install -y software-properties-common libboost-all-dev llvm-15-dev liblld-15-dev ninja-build curl wget unzip
-
-          echo $(pwd)
-
+          
           # deploy libtorch
           export PYTORCH_VERSION="1.8.2"
           curl -s -L -O --remote-name-all https://download.pytorch.org/libtorch/lts/1.8/cpu/libtorch-cxx11-abi-shared-with-deps-${PYTORCH_VERSION}%2Bcpu.zip
@@ -132,8 +130,8 @@ jobs:
         working-directory: object-detection-via-wasinn
         run: |
           echo $(pwd)
-          echo $(home)
-          export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:$(home)/WasmEdge/libtorch/lib
+          echo ${HOME}
+          export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${HOME}/WasmEdge/libtorch/lib
           export Torch_DIR=$(home)/WasmEdge/libtorch
           cargo run -- .:. wasmedge-wasinn-example-mobilenet-image.wasm mobilenet.pt input.jpg
 
