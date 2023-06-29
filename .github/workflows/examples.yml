@@ -43,8 +43,17 @@ jobs:
         working-directory: WasmEdge
         run: |
           apt update
-          apt install -y software-properties-common libboost-all-dev llvm-15-dev liblld-15-dev ninja-build
-          cmake -Bbuild -GNinja -DCMAKE_BUILD_TYPE=Release -DWASMEDGE_PLUGIN_PROCESS=On .
+          apt install -y software-properties-common libboost-all-dev llvm-15-dev liblld-15-dev ninja-build curl wget unzip
+
+          # deploy libtorch
+          export PYTORCH_VERSION="1.8.2"
+          curl -s -L -O --remote-name-all https://download.pytorch.org/libtorch/lts/1.8/cpu/libtorch-cxx11-abi-shared-with-deps-${PYTORCH_VERSION}%2Bcpu.zip
+          unzip -q "libtorch-cxx11-abi-shared-with-deps-${PYTORCH_VERSION}%2Bcpu.zip"
+          export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:$(pwd)/libtorch/lib
+          export Torch_DIR=$(pwd)/libtorch
+
+          # build and deploy wasmedge
+          cmake -Bbuild -GNinja -DCMAKE_BUILD_TYPE=Release -DWASMEDGE_PLUGIN_PROCESS=On -DWASMEDGE_PLUGIN_WASI_NN_BACKEND="PyTorch" .
           cmake --build build
           cmake --install build
           ldconfig
@@ -116,6 +125,11 @@ jobs:
           wasm-ld-15 --no-entry mandelbrot.o -o mandelbrot.wasm --import-memory --export-all --shared-memory --features=mutable-globals,atomics,bulk-memory
           cd ..
           cargo run -p run-mandelbrot-in-parallel -- ./mandelbrot-c/mandelbrot.wasm
+
+      - name: object-detection-via-wasinn
+        working-directory: object-detection-via-wasinn
+        run: |
+          cargo run -- .:. wasmedge-wasinn-example-mobilenet-image.wasm mobilenet.pt input.jpg
 
 
 
