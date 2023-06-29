@@ -67,8 +67,57 @@ jobs:
           cargo build -p socket-addr --target wasm32-wasi --release
           cargo run -p main-app -- ./target/wasm32-wasi/release/socket-addr.wasm
 
-      - name: run call-wasm-lib-from-host example
+      - name: call-wasm-lib-from-host example
         working-directory: call-wasm-lib-from-host
         run: |
           cargo build -p wasm-lib --target wasm32-wasi --release
           cargo run -p call-wasm-lib -- ./target/wasm32-wasi/release/wasm_lib.wasm 5
+      
+      - name: call-wasm-lib-with-external-deps
+        working-directory: call-wasm-lib-with-external-deps
+        run: |
+          cargo build -p wasm-lib --target wasm32-wasi --release
+          cargo run -p host-app -- ./target/wasm32-wasi/release/wasm_lib.wasm 2 3
+      
+      - name: define-async-host-func
+        working-directory: define-async-host-func
+        run: |
+          cargo run
+      
+      - name: define-host-func
+        working-directory: define-host-func
+        run: |
+          cargo run
+      
+      - name: define-host-func-with-string-args
+        working-directory: define-host-func-with-string-args
+        run: |
+          cargo run
+
+      - name: load-module-in-module
+        working-directory: load-module-in-module
+        run: |
+          cargo build -p alice-wasm-lib --target wasm32-wasi --release
+          cargo build -p bob-wasm-lib --target wasm32-wasi --release
+          cargo run -p host-app -- 2 3
+      
+      - name: manipulate-linear-memory
+        working-directory: manipulate-linear-memory
+        run: |
+          cargo run
+      
+      - name: multi-threaded-parallel
+        working-directory: multi-threaded-parallel
+        run: |
+          cd mandelbrot-c
+          wget https://ziglang.org/download/0.10.1/zig-linux-x86_64-0.10.1.tar.xz
+          tar -xf zig-linux-x86_64-0.10.1.tar.xz
+          ./zig-linux-x86_64-0.10.1.tar.xz/zig build-obj -O ReleaseSmall -target wasm32-wasi mandelbrot.c
+          wasm-ld-15 --no-entry mandelbrot.o -o mandelbrot.wasm --import-memory --export-all --shared-memory --features=mutable-globals,atomics,bulk-memory
+          cd ..
+          cargo run -p run-mandelbrot-in-parallel -- ./mandelbrot-c/mandelbrot.wasm
+
+
+
+
+
