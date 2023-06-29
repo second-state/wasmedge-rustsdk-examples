@@ -40,171 +40,86 @@ This example demonstrates how to create a WebAssembly application and run it as 
 
 ## Wasm Library
 
-### Example: Define a wasm library
+### [Example: Define a wasm library](call-wasm-lib-from-host)
 
 This example demonstrates how to define a wasm library and call the APIs exported from the wasm library in WasmEdge Runtime.
 
-- [Call wasm library from host](call-wasm-lib-from-host)
-  - [x] Source Code
-  - [x] README
-  - [ ] Tutorial
-
-### Example: Use extern functions in a wasm library
+### [Example: Use extern functions in a wasm library](call-wasm-lib-with-external-deps)
 
 This example demonstrates how to use external functions in a wasm library, and how to call such a wasm library with WasmEdge Rust SDK.
 
-- [Call wasm library with external dependency](call-wasm-lib-with-external-deps)
-  - [x] Source Code
-  - [x] README
-  - [ ] Tutorial
-
-### Example: Dependencies between wasm libraries
+### [Example: Dependencies between wasm libraries](load-module-in-module)
 
 This example demonstrates how a wasm function defined in one wasm library can be imported and called by another wasm library.
 
-- [Call wasm functions between wasm modules](load-module-in-module)
-  - [x] Source Code
-  - [x] README
-  - [ ] Tutorial
-
 ## Host Functions
 
-### Example: Define and register a host function
+### [Example: Define and register a host function](define-host-func)
 
 This example demonstrates how to define a native function as a host function with `#[host_function]` macro, and register it into a WasmEdge `Vm` and run it over WasmEdge Runtime.
 
-- [Define host function](define-host-func)
-  - [x] Source Code
-  - [x] README
-  - [ ] Tutorial
-
-### Example: Define a host function with string arguments
+### [Example: Define a host function with string arguments](define-host-func-with-string-args)
 
 This example demonstrates how to define a host function that takes two arguments of Rust built-in `String` or string slice type.
 
-- [Define host function with string arguments](define-host-func-with-string-args)
-  - [x] Source Code
-  - [x] README
-  - [ ] Tutorial
-
-### Example: Arguments of non-standard wasm types in wasm function (wasmedge-bindgen)
+### [Example: Arguments of non-standard wasm types in wasm function (wasmedge-bindgen)](wasmedge-bindgen)
 
 This example demonstrates how to define wasm functions, of which the arguments are of Rust built-in types instead of WebAssembly types.
 
-- [WasmEdge-Bindgen](wasmedge-bindgen)
-  - [x] Source Code
-  - [x] README
-  - [ ] Tutorial
-
 ## Memory and Table
 
-### Example: Manipulate WebAssembly linear memory
+### [Example: Manipulate WebAssembly linear memory](manipulate-linear-memory)
 
 This example demonstrates how to manipulate linear memory.
 
-- [Manipulate linear memory](manipulate-linear-memory)
-  - [x] Source Code
-  - [x] README
-  - [ ] Tutorial
-
-### Example: Use WebAssembly `Table` and `FuncRef` to invoke host functions
+### [Example: Use WebAssembly `Table` and `FuncRef` to invoke host functions](table-and-funcref)
 
 This example demonstrates how to use WebAssembly `Table` and `FuncRef` together to invoke host functions.
 
-- [Table and FuncRef](table-and-funcref)
-  - [x] Source Code
-  - [x] README
-  - [ ] Tutorial
-
 ## AOT
 
-### Example: Call wasm library in AOT mode
+### [Example: Call wasm library in AOT mode](run-wasm-func-in-aot-mode)
 
 This example demonstrates how to generate a AOT file with WasmEdge AOT compiler, and then load the file and run the wasm function in AOT mode.
 
-- [Use WasmEdge AOT Compiler](run-wasm-func-in-aot-mode)
-  - [x] Source Code
-  - [x] README
-  - [ ] Tutorial
-
 ## WASI
 
-### Example: Set environment variables and arguments via WasmEdge `wasi` interface
+### [Example: Set environment variables and arguments via WasmEdge `wasi` interface](set-env-vars-via-wasi)
 
 This example demonstrates how to set environment variables and arguments via WasmEdge `wasi` interface.
 
-- [Set env vars via wasi](set-env-vars-via-wasi)
-  - [x] Source Code
-  - [x] README
-  - [ ] Tutorial
-
-### Example: Set environment variables, arguments and preopen-dirs via `async-wasi` interface
+### [Example: Set environment variables, arguments and preopen-dirs via `async-wasi` interface](async-wasi)
 
 This example demonstrates how to call a wasm function in asynchronous way. Also, it presents the usage of `async-wasi` interface.
 
-- [Async wasi](async-wasi)
-  - [x] Source Code
-  - [x] README
-  - [ ] Tutorial
-
-### Example: Retrieve the socket address via `async-wasi` interface
+### [Example: Retrieve the socket address via `async-wasi` interface](async-wasi-socket-addr)
 
 This example presents how to retrieve the socket address information asynchronously.
 
-- [Socket addr](async-wasi-socket-addr)
-  - [x] Source Code
-  - [x] README
-  - [ ] Tutorial
-
 ## WASI-NN
 
-### Example: AI inference over WasmEdge PyTorch Plugin
+### [Example: AI inference over WasmEdge PyTorch Plugin](object-detection-via-wasinn)
 
 This example demonstrates how to perform an object detection task over WasmEdge Runtime.
 
-- [Object detection via WASI-NN Plugin PyTorch Backend](object-detection-via-wasinn)
-  - [x] Source Code
-  - [x] README
-  - [ ] Tutorial
-
 ## Plugin Development
 
-### Example: Create a simple plugin
+### [Example: Create a simple plugin](simple-plugin)
 
 This example demonstrates how to create a simple plugin with WasmEdge Rust SDK.
 
-- [Create a math plugin](simple-plugin)
-  - [x] Source Code
-  - [x] README
-  - [ ] Tutorial
-
 ## Multi-threading
 
-### Example: Multi-threaded parallel execution with memory sharing
+### [Example: Multi-threaded parallel execution with memory sharing](multi-threaded-parallel)
 
 This example demonstrates how to use WasmEdge Rust SDK to create multiple threads to help us render [Mandelbrot set](https://en.wikipedia.org/wiki/Mandelbrot_set) in parallel, which is a compute-intensive workload. This example also present sharing the image memory between threads while rendering the image parallelly.
 
-- [Run in multi-threaded parallel](multi-threaded-parallel)
-  - [x] Source Code
-  - [x] README
-  - [ ] Tutorial
-
 ## Async\await
 
-### Example: Define and register async host functions
+### [Example: Define and register async host functions](define-async-host-func)
 
 This example demonstrates how to define a native async function as an async host function with `#[async_host_function]` macro, and register it into a WasmEdge `Vm` and run it over WasmEdge Runtime.
 
-- [Define async host functions](define-async-host-func)
-  - [x] Source Code
-  - [x] README
-  - [ ] Tutorial
-
-### Example: Call a wasm function in asynchromous way
+### [Example: Call a wasm function in asynchromous way](async-wasi)
 
 This example demonstrates how to call a wasm function in asynchronous way.
-
-- [Async wasi](async-wasi)
-  - [x] Source Code
-  - [x] README
-  - [ ] Tutorial
