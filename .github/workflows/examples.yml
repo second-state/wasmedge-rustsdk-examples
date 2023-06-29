@@ -131,6 +131,8 @@ jobs:
       - name: object-detection-via-wasinn
         working-directory: object-detection-via-wasinn
         run: |
+          echo $(pwd)
+          echo $(home)
           export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:$(home)/WasmEdge/libtorch/lib
           export Torch_DIR=$(home)/WasmEdge/libtorch
           cargo run -- .:. wasmedge-wasinn-example-mobilenet-image.wasm mobilenet.pt input.jpg
