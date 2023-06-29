@@ -22,8 +22,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-22.04, ubuntu-20.04]
-        rust: [1.70.0, 1.69, 1.68]
+        os: [ubuntu-22.04]
+        rust: [1.68]
     container:
       image: wasmedge/wasmedge:ubuntu-build-clang
 
@@ -131,8 +131,8 @@ jobs:
         run: |
           echo $(pwd)
           echo ${HOME}
-          export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${HOME}/WasmEdge/libtorch/lib
-          export Torch_DIR=${HOME}/WasmEdge/libtorch
+          export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:$(pwd)/../WasmEdge/libtorch/lib
+          export Torch_DIR=$(pwd)/../WasmEdge/libtorch
           cargo run -- .:. wasmedge-wasinn-example-mobilenet-image.wasm mobilenet.pt input.jpg
 
       - name: run-wasm-app-from-host
