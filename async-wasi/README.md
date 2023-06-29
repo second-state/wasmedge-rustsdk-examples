@@ -1,6 +1,6 @@
-# Run a Wasm App from Host
+# Run an Wasm App in an asynchronous way
 
-As a typical application development process, we put some code in the `main` function, and then compile it to an execution binary and run it to get the result. In this example, we will do something different. We will compile application code to a wasm binary, and then run it as a wasm module over WasmEdge Runtime.
+This example demonstrates how to call a wasm function in asynchronous way. Also, it presents how to set environment variables, arguments and preopen-dirs via `async-wasi` interface.
 
 This example consists of two projects:
 
