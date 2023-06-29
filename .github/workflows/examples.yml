@@ -121,7 +121,7 @@ jobs:
           cd mandelbrot-c
           wget https://ziglang.org/download/0.10.1/zig-linux-x86_64-0.10.1.tar.xz
           tar -xf zig-linux-x86_64-0.10.1.tar.xz
-          ./zig-linux-x86_64-0.10.1.tar.xz/zig build-obj -O ReleaseSmall -target wasm32-wasi mandelbrot.c
+          ./zig-linux-x86_64-0.10.1/zig build-obj -O ReleaseSmall -target wasm32-wasi mandelbrot.c
           wasm-ld-15 --no-entry mandelbrot.o -o mandelbrot.wasm --import-memory --export-all --shared-memory --features=mutable-globals,atomics,bulk-memory
           cd ..
           cargo run -p run-mandelbrot-in-parallel -- ./mandelbrot-c/mandelbrot.wasm
