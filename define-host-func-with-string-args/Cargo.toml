@@ -4,4 +4,4 @@ name = "define-host-func-with-string-args"
 version = "0.3.0"
 
 [dependencies]
-wasmedge-sdk = {git = "https://github.com/apepkuss/wasmedge-rust-sdk", branch = "test/release-0.9.0-alpha.1"}
+wasmedge-sdk = {git = "https://github.com/WasmEdge/wasmedge-rust-sdk", branch = "main"}

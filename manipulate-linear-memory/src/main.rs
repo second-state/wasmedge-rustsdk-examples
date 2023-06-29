@@ -1,4 +1,4 @@
-use wasmedge_sdk::{params, wat2wasm, VmBuilder, WasmVal, NeverType};
+use wasmedge_sdk::{params, wat2wasm, NeverType, VmBuilder, WasmVal};
 
 #[cfg_attr(test, test)]
 fn main() -> anyhow::Result<()> {

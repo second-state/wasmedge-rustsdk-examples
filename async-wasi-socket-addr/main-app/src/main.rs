@@ -1,7 +1,7 @@
 use wasmedge_sdk::{
     config::{CommonConfigOptions, ConfigBuilder, HostRegistrationConfigOptions},
     r#async::AsyncState,
-    VmBuilder, NeverType,
+    NeverType, VmBuilder,
 };
 
 #[tokio::main]

@@ -1,6 +1,6 @@
 use wasmedge_sdk::{
     config::{CommonConfigOptions, ConfigBuilder, HostRegistrationConfigOptions},
-    params, VmBuilder, WasmVal, NeverType,
+    params, NeverType, VmBuilder, WasmVal,
 };
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
