@@ -1,20 +1,10 @@
-name: rust-sdk-examples
+name: Continuous integration
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
   cancel-in-progress: true
 
-on:
-  push:
-    branches:
-      - main
-      - dev
-      - "sdk-*"
-
-  pull_request:
-    branches:
-      - main
-      - dev
+on: [push, pull_request]
 
 jobs:
   build_ubuntu:
@@ -22,8 +12,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-22.04]
-        rust: [1.68]
+        os: [ubuntu-22.04, ubuntu-20.04]
+        rust: [1.68, 1.69, 1.70.0]
     container:
       image: wasmedge/wasmedge:ubuntu-build-clang
 
@@ -64,73 +54,71 @@ jobs:
           toolchain: ${{ matrix.rust }}
           targets: wasm32-wasi
       
-      # - name: async-wasi
-      #   working-directory: async-wasi
-      #   run: |
-      #     cargo build -p wasm-app --target wasm32-wasi --release
-      #     cargo run -p run-wasm-app -- ./target/wasm32-wasi/release/wasm-app.wasm
+      - name: async-wasi
+        working-directory: async-wasi
+        run: |
+          cargo build -p wasm-app --target wasm32-wasi --release
+          cargo run -p run-wasm-app -- ./target/wasm32-wasi/release/wasm-app.wasm
       
-      # - name: async-wasi-socket
-      #   working-directory: async-wasi-socket-addr
-      #   run: |
-      #     cargo build -p socket-addr --target wasm32-wasi --release
-      #     cargo run -p main-app -- ./target/wasm32-wasi/release/socket-addr.wasm
+      - name: async-wasi-socket
+        working-directory: async-wasi-socket-addr
+        run: |
+          cargo build -p socket-addr --target wasm32-wasi --release
+          cargo run -p main-app -- ./target/wasm32-wasi/release/socket-addr.wasm
 
-      # - name: call-wasm-lib-from-host example
-      #   working-directory: call-wasm-lib-from-host
-      #   run: |
-      #     cargo build -p wasm-lib --target wasm32-wasi --release
-      #     cargo run -p call-wasm-lib -- ./target/wasm32-wasi/release/wasm_lib.wasm 5
+      - name: call-wasm-lib-from-host example
+        working-directory: call-wasm-lib-from-host
+        run: |
+          cargo build -p wasm-lib --target wasm32-wasi --release
+          cargo run -p call-wasm-lib -- ./target/wasm32-wasi/release/wasm_lib.wasm 5
       
-      # - name: call-wasm-lib-with-external-deps
-      #   working-directory: call-wasm-lib-with-external-deps
-      #   run: |
-      #     cargo build -p wasm-lib --target wasm32-wasi --release
-      #     cargo run -p host-app -- ./target/wasm32-wasi/release/wasm_lib.wasm 2 3
+      - name: call-wasm-lib-with-external-deps
+        working-directory: call-wasm-lib-with-external-deps
+        run: |
+          cargo build -p wasm-lib --target wasm32-wasi --release
+          cargo run -p host-app -- ./target/wasm32-wasi/release/wasm_lib.wasm 2 3
       
-      # - name: define-async-host-func
-      #   working-directory: define-async-host-func
-      #   run: |
-      #     cargo run
+      - name: define-async-host-func
+        working-directory: define-async-host-func
+        run: |
+          cargo run
       
-      # - name: define-host-func
-      #   working-directory: define-host-func
-      #   run: |
-      #     cargo run
+      - name: define-host-func
+        working-directory: define-host-func
+        run: |
+          cargo run
       
-      # - name: define-host-func-with-string-args
-      #   working-directory: define-host-func-with-string-args
-      #   run: |
-      #     cargo run
+      - name: define-host-func-with-string-args
+        working-directory: define-host-func-with-string-args
+        run: |
+          cargo run
 
-      # - name: load-module-in-module
-      #   working-directory: load-module-in-module
-      #   run: |
-      #     cargo build -p alice-wasm-lib --target wasm32-wasi --release
-      #     cargo build -p bob-wasm-lib --target wasm32-wasi --release
-      #     cargo run -p host-app -- 2 3
+      - name: load-module-in-module
+        working-directory: load-module-in-module
+        run: |
+          cargo build -p alice-wasm-lib --target wasm32-wasi --release
+          cargo build -p bob-wasm-lib --target wasm32-wasi --release
+          cargo run -p host-app -- 2 3
       
-      # - name: manipulate-linear-memory
-      #   working-directory: manipulate-linear-memory
-      #   run: |
-      #     cargo run
+      - name: manipulate-linear-memory
+        working-directory: manipulate-linear-memory
+        run: |
+          cargo run
       
-      # - name: multi-threaded-parallel
-      #   working-directory: multi-threaded-parallel
-      #   run: |
-      #     cd mandelbrot-c
-      #     wget https://ziglang.org/download/0.10.1/zig-linux-x86_64-0.10.1.tar.xz
-      #     tar -xf zig-linux-x86_64-0.10.1.tar.xz
-      #     ./zig-linux-x86_64-0.10.1/zig build-obj -O ReleaseSmall -target wasm32-wasi mandelbrot.c
-      #     wasm-ld-15 --no-entry mandelbrot.o -o mandelbrot.wasm --import-memory --export-all --shared-memory --features=mutable-globals,atomics,bulk-memory
-      #     cd ..
-      #     cargo run -p run-mandelbrot-in-parallel -- ./mandelbrot-c/mandelbrot.wasm
+      - name: multi-threaded-parallel
+        working-directory: multi-threaded-parallel
+        run: |
+          cd mandelbrot-c
+          wget https://ziglang.org/download/0.10.1/zig-linux-x86_64-0.10.1.tar.xz
+          tar -xf zig-linux-x86_64-0.10.1.tar.xz
+          ./zig-linux-x86_64-0.10.1/zig build-obj -O ReleaseSmall -target wasm32-wasi mandelbrot.c
+          wasm-ld-15 --no-entry mandelbrot.o -o mandelbrot.wasm --import-memory --export-all --shared-memory --features=mutable-globals,atomics,bulk-memory
+          cd ..
+          cargo run -p run-mandelbrot-in-parallel -- ./mandelbrot-c/mandelbrot.wasm
 
       - name: object-detection-via-wasinn
         working-directory: object-detection-via-wasinn
         run: |
-          echo $(pwd)
-          echo ${HOME}
           export LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:$(pwd)/../WasmEdge/libtorch/lib
           export Torch_DIR=$(pwd)/../WasmEdge/libtorch
           cargo run -- .:. wasmedge-wasinn-example-mobilenet-image.wasm mobilenet.pt input.jpg
@@ -175,7 +163,3 @@ jobs:
         run: |
           cargo build -p wasm-lib --target wasm32-wasi --release
           cargo run -p call-wasm-lib -- ./target/wasm32-wasi/release/wasm_lib.wasm 5
-
-
-
-
