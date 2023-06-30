@@ -4,6 +4,6 @@ name = "run-mandelbrot-in-parallel"
 version = "0.3.0"
 
 [dependencies]
-wasmedge-sdk = { git = "https://github.com/WasmEdge/wasmedge-rust-sdk", branch = "main", features = [
+wasmedge-sdk = { version = "0.9.0", features = [
     "aot",
 ] }
