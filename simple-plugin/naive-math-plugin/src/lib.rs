@@ -7,11 +7,7 @@ use wasmedge_sdk::{
 
 // A native function to be wrapped as a host function
 #[host_function]
-fn real_add<T>(
-    _: Caller,
-    input: Vec<WasmValue>,
-    _ctx: Option<&mut T>,
-) -> Result<Vec<WasmValue>, HostFuncError> {
+fn real_add(_: Caller, input: Vec<WasmValue>) -> Result<Vec<WasmValue>, HostFuncError> {
     println!("Welcome! This is NaiveMath plugin.");
 
     if input.len() != 2 {
@@ -41,7 +37,7 @@ unsafe extern "C" fn create_test_module(
     let module_name = "naive-math";
 
     let plugin_module = PluginModuleBuilder::<NeverType>::new()
-        .with_func::<(i32, i32), i32>("add", real_add)
+        .with_func::<(i32, i32), i32, NeverType>("add", real_add, None)
         .expect("failed to create host function")
         .build(module_name)
         .expect("failed to create plugin module");

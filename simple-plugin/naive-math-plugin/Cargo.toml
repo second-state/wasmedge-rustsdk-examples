@@ -7,6 +7,6 @@ version = "0.3.0"
 crate-type = ["cdylib"]
 
 [dependencies]
-wasmedge-sdk = { version = "0.9.0", features = [
+wasmedge-sdk = { git = "https://github.com/WasmEdge/wasmedge-rust-sdk.git", branch = "main", features = [
     "ffi",
 ] }
