@@ -1,6 +1,6 @@
 use wasmedge_sdk::{
     config::{CommonConfigOptions, ConfigBuilder, HostRegistrationConfigOptions},
-    r#async::AsyncState,
+    r#async::{AsyncState, WasiContext},
     NeverType, VmBuilder,
 };
 
@@ -19,10 +19,14 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .expect("failed to create config");
     assert!(config.wasi_enabled());
 
+    // create WasiContext
+    let wasi_ctx = WasiContext::default();
+
     // create a Vm
     let mut vm = VmBuilder::default()
         .with_config(config)
-        .build::<NeverType>()
+        .with_wasi_context(wasi_ctx)
+        .build()
         .expect("failed to create vm");
 
     // run the wasm function from a specified wasm file
@@ -32,7 +36,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .await
         .expect("failed to run func from file");
 
-    let wasi_module = vm.wasi_module_mut().ok_or("failed to get wasi module")?;
+    let wasi_module = vm.wasi_module().ok_or("failed to get wasi module")?;
     println!("exit_code: {}", wasi_module.exit_code());
 
     Ok(())
