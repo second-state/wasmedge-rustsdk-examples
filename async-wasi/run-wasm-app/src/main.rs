@@ -1,7 +1,7 @@
 use wasmedge_sdk::{
     config::{CommonConfigOptions, ConfigBuilder, HostRegistrationConfigOptions},
-    r#async::AsyncState,
-    NeverType, VmBuilder,
+    r#async::{AsyncState, WasiContext},
+    VmBuilder,
 };
 
 #[tokio::main]
@@ -31,21 +31,15 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .expect("failed to create config");
     assert!(config.wasi_enabled());
 
+    // create WasiContext
+    let wasi_ctx = WasiContext::new(None, Some(vec![("ENV", "VAL")]), Some(vec![(".", ".")]));
+
     // create a Vm
     let mut vm = VmBuilder::new()
         .with_config(config)
-        .build::<NeverType>()
+        .with_wasi_context(wasi_ctx)
+        .build()
         .expect("failed to create vm");
-
-    let wasi_module = vm.wasi_module_mut().ok_or("failed to get wasi module")?;
-    wasi_module.initialize(
-        None,
-        Some(vec![("ENV", "VAL")]),
-        Some(vec![(
-            std::path::PathBuf::from("."),
-            std::path::PathBuf::from("."),
-        )]),
-    )?;
 
     // run the wasm function from a specified wasm file
     let async_state = AsyncState::new();
@@ -54,7 +48,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         .await
         .expect("failed to run func from file");
 
-    let wasi_module = vm.wasi_module_mut().ok_or("failed to get wasi module")?;
+    let wasi_module = vm.wasi_module().ok_or("failed to get wasi module")?;
     println!("exit_code: {}", wasi_module.exit_code());
 
     Ok(())
