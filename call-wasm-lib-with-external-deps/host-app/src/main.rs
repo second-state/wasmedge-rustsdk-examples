@@ -6,11 +6,7 @@ use wasmedge_sdk::{
 };
 
 #[host_function]
-fn my_add<T>(
-    _caller: Caller,
-    input: Vec<WasmValue>,
-    _data: Option<&mut T>,
-) -> Result<Vec<WasmValue>, HostFuncError> {
+fn my_add(_caller: Caller, input: Vec<WasmValue>) -> Result<Vec<WasmValue>, HostFuncError> {
     // check the number of inputs
     if input.len() != 2 {
         return Err(HostFuncError::User(1));
@@ -45,18 +41,17 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     // create an import module
     let import = ImportObjectBuilder::new()
-        .with_func::<(i32, i32), i32>("real_add", my_add)?
-        .build("my_math_lib")?;
+        .with_func::<(i32, i32), i32, NeverType>("real_add", my_add, None)?
+        .build::<NeverType>("my_math_lib", None)?;
 
     // create a new Vm with default config
     let config = ConfigBuilder::new(CommonConfigOptions::default())
         .with_host_registration_config(HostRegistrationConfigOptions::default().wasi(true))
         .build()?;
 
-    let res = VmBuilder::new()
-        .with_config(config)
-        .build::<NeverType>()?
-        .register_import_module(import)?
+    let mut vm = VmBuilder::new().with_config(config).build()?;
+    vm.register_import_module(&import)?;
+    let res = vm
         .register_module_from_file("extern", wasm_lib_file)?
         .run_func(Some("extern"), "add", params!(num1, num2))?;
 
