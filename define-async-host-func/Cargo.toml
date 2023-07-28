@@ -5,4 +5,4 @@ version = "0.3.0"
 
 [dependencies]
 tokio = {version = "1.28", features = ["full"]}
-wasmedge-sdk = {version = "0.9.0", features = ["async"]}
+wasmedge-sdk = {git = "https://github.com/apepkuss/wasmedge-rust-sdk.git", branch = "update-test-code", features = ["async"]}

@@ -4,10 +4,10 @@ use wasmedge_sdk::{
 };
 
 #[async_host_function]
-async fn read_book<T>(
+async fn read_book(
     _caller: Caller,
     _args: Vec<WasmValue>,
-    _ctx: Option<&mut T>,
+    _ctx: *mut std::ffi::c_void,
 ) -> Result<Vec<WasmValue>, HostFuncError> {
     println!("[read_book] sleep 2 second");
     tokio::time::sleep(std::time::Duration::from_secs(2)).await;
@@ -18,10 +18,10 @@ async fn read_book<T>(
 }
 
 #[async_host_function]
-async fn enjoy_music<T>(
+async fn enjoy_music(
     _caller: Caller,
     _args: Vec<WasmValue>,
-    _ctx: Option<&mut T>,
+    _ctx: *mut std::ffi::c_void,
 ) -> Result<Vec<WasmValue>, HostFuncError> {
     println!("[enjoy_music] sleep 1 second");
     tokio::time::sleep(std::time::Duration::from_secs(1)).await;
@@ -35,13 +35,13 @@ async fn enjoy_music<T>(
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // create an import module
     let import = ImportObjectBuilder::new()
-        .with_func_async::<(), ()>("read_book", read_book)?
-        .with_func_async::<(), ()>("enjoy_music", enjoy_music)?
-        .build("extern")?;
+        .with_async_func::<(), (), NeverType>("read_book", read_book, None)?
+        .with_async_func::<(), (), NeverType>("enjoy_music", enjoy_music, None)?
+        .build::<NeverType>("extern", None)?;
 
-    let vm = VmBuilder::new()
-        .build::<NeverType>()?
-        .register_import_module(import)?;
+    let mut vm = VmBuilder::new().build()?;
+
+    vm.register_import_module(&import)?;
 
     let async_state1 = AsyncState::new();
     let async_state2 = AsyncState::new();
