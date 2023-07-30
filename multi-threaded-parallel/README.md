@@ -69,7 +69,7 @@ Now let's build and run this example.
   cd ..
   ```
 
-  > If `wasm-ld` command is not found, use the command `$ dpkg -L lld-12 | grep wasm-ld` to check if it is installed along with `llvm`.
+  > If `wasm-ld` command is not found, use the command `dpkg -L lld-12 | grep wasm-ld` to check if it is installed along with `llvm`.
 
   If the commands run successfully, `mandelbrot.wasm` can be found in the directory of `mandelbrot-c`.
 

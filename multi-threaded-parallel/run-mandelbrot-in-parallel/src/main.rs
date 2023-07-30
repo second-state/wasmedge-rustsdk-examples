@@ -48,7 +48,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     // create an import object containing the shared memory
     let import = ImportObjectBuilder::new()
         .with_memory("memory", mem)
-        .build("env")?;
+        .build::<NeverType>("env", None)?;
 
     let config = ConfigBuilder::new(CommonConfigOptions::new().threads(true))
         .with_compiler_config(CompilerConfigOptions::new().out_format(CompilerOutputFormat::Native))
@@ -72,11 +72,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
             .reference_types(false),
     )
     .build()?;
-    let vm = VmBuilder::new()
-        .with_config(config)
-        .build::<NeverType>()?
-        .register_import_module(import)?
-        .register_module_from_file("mandelbrot", aot_file_path)?;
+    let mut vm = VmBuilder::new().with_config(config).build()?;
+    vm.register_import_module(&import)?;
+    let vm = vm.register_module_from_file("mandelbrot", aot_file_path)?;
 
     // parallelly renders the image
     let x: f64 = -0.743644786;
