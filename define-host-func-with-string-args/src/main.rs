@@ -7,11 +7,7 @@ use wasmedge_sdk::{
 // the first argument is a reference to MyString
 // the second argument is a reference to MyStr
 #[host_function]
-fn hello<T>(
-    _caller: Caller,
-    args: Vec<WasmValue>,
-    _ctx: Option<&mut T>,
-) -> Result<Vec<WasmValue>, HostFuncError> {
+fn hello(_caller: Caller, args: Vec<WasmValue>) -> Result<Vec<WasmValue>, HostFuncError> {
     // parse the first argument of WasmValue type
     let result = args[0].extern_ref::<MyString>();
     assert!(result.is_some());
@@ -41,13 +37,13 @@ pub struct MyStr<'a> {
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let import = ImportObjectBuilder::new()
-        .with_func::<(ExternRef, ExternRef), ()>("say_hello", hello)?
-        .build("extern")?;
+        .with_func::<(ExternRef, ExternRef), (), NeverType>("say_hello", hello, None)?
+        .build::<NeverType>("extern", None)?;
 
     // create a vm and register the wasm lib as a named module into the vm
-    let vm = VmBuilder::new()
-        .build::<NeverType>()?
-        .register_import_module(import)?;
+    let mut vm = VmBuilder::new().build()?;
+
+    vm.register_import_module(&import)?;
 
     // create a MyString instance
     let s = "Earth";
