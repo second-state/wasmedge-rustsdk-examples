@@ -18,7 +18,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     // create a vm and register bob and alice wasm modules into the vm
     let vm = VmBuilder::new()
         .with_config(config)
-        .build::<NeverType>()?
+        .build()?
         .register_module_from_file(
             "my_math_lib",
             "target/wasm32-wasi/release/bob_wasm_lib.wasm",
