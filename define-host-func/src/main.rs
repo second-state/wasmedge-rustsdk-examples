@@ -4,11 +4,7 @@ use wasmedge_sdk::{
 };
 
 #[host_function]
-fn my_add<T>(
-    _caller: Caller,
-    input: Vec<WasmValue>,
-    _ctx: Option<&mut T>,
-) -> Result<Vec<WasmValue>, HostFuncError> {
+fn my_add(_caller: Caller, input: Vec<WasmValue>) -> Result<Vec<WasmValue>, HostFuncError> {
     // check the number of inputs
     if input.len() != 2 {
         return Err(HostFuncError::User(1));
@@ -36,14 +32,15 @@ fn my_add<T>(
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     // create an import module
     let import = ImportObjectBuilder::new()
-        .with_func::<(i32, i32), i32>("add", my_add)?
-        .build("extern")?;
+        .with_func::<(i32, i32), i32, NeverType>("add", my_add, None)?
+        .build::<NeverType>("extern", None)?;
 
     // create a new Vm with default config
-    let res = VmBuilder::new()
-        .build::<NeverType>()?
-        .register_import_module(import)?
-        .run_func(Some("extern"), "add", params!(15, 51))?;
+    let mut vm = VmBuilder::new().build()?;
+
+    vm.register_import_module(&import)?;
+
+    let res = vm.run_func(Some("extern"), "add", params!(15, 51))?;
 
     println!("add({}, {}) = {}", 15, 51, res[0].to_i32());
 
