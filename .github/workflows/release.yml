@@ -4,7 +4,7 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
   cancel-in-progress: true
 
-on: workflow_dispatch
+on: [push, pull_request]
 
 jobs:
   build_ubuntu:
