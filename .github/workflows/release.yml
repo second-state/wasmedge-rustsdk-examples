@@ -53,6 +53,8 @@ jobs:
           PYTORCH_VERSION: "1.8.2"
           PYTORCH_ABI: "libtorch-cxx11-abi"
         run: |
+          apt update
+          apt install -y curl wget unzip
           curl -s -L -O --remote-name-all https://download.pytorch.org/libtorch/lts/1.8/cpu/${PYTORCH_ABI}-shared-with-deps-${PYTORCH_VERSION}%2Bcpu.zip
           unzip -q "${PYTORCH_ABI}-shared-with-deps-${PYTORCH_VERSION}%2Bcpu.zip"
           ls -al
