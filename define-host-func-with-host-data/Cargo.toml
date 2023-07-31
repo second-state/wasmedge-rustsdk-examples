@@ -1,0 +1,7 @@
+[package]
+name = "define-host-func-with-host-data"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+wasmedge-sdk = {git = "https://github.com/apepkuss/wasmedge-rust-sdk.git", branch = "update-test-code"}
