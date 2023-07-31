@@ -8,11 +8,7 @@ use wasmedge_sdk::{
 };
 
 #[host_function]
-fn real_add<T>(
-    _: Caller,
-    input: Vec<WasmValue>,
-    _ctx: Option<&mut T>,
-) -> Result<Vec<WasmValue>, HostFuncError> {
+fn real_add<T>(_: Caller, input: Vec<WasmValue>) -> Result<Vec<WasmValue>, HostFuncError> {
     if input.len() != 2 {
         return Err(HostFuncError::User(1));
     }
@@ -42,16 +38,14 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let table = result.unwrap();
 
     // create an import object
-    let import = ImportObjectBuilder::<NeverType>::new()
+    let import = ImportObjectBuilder::new()
         .with_table("my-table", table)
-        .build("extern")?;
+        .build::<NeverType>("extern", None)?;
 
     // create a Vm and register the import object into it
     let config = ConfigBuilder::new(CommonConfigOptions::default()).build()?;
-    let mut vm = VmBuilder::new()
-        .with_config(config)
-        .build::<NeverType>()?
-        .register_import_module(import)?;
+    let mut vm = VmBuilder::new().with_config(config).build()?;
+    vm.register_import_module(&import)?;
 
     // get the module instance named "extern"
     let extern_instance = vm.named_module("extern")?;
