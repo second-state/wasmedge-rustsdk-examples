@@ -15,7 +15,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
         .build()?;
     let vm = VmBuilder::new()
         .with_config(config)
-        .build::<NeverType>()?
+        .build()?
         .register_module(None, module)?;
 
     let vm = VmDock::new(vm);
