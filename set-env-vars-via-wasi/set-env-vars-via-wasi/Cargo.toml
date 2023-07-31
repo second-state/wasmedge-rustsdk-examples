@@ -1,7 +1,7 @@
 [package]
 edition = "2021"
 name = "set-env-vars-via-wasi"
-version = "0.3.0"
+version = "0.4.0"
 
 [dependencies]
 wasmedge-sdk = {git = "https://github.com/apepkuss/wasmedge-rust-sdk.git", branch = "update-test-code"}

@@ -1,7 +1,7 @@
 [package]
 edition = "2021"
 name = "manipulate-linear-memory"
-version = "0.3.0"
+version = "0.4.0"
 
 [dependencies]
 anyhow = "1"
