@@ -4,6 +4,6 @@ name = "object-detection-via-wasinn"
 version = "0.3.0"
 
 [dependencies]
-wasmedge-sdk = { version = "0.9.0", features = [
+wasmedge-sdk = { git = "https://github.com/apepkuss/wasmedge-rust-sdk.git", branch = "update-test-code", features = [
     "wasi_nn",
 ] }

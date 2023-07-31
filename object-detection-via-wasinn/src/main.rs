@@ -40,7 +40,7 @@ fn infer() -> Result<(), Box<dyn std::error::Error>> {
     let mut vm = VmBuilder::new()
         .with_config(config)
         .with_plugin_wasi_nn()
-        .build::<NeverType>()?
+        .build()?
         .register_module(Some("extern"), module)?;
 
     // init wasi module
