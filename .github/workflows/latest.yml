@@ -7,10 +7,10 @@ concurrency:
 on: 
   push:
     paths-ignore:
-      - "**/release.yml"
+      - ".github/workflows/release.yml"
   pull_request:
     paths-ignore:
-      - "**/release.yml"
+      - ".github/workflows/release.yml"
 
 jobs:
   build_ubuntu:
