@@ -5,4 +5,4 @@ version = "0.3.0"
 
 [dependencies]
 tokio = {version = "1.28", features = ["full"]}
-wasmedge-sdk = {path = "/root/workspace/me/wasmedge-rust-sdk", features = ["async"]}
+wasmedge-sdk = {git = "https://github.com/apepkuss/wasmedge-rust-sdk.git", branch = "update-test-code", features = ["async"]}
