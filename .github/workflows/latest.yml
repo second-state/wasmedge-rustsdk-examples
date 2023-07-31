@@ -4,7 +4,13 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
   cancel-in-progress: true
 
-on: [push, pull_request]
+on: 
+  push:
+    paths-ignore:
+      - "**/release.yml"
+  pull_request:
+    paths-ignore:
+      - "**/release.yml"
 
 jobs:
   build_ubuntu:
