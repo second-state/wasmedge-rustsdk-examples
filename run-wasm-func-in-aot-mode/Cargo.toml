@@ -4,4 +4,4 @@ name = "run-wasm-func-in-aot-mode"
 version = "0.3.0"
 
 [dependencies]
-wasmedge-sdk = {version = "0.9.0", features = ["aot"]}
+wasmedge-sdk = {git = "https://github.com/apepkuss/wasmedge-rust-sdk.git", branch = "update-test-code", features = ["aot"]}

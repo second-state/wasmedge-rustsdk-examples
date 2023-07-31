@@ -2,7 +2,7 @@ use wasmedge_sdk::{
     config::{
         CommonConfigOptions, CompilerConfigOptions, ConfigBuilder, HostRegistrationConfigOptions,
     },
-    params, wat2wasm, Compiler, CompilerOutputFormat, NeverType, VmBuilder, WasmVal,
+    params, wat2wasm, Compiler, CompilerOutputFormat, VmBuilder, WasmVal,
 };
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -65,7 +65,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     #[cfg(target_os = "windows")]
     assert!(aot_file_path.ends_with("example_aot_fibonacci.dll"));
 
-    let mut vm = VmBuilder::new().with_config(config).build::<NeverType>()?;
+    let mut vm = VmBuilder::new().with_config(config).build()?;
 
     // call the wasm function `fib` with the parameter 5
     let res = vm.run_func_from_file(&aot_file_path, "fib", params!(5))?;
