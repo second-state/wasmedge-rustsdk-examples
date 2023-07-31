@@ -1,32 +1,19 @@
 use wasmedge_sdk::{
-    async_host_function, error::HostFuncError, params, r#async::AsyncState, Caller,
+    async_host_function_new, error::HostFuncError, params, r#async::AsyncState, Caller,
     ImportObjectBuilder, NeverType, VmBuilder, WasmValue,
 };
 
-#[async_host_function]
-async fn read_book(
-    _caller: Caller,
-    _args: Vec<WasmValue>,
-    _ctx: *mut std::ffi::c_void,
+#[async_host_function_new]
+async fn async_hello(
+    _frame: CallingFrame,
+    _inputs: Vec<WasmValue>,
 ) -> Result<Vec<WasmValue>, HostFuncError> {
-    println!("[read_book] sleep 2 second");
-    tokio::time::sleep(std::time::Duration::from_secs(2)).await;
+    for _ in 0..10 {
+        println!("[async hello] say hello");
+        tokio::time::sleep(std::time::Duration::from_secs(1)).await;
+    }
 
-    println!("[read_book] reading ...");
-
-    Ok(vec![])
-}
-
-#[async_host_function]
-async fn enjoy_music(
-    _caller: Caller,
-    _args: Vec<WasmValue>,
-    _ctx: *mut std::ffi::c_void,
-) -> Result<Vec<WasmValue>, HostFuncError> {
-    println!("[enjoy_music] sleep 1 second");
-    tokio::time::sleep(std::time::Duration::from_secs(1)).await;
-
-    println!("[enjoy_music] enjoying music ...");
+    println!("[async hello] Done!");
 
     Ok(vec![])
 }
@@ -35,20 +22,32 @@ async fn enjoy_music(
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // create an import module
     let import = ImportObjectBuilder::new()
-        .with_async_func::<(), (), NeverType>("read_book", read_book, None)?
-        .with_async_func::<(), (), NeverType>("enjoy_music", enjoy_music, None)?
+        .with_async_func::<(), (), NeverType>("hello", async_hello, None)?
         .build::<NeverType>("extern", None)?;
 
+    // create a Vm
     let mut vm = VmBuilder::new().build()?;
 
+    // register the import module
     vm.register_import_module(&import)?;
 
-    let async_state1 = AsyncState::new();
-    let async_state2 = AsyncState::new();
-    let (_, _) = tokio::join!(
-        vm.run_func_async(&async_state1, Some("extern"), "read_book", params!()),
-        vm.run_func_async(&async_state2, Some("extern"), "enjoy_music", params!()),
-    );
+    // create an async state
+    let async_state = AsyncState::new();
+
+    async fn tick() {
+        let mut i = 0;
+        loop {
+            println!("[tick] i={i}");
+            tokio::time::sleep(std::time::Duration::from_millis(500)).await;
+            i += 1;
+        }
+    }
+    tokio::spawn(tick());
+
+    // run the async host function
+    let _ = vm
+        .run_func_async(&async_state, Some("extern"), "hello", params!())
+        .await?;
 
     Ok(())
 }

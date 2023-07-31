@@ -51,8 +51,35 @@ Now let's build and run this example.
   If the command runs successfully, then the following result is printed out on the screen:
 
   ```bash
-  [read_book] sleep 2 second
-  [enjoy_music] sleep 1 second
-  [enjoy_music] enjoying music ...
-  [read_book] reading ...
+  [tick] i=0
+  [async hello] say hello
+  [tick] i=1
+  [async hello] say hello
+  [tick] i=2
+  [tick] i=3
+  [async hello] say hello
+  [tick] i=4
+  [tick] i=5
+  [async hello] say hello
+  [tick] i=6
+  [tick] i=7
+  [async hello] say hello
+  [tick] i=8
+  [tick] i=9
+  [async hello] say hello
+  [tick] i=10
+  [tick] i=11
+  [async hello] say hello
+  [tick] i=12
+  [tick] i=13
+  [async hello] say hello
+  [tick] i=14
+  [tick] i=15
+  [async hello] say hello
+  [tick] i=16
+  [tick] i=17
+  [async hello] say hello
+  [tick] i=18
+  [tick] i=19
+  [async hello] Done!
   ```
