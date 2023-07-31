@@ -1,9 +1,9 @@
 use wasmedge_sdk::{
-    async_host_function_new, error::HostFuncError, params, r#async::AsyncState, Caller,
+    async_host_function, error::HostFuncError, params, r#async::AsyncState, Caller,
     ImportObjectBuilder, NeverType, VmBuilder, WasmValue,
 };
 
-#[async_host_function_new]
+#[async_host_function]
 async fn async_hello(
     _frame: CallingFrame,
     _inputs: Vec<WasmValue>,
