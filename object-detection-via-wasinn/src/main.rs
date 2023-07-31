@@ -3,7 +3,7 @@ use wasmedge_sdk::{
     config::{CommonConfigOptions, ConfigBuilder, HostRegistrationConfigOptions},
     params,
     plugin::PluginManager,
-    Module, NeverType, VmBuilder,
+    Module, VmBuilder,
 };
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
