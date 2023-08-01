@@ -7,6 +7,7 @@ YELLOW=$'\e[0;33m'
 NC=$'\e[0m' # No Color
 PYTHON_EXECUTABLE="${PYTHON_EXECUTABLE:=}"
 INSTALL_PY_URL="${INSTALL_PY_URL:=}"
+INSTALL_PY_PATH="${INSTALL_PY_PATH:=}"
 
 if ! command -v git &>/dev/null; then
     echo "${RED}Please install git${NC}"
@@ -37,8 +38,14 @@ main() {
         echo "${GREEN}Using Python: $PYTHON_EXECUTABLE ${NC}"
     fi
 
+    if [ "$INSTALL_PY_PATH" != "" ]; then
+        # If a local installer script is given, then use it directly
+        "$PYTHON_EXECUTABLE" "$INSTALL_PY_PATH" "$@"
+        exit 0
+    fi
+
     if [ "$INSTALL_PY_URL" = "" ]; then
-        INSTALL_PY_URL="https://ghproxy.com/https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.py"
+        INSTALL_PY_URL="https::/ghproxy.com/https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.py"
     fi
 
     if command -v curl &>/dev/null; then
