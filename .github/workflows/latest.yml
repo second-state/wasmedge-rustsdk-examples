@@ -8,9 +8,13 @@ on:
   push:
     paths-ignore:
       - ".github/workflows/release.yml"
+      - "**/*.md"
+      - "install_zh.sh"
   pull_request:
     paths-ignore:
       - ".github/workflows/release.yml"
+      - "**/*.md"
+      - "install_zh.sh"
 
 jobs:
   build_ubuntu:

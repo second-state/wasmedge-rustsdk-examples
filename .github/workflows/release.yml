@@ -4,7 +4,17 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
   cancel-in-progress: true
 
-on: [push, pull_request]
+on: 
+  push:
+    paths-ignore:
+      - ".github/workflows/latest.yml"
+      - "**/*.md"
+      - "install_zh.sh"
+  pull_request:
+    paths-ignore:
+      - ".github/workflows/latest.yml"
+      - "**/*.md"
+      - "install_zh.sh"
 
 jobs:
   build_ubuntu:
