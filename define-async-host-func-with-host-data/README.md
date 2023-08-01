@@ -32,7 +32,7 @@ Now let's build and run this example.
   > ```bash
   > # NOTICE that the installation script needs `sudo` access
   >
-  > bash install_zh.sh -v 0.13.0 -p /usr/local
+  > bash install_zh.sh -v 0.13.3 -p /usr/local
   > ```
 
 - Download example
