@@ -4,4 +4,4 @@ name = "table-and-funcref"
 version = "0.4.0"
 
 [dependencies]
-wasmedge-sdk = "0.11.1"
+wasmedge-sdk = "0.11.2"

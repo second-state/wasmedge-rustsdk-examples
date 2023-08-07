@@ -4,4 +4,4 @@ name = "define-host-func-with-string-args"
 version = "0.4.0"
 
 [dependencies]
-wasmedge-sdk = "0.11.1"
+wasmedge-sdk = "0.11.2"
