@@ -7,6 +7,8 @@ This example demonstrates how to create a simple plugin with WasmEdge Rust SDK. 
 
 - `naive-math-wasm`: a wasm module that imports the function `add` from the plugin and calls it.
 
+- `run-with-plugin` is a host application that loads the plugin from `naive-math-plugin` and the wasm file from `naive-math-wasm`, and runs the wasm function `add` exported by the wasm binary over WasmEdge Runtime.
+
 > Notice that WasmEdge Plugin is only available on Linux OS. In this example, all steps are validated on **Ubuntu-20.04**
 
 Now let's build and run this example.
@@ -69,10 +71,10 @@ Now let's build and run this example.
 
   If the command runs successfully, `naive-math-wasm.wasm` can be found in the directory of `./target/wasm32-wasi/release/`.
 
-- Run `naive-math-wasm` with WasmEdge CLI
+- Run `run-with-plugin`
 
   ```bash
-  wasmedge target/wasm32-wasi/release/naive-math-wasm.wasm 1 2
+  cargo run -p run-with-plugin
   ```
   
   If the command runs successfully, then the following message is printed out on the screen:
