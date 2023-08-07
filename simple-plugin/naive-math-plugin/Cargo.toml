@@ -7,4 +7,4 @@ version = "0.4.0"
 crate-type = ["cdylib"]
 
 [dependencies]
-wasmedge-sdk = {version = "0.11.0", features = ["ffi"]}
+wasmedge-sdk = {version = "0.11.1", features = ["ffi"]}

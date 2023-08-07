@@ -5,4 +5,4 @@ edition = "2021"
 
 [dependencies]
 tokio = {version = "1.28", features = ["full"]}
-wasmedge-sdk = {version = "0.11.0", features = ["async"]}
+wasmedge-sdk = {version = "0.11.1", features = ["async"]}
