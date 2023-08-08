@@ -114,6 +114,10 @@ This example demonstrates how to perform an object detection task over WasmEdge 
 
 This example demonstrates how to create a simple plugin with WasmEdge Rust SDK.
 
+### [Example: Run a plugin with `Executor`](simple-plugin-ext)
+
+This example demonstrates how to create a simple plugin with WasmEdge Rust SDK, and run it with WasmEdge Executor.
+
 ## Multi-threading
 
 ### [Example: Multi-threaded parallel execution with memory sharing](multi-threaded-parallel)
