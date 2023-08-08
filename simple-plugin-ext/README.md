@@ -1,7 +1,9 @@
 
 # Create a math plugin
 
-This example demonstrates how to create a simple plugin with WasmEdge Rust SDK. This example consists of three projects:
+This example demonstrates how to create a simple plugin with WasmEdge Rust SDK. Different from [naive-math-plugin](../simple-plugin/), this example uses `Executor` and `Store` to load, register, and run a plugin.
+
+This example consists of three projects:
 
 - `naive-math-plugin`: a simple plugin that exports a function `add` to add two integers.
 
