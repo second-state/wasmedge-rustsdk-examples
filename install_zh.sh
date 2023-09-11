@@ -45,7 +45,7 @@ main() {
     fi
 
     if [ "$INSTALL_PY_URL" = "" ]; then
-        INSTALL_PY_URL="https::/ghproxy.com/https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.py"
+        INSTALL_PY_URL="https://ghproxy.com/https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.py"
     fi
 
     if command -v curl &>/dev/null; then
