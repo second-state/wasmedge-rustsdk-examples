@@ -1,5 +1,5 @@
 use wasmedge_sdk::{
-    async_host_function, error::HostFuncError, params, r#async::AsyncState, Caller,
+    async_host_function, error::HostFuncError, params, wasi::r#async::AsyncState, Caller,
     ImportObjectBuilder, NeverType, VmBuilder, WasmValue,
 };
 
