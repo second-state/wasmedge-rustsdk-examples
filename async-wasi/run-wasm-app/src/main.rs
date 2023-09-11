@@ -1,6 +1,6 @@
 use wasmedge_sdk::{
     config::{CommonConfigOptions, ConfigBuilder, HostRegistrationConfigOptions},
-    r#async::{AsyncState, WasiContext},
+    wasi::r#async::{AsyncState, WasiContext},
     VmBuilder,
 };
 
