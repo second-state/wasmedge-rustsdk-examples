@@ -35,7 +35,6 @@ fn infer() -> Result<(), Box<dyn std::error::Error>> {
         .with_host_registration_config(HostRegistrationConfigOptions::default().wasi(true))
         .build()?;
     assert!(config.wasi_enabled());
-    // assert!(config.wasi_nn_enabled());
 
     // load wasm module from file
     let module = Module::from_file(Some(&config), wasm_file)?;
