@@ -2,7 +2,7 @@
 use wasmedge_sdk::{
     config::{CommonConfigOptions, ConfigBuilder, HostRegistrationConfigOptions},
     params,
-    plugin::PluginManager,
+    plugin::{ExecutionTarget, NNBackend, NNPreload, PluginManager},
     Module, VmBuilder,
 };
 
@@ -20,15 +20,16 @@ fn infer() -> Result<(), Box<dyn std::error::Error>> {
     let dir_mapping = &args[1];
     let wasm_file = &args[2];
     let model_name = &args[3];
-    let prompt = &args[4];
-
-    println!("load plugin");
 
     // load wasinn-pytorch-plugin from the default plugin directory: /usr/local/lib/wasmedge
     PluginManager::load(None)?;
     // preload named model
-    let preloads = vec!["default:GGML:CPU:orca-mini-3b.ggmlv3.q4_0.bin"];
-    PluginManager::nn_preload(preloads);
+    PluginManager::nn_preload(vec![NNPreload::new(
+        "default",
+        NNBackend::GGML,
+        ExecutionTarget::CPU,
+        "llama-2-7b-chat.Q5_K_M.gguf",
+    )]);
 
     let config = ConfigBuilder::new(CommonConfigOptions::default())
         .with_host_registration_config(HostRegistrationConfigOptions::default().wasi(true))
@@ -50,7 +51,7 @@ fn infer() -> Result<(), Box<dyn std::error::Error>> {
     vm.wasi_module_mut()
         .expect("Not found wasi module")
         .initialize(
-            Some(vec![wasm_file, model_name, prompt]),
+            Some(vec![wasm_file, model_name]),
             None,
             Some(vec![dir_mapping]),
         );
