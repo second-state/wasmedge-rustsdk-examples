@@ -2,7 +2,7 @@
 use wasmedge_sdk::{
     config::{CommonConfigOptions, ConfigBuilder, HostRegistrationConfigOptions},
     params,
-    plugin::{ExecutionTarget, NNBackend, NNPreload, PluginManager},
+    plugin::{ExecutionTarget, GraphEncoding, NNPreload, PluginManager},
     Module, VmBuilder,
 };
 
@@ -26,7 +26,7 @@ fn infer() -> Result<(), Box<dyn std::error::Error>> {
     // preload named model
     PluginManager::nn_preload(vec![NNPreload::new(
         "default",
-        NNBackend::GGML,
+        GraphEncoding::GGML,
         ExecutionTarget::CPU,
         "llama-2-7b-chat.Q5_K_M.gguf",
     )]);
@@ -51,7 +51,7 @@ fn infer() -> Result<(), Box<dyn std::error::Error>> {
         .expect("Not found wasi module")
         .initialize(
             Some(vec![wasm_file, model_name]),
-            None,
+            Some(vec!["ENCODING=GGML", "TARGET=CPU"]),
             Some(vec![dir_mapping]),
         );
 
