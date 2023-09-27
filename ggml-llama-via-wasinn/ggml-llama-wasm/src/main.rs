@@ -5,10 +5,16 @@ fn main() {
     let args: Vec<String> = env::args().collect();
     let model_name: &str = &args[1];
 
-    let graph =
+    let result =
         wasi_nn::GraphBuilder::new(wasi_nn::GraphEncoding::Ggml, wasi_nn::ExecutionTarget::CPU)
-            .build_from_cache(model_name)
-            .unwrap();
+            .build_from_cache(model_name);
+    let graph = match result {
+        Ok(graph) => graph,
+        Err(err) => {
+            println!("Failed to build graph: {:?}", err);
+            return;
+        }
+    };
 
     let mut context = graph.init_execution_context().unwrap();
 
