@@ -51,6 +51,7 @@ Now let's build and run this example.
   If the command runs successfully, then the following result is printed out on the screen:
 
   ```bash
-  radius of circle: 10
-  add(15, 51) = 66
+  get_radius() = 10
+  inc_radius(5) = Ok([])
+  get_radius() = 15
   ```

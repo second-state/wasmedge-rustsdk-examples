@@ -1,4 +1,6 @@
-use wasmedge_sdk::{params, wat2wasm, VmBuilder, WasmVal};
+use std::collections::HashMap;
+
+use wasmedge_sdk::{params, wat2wasm, AsInstance, Instance, Module, Store, Vm, WasmVal};
 
 #[cfg_attr(test, test)]
 fn main() -> anyhow::Result<()> {
@@ -29,43 +31,43 @@ fn main() -> anyhow::Result<()> {
     )?;
 
     // create a Vm instance and register the module into it
-    let mut vm = VmBuilder::new()
-        .build()?
-        .register_module_from_bytes("extern", &wasm_bytes)?;
+    let instances: HashMap<String, &mut Instance> = HashMap::new();
+    let store = Store::new(None, instances)?;
+    let mut vm = Vm::new(store);
+    let module = Module::from_bytes(None, &wasm_bytes)?;
+    vm.register_module(Some("extern"), module)?;
 
     // get the module instance named "extern"
-    let extern_instance = vm.named_module("extern")?;
+    // let extern_instance = vm.named_module("extern")?;
+    let (extern_instance, executor) = vm
+        .store_mut()
+        .get_named_wasm_and_executor("extern")
+        .unwrap();
 
     // get the exported memory instance named "memory"
-    let mut memory = extern_instance.memory("memory")?;
+    let mut memory = extern_instance.get_memory_mut("memory")?;
 
     // check memory size
-    println!("The memory size (in pages): {}", memory.page());
-    println!("The data size (in bytes): {}", memory.size());
+    println!("The memory size (in pages): {}", memory.size());
 
     // grow memory size
     memory.grow(2)?;
     println!(
         "The memory size (in pages) after growing memory additional 2 pages: {}",
-        memory.page()
-    );
-    println!(
-        "The data size (in bytes) after growing memory additional 2 pages: {}",
         memory.size()
     );
-
-    // get the exported functions: "set_at" and "get_at"
-    let set_at = extern_instance.func("set_at")?;
-    let get_at = extern_instance.func("get_at")?;
 
     // call the exported function named "set_at"
     let mem_addr = 0x2220;
     let val = 0xFEFEFFE;
     println!("Set {:#X} at the memory address {:#X}", val, mem_addr);
-    set_at.run(vm.executor_mut(), params!(mem_addr, val))?;
+
+    let mut set_at = extern_instance.get_func_mut("set_at")?;
+    executor.call_func(&mut set_at, params!(mem_addr, val))?;
 
     // call the exported function named "get_at"
-    let returns = get_at.run(vm.executor_mut(), params!(mem_addr))?;
+    let mut get_at = extern_instance.get_func_mut("get_at")?;
+    let returns = executor.call_func(&mut get_at, params!(mem_addr))?;
     println!(
         "Retrieve the value at the memory address {:#X}: {:#X}",
         mem_addr,
@@ -77,10 +79,12 @@ fn main() -> anyhow::Result<()> {
     let mem_addr = (page_size * 2) - std::mem::size_of_val(&val) as i32;
     let val = 0xFEA09;
     println!("Set {:#X} at the memory address {:#X}", val, mem_addr);
-    set_at.run(vm.executor_mut(), params!(mem_addr, val))?;
+    let mut set_at = extern_instance.get_func_mut("set_at")?;
+    executor.call_func(&mut set_at, params!(mem_addr, val))?;
 
     // call the exported function named "get_at"
-    let returns = get_at.run(vm.executor_mut(), params!(mem_addr))?;
+    let mut get_at = extern_instance.get_func_mut("get_at")?;
+    let returns = executor.call_func(&mut get_at, params!(mem_addr))?;
     println!(
         "Retrieve the value at the memory address {:#X}: {:#X}",
         mem_addr,

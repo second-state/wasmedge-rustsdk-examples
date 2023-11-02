@@ -1,23 +1,31 @@
+use std::{collections::HashMap, future::Future};
+
 use wasmedge_sdk::{
-    async_host_function, error::HostFuncError, params, wasi::r#async::AsyncState, Caller,
-    ImportObjectBuilder, NeverType, VmBuilder, WasmValue,
+    error::CoreError,
+    r#async::{import::ImportObjectBuilder, vm::Vm, AsyncInstance},
+    CallingFrame, Store, WasmValue,
 };
 
-#[async_host_function]
-pub async fn async_hello_with_data(
-    _caller: Caller,
+fn async_hello_with_data<'fut>(
+    circle: &'fut mut Circle,
+    _inst: &mut AsyncInstance,
+    _frame: &mut CallingFrame,
     _inputs: Vec<WasmValue>,
-    circle: &mut Circle,
-) -> Result<Vec<WasmValue>, HostFuncError> {
-    for _ in 0..10 {
-        println!("[async hello] say hello");
-        tokio::time::sleep(std::time::Duration::from_secs(1)).await;
-        println!("[async hello] radius of circle: {}", circle.radius);
-    }
+) -> Box<dyn Future<Output = Result<Vec<WasmValue>, CoreError>> + Send + 'fut>
+where
+{
+    Box::new(async {
+        for _ in 0..10 {
+            println!("[async hello] say hello");
+            tokio::time::sleep(std::time::Duration::from_secs(1)).await;
+            println!("[async hello] radius of circle: {}", circle.radius);
+            circle.radius += 1;
+        }
 
-    println!("[async hello] Done!");
+        println!("[async hello] Done!");
 
-    Ok(vec![])
+        Ok(vec![])
+    })
 }
 
 // define host data
@@ -31,22 +39,24 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let circle = Circle { radius: 10 };
 
     // create an import module
-    let import = ImportObjectBuilder::new()
-        .with_async_func::<(), (), Circle>(
-            "hello_with_data",
-            async_hello_with_data,
-            Some(Box::new(circle)),
-        )?
-        .build::<NeverType>("extern", None)?;
+    // let import = ImportObjectBuilder::new()
+    //     .with_async_func::<(), (), Circle>(
+    //         "hello_with_data",
+    //         async_hello_with_data,
+    //         Some(Box::new(circle)),
+    //     )?
+    //     .build::<NeverType>("extern", None)?;
 
+    let mut builder = ImportObjectBuilder::new("extern", circle).unwrap();
+    builder
+        .with_func::<(), ()>("hello_with_data", async_hello_with_data)
+        .unwrap();
+    let mut import = builder.build();
     // create a Vm
-    let mut vm = VmBuilder::new().build()?;
-
-    // register the import module
-    vm.register_import_module(&import)?;
-
-    // create an async state
-    let async_state = AsyncState::new();
+    let mut instances = HashMap::new();
+    instances.insert("extern".into(), &mut import);
+    let store = Store::new(None, instances).unwrap();
+    let mut vm = Vm::new(store);
 
     async fn tick() {
         let mut i = 0;
@@ -59,9 +69,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     tokio::spawn(tick());
 
     // run the async host function
-    let _ = vm
-        .run_func_async(&async_state, Some("extern"), "hello_with_data", params!())
-        .await?;
+    let _ = vm.run_func(Some("extern"), "hello_with_data", []).await?;
 
     Ok(())
 }

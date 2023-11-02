@@ -4,4 +4,5 @@ name = "host-app"
 version = "0.3.0"
 
 [dependencies]
-wasmedge-sdk = "0.12.0"
+wasmedge-sdk = { git = "https://github.com/second-state/wasmedge-rust-sdk.git", branch = "refactor/sdk_preview" }
+

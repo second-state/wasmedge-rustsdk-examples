@@ -52,9 +52,7 @@ Now let's build and run this example.
 
   ```bash
   The memory size (in pages): 1
-  The data size (in bytes): 65536
   The memory size (in pages) after growing memory additional 2 pages: 3
-  The data size (in bytes) after growing memory additional 2 pages: 196608
   Set 0xFEFEFFE at the memory address 0x2220
   Retrieve the value at the memory address 0x2220: 0xFEFEFFE
   Set 0xFEA09 at the memory address 0x1FFFC

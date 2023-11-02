@@ -1,8 +1,10 @@
+use std::collections::HashMap;
+
 use wasmedge_sdk::{
-    config::{
-        CommonConfigOptions, CompilerConfigOptions, ConfigBuilder, HostRegistrationConfigOptions,
-    },
-    params, wat2wasm, Compiler, CompilerOutputFormat, VmBuilder, WasmVal,
+    config::{CommonConfigOptions, CompilerConfigOptions, ConfigBuilder},
+    params,
+    wasi::WasiModule,
+    wat2wasm, Compiler, CompilerOutputFormat, Module, Store, Vm, WasmVal,
 };
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
@@ -51,7 +53,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
                 .interruptible(true)
                 .out_format(CompilerOutputFormat::Native),
         )
-        .with_host_registration_config(HostRegistrationConfigOptions::default().wasi(true))
         .build()?;
 
     // compile wasm to so for runing in the `aot` mode
@@ -65,10 +66,16 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     #[cfg(target_os = "windows")]
     assert!(aot_file_path.ends_with("example_aot_fibonacci.dll"));
 
-    let mut vm = VmBuilder::new().with_config(config).build()?;
+    let mut wasi_module = WasiModule::create(None, None, None).unwrap();
+    let mut instances = HashMap::new();
+    instances.insert(wasi_module.name().to_string(), wasi_module.as_mut());
+
+    let mut vm = Vm::new(Store::new(Some(&config), instances).unwrap());
+    let module = Module::from_file(Some(&config), &aot_file_path).unwrap();
 
     // call the wasm function `fib` with the parameter 5
-    let res = vm.run_func_from_file(&aot_file_path, "fib", params!(5))?;
+    vm.register_module(Some("fib"), module).unwrap();
+    let res = vm.run_func(Some("fib"), "fib", params!(5)).unwrap();
     println!("fib(5): {}", res[0].to_i32());
 
     // remove the generated aot file
