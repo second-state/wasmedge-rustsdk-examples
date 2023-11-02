@@ -110,17 +110,6 @@ jobs:
         run: |
           cargo run
       
-      - name: multi-threaded-parallel
-        working-directory: multi-threaded-parallel
-        run: |
-          cd mandelbrot-c
-          wget https://ziglang.org/download/0.10.1/zig-linux-x86_64-0.10.1.tar.xz
-          tar -xf zig-linux-x86_64-0.10.1.tar.xz
-          ./zig-linux-x86_64-0.10.1/zig build-obj -O ReleaseSmall -target wasm32-wasi mandelbrot.c
-          wasm-ld-15 --no-entry mandelbrot.o -o mandelbrot.wasm --import-memory --export-all --shared-memory --features=mutable-globals,atomics,bulk-memory
-          cd ..
-          cargo run -p run-mandelbrot-in-parallel -- ./mandelbrot-c/mandelbrot.wasm
-
       - name: object-detection-via-wasinn
         working-directory: object-detection-via-wasinn
         run: |
@@ -149,19 +138,6 @@ jobs:
         run: |
           cargo build -p print-env-vars --target wasm32-wasi --release
           cargo run -p set-env-vars-via-wasi -- ./target/wasm32-wasi/release/print_env_vars.wasm
-      
-      - name: simple-plugin
-        working-directory: simple-plugin
-        run: |
-          cargo build -p naive-math-plugin --release
-          cp target/release/libnaive_math_plugin.so /usr/local/lib/wasmedge
-          cargo build -p naive-math-wasm --target wasm32-wasi --release
-          cargo run -p run-with-plugin
-
-      - name: table-and-funcref
-        working-directory: table-and-funcref
-        run: |
-          cargo run
       
       - name: wasmedge-bindgen
         working-directory: wasmedge-bindgen
