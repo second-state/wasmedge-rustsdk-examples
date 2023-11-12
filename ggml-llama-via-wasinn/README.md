@@ -45,14 +45,14 @@ Now let's build and run this example.
 
 - Download example
 
-  ```bash
+  ```console
   git clone git@github.com:second-state/wasmedge-rustsdk-examples.git
   cd wasmedge-rustsdk-examples/ggml-llama-via-wasinn
   ```
 
 - Build the `ggml-llama-wasm` wasm app
 
-  ```bash
+  ```console
   cargo build -p ggml-llama-wasm --target wasm32-wasi --release
   ```
 
@@ -60,29 +60,29 @@ Now let's build and run this example.
 
 - Download the Llama2 model of GGUF format
 
-  ```bash
+  ```console
   curl -LO https://huggingface.co/second-state/Llama-2-7B-Chat-GGUF/resolve/main/llama-2-7b-chat.Q5_K_M.gguf
   ```
 
 - Build & run the `run-ggml-llama-wasm` app
 
-  ```bash
+  ```console
   cargo run -p run-ggml-llama-inference -- .:. target/wasm32-wasi/release/ggml-llama-wasm.wasm default
   ```
 
   If the command runs successfully, you can try the multi-turn conversations like below:
 
-  ```bash
+  ```console
   [Question]:
-  What is the capital of the United States?
-  [Answer]:
-  The capital of the United States is Washington, D.C. (District of Columbia).
-  [Question]:
-  What about France?
+  What's the capital of France?
   [Answer]:
   The capital of France is Paris.
   [Question]:
-  I have two apples, each costing 5 dollars. What is the total cost of these apples?
+  What about Norway?
   [Answer]:
-  The total cost of the two apples is $10.
+  The capital of Norway is Oslo.
+  [Question]:
+  How many planets are in the solar system?
+  [Answer]:
+  There are 8 planets in the solar system: Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, and Neptune.
   ```
