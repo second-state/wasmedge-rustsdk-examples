@@ -12,7 +12,7 @@ Now let's build and run this example.
 
   Go to the [official Rust webpage](https://www.rust-lang.org/tools/install) and follow the instructions to install `rustup` and `Rust`.
 
-  > It is recommended to use Rust 1.73 or above in the stable channel.
+  > It is recommended to use Rust 1.71 or above in the stable channel.
 
   Then, add `wasm32-wasi` target to the Rustup toolchain:
 
@@ -40,14 +40,14 @@ Now let's build and run this example.
   > ```
 
 - Install `libtorch` and `WasmEdge WASI-NN PyTorch Backend`
-  
+
   [Get WasmEdge with WASI-NN Plug-in PyTorch Backend](https://wasmedge.org/book/en/write_wasm/rust/wasinn.html#get-wasmedge-with-wasi-nn-plug-in-pytorch-backend) in WasmEdge Book describes the steps of deploying the `libtorch` library and `WASI-NN PyTorch Backend`. For convenience, the commands in the book are listed below:
 
   - Install `libtorch`
 
     ```bash
     export PYTORCH_VERSION="1.8.2"
-    
+
     # download and unzip libtorch-1.8.2
     curl -s -L -O --remote-name-all https://download.pytorch.org/libtorch/lts/1.8/cpu/libtorch-cxx11-abi-shared-with-deps-${PYTORCH_VERSION}%2Bcpu.zip
 

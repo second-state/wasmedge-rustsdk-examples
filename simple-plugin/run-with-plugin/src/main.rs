@@ -5,7 +5,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     // create a Vm
     let vm = VmBuilder::new()
-        .with_plugin("naive_math_plugin", "naive_math_module")
+        .with_plugin("naive_math_plugin", Some(vec!["naive_math_module"]))
         .build()?;
 
     let wasm_file = "target/wasm32-wasi/release/naive_math_wasm.wasm";

@@ -10,7 +10,7 @@ Now let's build and run this example.
 
   Go to the [official Rust webpage](https://www.rust-lang.org/tools/install) and follow the instructions to install `rustup` and `Rust`.
 
-  > It is recommended to use Rust 1.69 or above in the stable channel.
+  > It is recommended to use Rust 1.71 or above in the stable channel.
 
   Then, add `wasm32-wasi` target to the Rustup toolchain:
 
@@ -75,7 +75,7 @@ Now let's build and run this example.
 - Build & run the `run-ggml-llama-wasm` app
 
   ```bash
-  cargo run -p run-ggml-llama-inference -- .:. ggml-llama-wasm.so default 
+  cargo run -p run-ggml-llama-inference -- .:. ggml-llama-wasm.so default
   ```
 
   If the command runs successfully, you can try the multi-turn conversations like below:
