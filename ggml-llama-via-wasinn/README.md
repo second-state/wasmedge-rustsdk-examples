@@ -58,24 +58,16 @@ Now let's build and run this example.
 
   If the command runs successfully, you can find the `ggml-llama-wasm.wasm` file in the `target/wasm32-wasi/release` directory.
 
-- AOT compile `ggml-llama-wasm.wasm` to `ggml-llama-wasm.so`
-
-  ```bash
-  wasmedge compile target/wasm32-wasi/release/ggml-llama-wasm.wasm ggml-llama-wasm.so
-  ```
-
-  If the command runs successfully, you can find the `ggml-llama-wasm.so` file in the root directory.
-
 - Download the Llama2 model of GGUF format
 
   ```bash
-  curl -LO https://huggingface.co/TheBloke/Llama-2-7b-Chat-GGUF/resolve/main/llama-2-7b-chat.Q5_K_M.gguf
+  curl -LO https://huggingface.co/second-state/Llama-2-7B-Chat-GGUF/resolve/main/llama-2-7b-chat.Q5_K_M.gguf
   ```
 
 - Build & run the `run-ggml-llama-wasm` app
 
   ```bash
-  cargo run -p run-ggml-llama-inference -- .:. ggml-llama-wasm.so default
+  cargo run -p run-ggml-llama-inference -- .:. target/wasm32-wasi/release/ggml-llama-wasm.wasm default
   ```
 
   If the command runs successfully, you can try the multi-turn conversations like below:
