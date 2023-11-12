@@ -50,7 +50,7 @@ fn main() {
         let mut output_buffer = vec![0u8; 2048];
         let output_size = context.get_output(0, &mut output_buffer).unwrap();
         let output = String::from_utf8_lossy(&output_buffer[..output_size]).to_string();
-        println!("[Answer]: {}", &output);
+        println!("[Answer]:\n{}", output.trim());
 
         chat_history = format!(
             "{chat_history} {model_answer} </s>",
@@ -58,8 +58,8 @@ fn main() {
             model_answer = output.trim(),
         );
 
-        println!("=== saved_prompt ====");
-        println!("{}", chat_history);
+        // println!("=== saved_prompt ====");
+        // println!("{}", chat_history);
     }
 }
 
