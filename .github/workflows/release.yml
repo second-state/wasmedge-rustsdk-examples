@@ -4,7 +4,7 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
   cancel-in-progress: true
 
-on: 
+on:
   push:
     paths-ignore:
       - ".github/workflows/latest.yml"
@@ -23,7 +23,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-22.04, ubuntu-20.04]
-        rust: [1.71, 1.69, 1.70.0]
+        rust: [1.73, 1.72, 1.71]
     container:
       image: wasmedge/wasmedge:ubuntu-build-clang
 
@@ -58,13 +58,13 @@ jobs:
         with:
           toolchain: ${{ matrix.rust }}
           targets: wasm32-wasi
-      
+
       - name: async-wasi
         working-directory: async-wasi
         run: |
           cargo build -p wasm-app --target wasm32-wasi --release
           cargo run -p run-wasm-app -- ./target/wasm32-wasi/release/wasm-app.wasm
-      
+
       - name: async-wasi-socket
         working-directory: async-wasi-socket-addr
         run: |
@@ -76,23 +76,23 @@ jobs:
         run: |
           cargo build -p wasm-lib --target wasm32-wasi --release
           cargo run -p call-wasm-lib -- ./target/wasm32-wasi/release/wasm_lib.wasm 5
-      
+
       - name: call-wasm-lib-with-external-deps
         working-directory: call-wasm-lib-with-external-deps
         run: |
           cargo build -p wasm-lib --target wasm32-wasi --release
           cargo run -p host-app -- ./target/wasm32-wasi/release/wasm_lib.wasm 2 3
-      
+
       - name: define-async-host-func
         working-directory: define-async-host-func
         run: |
           cargo run
-      
+
       - name: define-host-func
         working-directory: define-host-func
         run: |
           cargo run
-      
+
       - name: define-host-func-with-string-args
         working-directory: define-host-func-with-string-args
         run: |
@@ -104,12 +104,12 @@ jobs:
           cargo build -p alice-wasm-lib --target wasm32-wasi --release
           cargo build -p bob-wasm-lib --target wasm32-wasi --release
           cargo run -p host-app -- 2 3
-      
+
       - name: manipulate-linear-memory
         working-directory: manipulate-linear-memory
         run: |
           cargo run
-      
+
       - name: multi-threaded-parallel
         working-directory: multi-threaded-parallel
         run: |
@@ -133,23 +133,23 @@ jobs:
         run: |
           cargo build -p wasm-app --target wasm32-wasi --release
           cargo run -p run-wasm-app -- ./target/wasm32-wasi/release/wasm-app.wasm
-      
+
       - name: run-wasm-func-in-aot-mode
         working-directory: run-wasm-func-in-aot-mode
         run: |
           cargo run
-      
+
       - name: say_hello
         working-directory: say_hello
         run: |
           cargo run
-      
+
       - name: set-env-vars-via-wasi
         working-directory: set-env-vars-via-wasi
         run: |
           cargo build -p print-env-vars --target wasm32-wasi --release
           cargo run -p set-env-vars-via-wasi -- ./target/wasm32-wasi/release/print_env_vars.wasm
-      
+
       - name: simple-plugin
         working-directory: simple-plugin
         run: |
@@ -162,7 +162,7 @@ jobs:
         working-directory: table-and-funcref
         run: |
           cargo run
-      
+
       - name: wasmedge-bindgen
         working-directory: wasmedge-bindgen
         run: |
