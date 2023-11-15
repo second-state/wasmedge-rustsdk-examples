@@ -1,11 +1,18 @@
-use std::{collections::HashMap, io::Write};
+use std::{
+    collections::HashMap,
+    io::{Read, Write},
+};
 
+use bytes::Buf;
 use wasmedge_sdk::{
     r#async::{
         vm::Vm,
         wasi::{
             async_wasi::{
-                snapshots::env::{vfs::WasiStdout, VFD},
+                snapshots::env::{
+                    vfs::{WasiStdin, WasiStdout},
+                    VFD,
+                },
                 WasiCtx,
             },
             AsyncWasiModule,
@@ -22,15 +29,20 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         return Ok(());
     }
 
-    let wasm_stdout_file = std::fs::File::create("./wasm_stdout.txt").unwrap();
-
     let wasm_file = &args[1];
 
     let mut wasi_ctx = WasiCtx::new();
 
+    if let Ok(wasi_stdin) = wasi_ctx.get_mut_vfd(0) {
+        let data = bytes::Bytes::from(Vec::from("Hello Wasm!".to_string())).reader();
+        let virtual_stdin: Box<dyn Read + Send> = Box::new(data);
+        *wasi_stdin = VFD::Inode(WasiStdin::from(virtual_stdin).into());
+    }
+
     if let Ok(wasi_stdout) = wasi_ctx.get_mut_vfd(1) {
-        let fake_stdout: Box<dyn Write + Send> = Box::new(wasm_stdout_file);
-        *wasi_stdout = VFD::Inode(WasiStdout::from(fake_stdout).into());
+        let wasm_stdout_file = std::fs::File::create("./wasm_stdout.txt").unwrap();
+        let virtual_stdout: Box<dyn Write + Send> = Box::new(wasm_stdout_file);
+        *wasi_stdout = VFD::Inode(WasiStdout::from(virtual_stdout).into());
     }
 
     let mut wasi_module = AsyncWasiModule::create_from_wasi_context(wasi_ctx).unwrap();

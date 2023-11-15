@@ -71,5 +71,5 @@ Now let's build and run this example.
   At the same time, the wasm output will be redirected to the file.
   ```bash
   $  cat wasm_stdout.txt
-  Hello, world!
+  read 'Hello Wasm!' from stdin
   ```
