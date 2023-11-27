@@ -1,0 +1,3 @@
+[workspace]
+members = ["ggml-llama-via-wasinn/ggml-llama-wasm","ggml-llama-via-wasinn/run-ggml-llama-inference"]
+resolver = "2"
