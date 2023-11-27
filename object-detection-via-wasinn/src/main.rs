@@ -1,10 +1,5 @@
 #[cfg(all(target_os = "linux", target_arch = "x86_64"))]
-use wasmedge_sdk::{
-    config::{CommonConfigOptions, ConfigBuilder, HostRegistrationConfigOptions},
-    params,
-    plugin::PluginManager,
-    Module, VmBuilder,
-};
+use wasmedge_sdk::{params, plugin::PluginManager, Module};
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     #[cfg(all(target_os = "linux", target_arch = "x86_64"))]
@@ -16,6 +11,10 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 #[cfg(all(target_os = "linux", target_arch = "x86_64"))]
 fn infer() -> Result<(), Box<dyn std::error::Error>> {
     // parse arguments
+
+    use std::collections::HashMap;
+
+    use wasmedge_sdk::{wasi::WasiModule, AsInstance, Store, Vm};
     let args: Vec<String> = std::env::args().collect();
     let dir_mapping = &args[1];
     let wasm_file = &args[2];
@@ -27,31 +26,26 @@ fn infer() -> Result<(), Box<dyn std::error::Error>> {
     // load wasinn-pytorch-plugin from the default plugin directory: /usr/local/lib/wasmedge
     PluginManager::load(None)?;
 
-    let config = ConfigBuilder::new(CommonConfigOptions::default())
-        .with_host_registration_config(HostRegistrationConfigOptions::default().wasi(true))
-        .build()?;
-    assert!(config.wasi_enabled());
-    // assert!(config.wasi_nn_enabled());
-
     // load wasm module from file
-    let module = Module::from_file(Some(&config), wasm_file)?;
+    let module = Module::from_file(None, wasm_file)?;
 
-    // create a Vm
-    let mut vm = VmBuilder::new()
-        .with_config(config)
-        .with_plugin_wasi_nn()
-        .build()?
-        .register_module(Some("extern"), module)?;
+    let mut wasi = WasiModule::create(
+        Some(vec![wasm_file, model_bin, image_file]),
+        None,
+        Some(vec![dir_mapping]),
+    )
+    .unwrap();
 
-    // init wasi module
-    vm.wasi_module_mut()
-        // .ok_or("Not found wasi module")?
-        .expect("Not found wasi module")
-        .initialize(
-            Some(vec![wasm_file, model_bin, image_file]),
-            None,
-            Some(vec![dir_mapping]),
-        );
+    let mut wasi_nn = PluginManager::load_plugin_wasi_nn().unwrap();
+
+    let mut instances: HashMap<String, _> = HashMap::new();
+    instances.insert(wasi.name().to_string(), wasi.as_mut());
+    instances.insert(wasi_nn.name().unwrap(), &mut wasi_nn);
+    let store = Store::new(None, instances).unwrap();
+
+    let mut vm = Vm::new(store);
+
+    vm.register_module(Some("extern"), module).unwrap();
 
     vm.run_func(Some("extern"), "_start", params!())?;
 
