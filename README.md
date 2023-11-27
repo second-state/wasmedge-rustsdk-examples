@@ -27,6 +27,7 @@
     - [Example: Retrieve the socket address via `async-wasi` interface](#example-retrieve-the-socket-address-via-async-wasi-interface)
   - [WASI-NN](#wasi-nn)
     - [Example: AI inference over WasmEdge PyTorch Plugin](#example-ai-inference-over-wasmedge-pytorch-plugin)
+    - [Example: Chat with Llama2](#example-chat-with-llama2)
   - [Plugin Development](#plugin-development)
     - [Example: Create a simple plugin](#example-create-a-simple-plugin)
     - [Example: Run a plugin with `Executor`](#example-run-a-plugin-with-executor)
@@ -110,6 +111,10 @@ This example presents how to retrieve the socket address information asynchronou
 ### [Example: AI inference over WasmEdge PyTorch Plugin](object-detection-via-wasinn)
 
 This example demonstrates how to perform an object detection task over WasmEdge Runtime.
+
+### [Example: Chat with Llama2](ggml-llama-via-wasinn)
+
+This example demonstrates how to chat with Llama2 model driven by WasmEdge wasi-nn-ggml backend.
 
 ## Plugin Development
 
