@@ -93,11 +93,6 @@ jobs:
         run: |
           cargo run
 
-      - name: define-host-func-with-string-args
-        working-directory: define-host-func-with-string-args
-        run: |
-          cargo run
-
       - name: load-module-in-module
         working-directory: load-module-in-module
         run: |
