@@ -1,4 +1,4 @@
-# Object Detection via WASI-NN
+# GGML Llama via WASI-NN
 
 WasmEdge Runtime implements the WASI-NN proposal. This example demonstrates how to chat with Llama2 model driven by WasmEdge wasi-nn-ggml backend.
 
