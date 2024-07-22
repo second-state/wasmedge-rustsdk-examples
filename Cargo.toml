@@ -9,6 +9,8 @@ members = [
     "call-wasm-lib-from-host/wasm-lib",
     "call-wasm-lib-with-external-deps/host-app",
     "call-wasm-lib-with-external-deps/wasm-lib",
+    "define-async-host-func",
+    "define-async-host-func-with-host-data",
 ]
 
 

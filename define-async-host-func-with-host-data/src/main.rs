@@ -1,24 +1,9 @@
+use std::collections::HashMap;
+
 use wasmedge_sdk::{
-    async_host_function, error::HostFuncError, params, wasi::r#async::AsyncState, Caller,
-    ImportObjectBuilder, NeverType, VmBuilder, WasmValue,
+    error::CoreError, params, vm::SyncInst, wasi::WasiModule, AsInstance, CallingFrame,
+    ImportObjectBuilder, Instance, Store, ValType, Vm, WasmVal, WasmValue,
 };
-
-#[async_host_function]
-pub async fn async_hello_with_data(
-    _caller: Caller,
-    _inputs: Vec<WasmValue>,
-    circle: &mut Circle,
-) -> Result<Vec<WasmValue>, HostFuncError> {
-    for _ in 0..10 {
-        println!("[async hello] say hello");
-        tokio::time::sleep(std::time::Duration::from_secs(1)).await;
-        println!("[async hello] radius of circle: {}", circle.radius);
-    }
-
-    println!("[async hello] Done!");
-
-    Ok(vec![])
-}
 
 // define host data
 #[derive(Clone, Debug)]
@@ -26,42 +11,70 @@ struct Circle {
     radius: i32,
 }
 
-#[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
+fn get_radius(
+    data: &mut Circle,
+    _inst: &mut Instance,
+    _caller: &mut CallingFrame,
+    _input: Vec<WasmValue>,
+) -> Result<Vec<WasmValue>, CoreError> {
+    Ok(vec![WasmValue::from_i32(data.radius)])
+}
+
+fn inc_radius(
+    data: &mut Circle,
+    _inst: &mut Instance,
+    _caller: &mut CallingFrame,
+    input: Vec<WasmValue>,
+) -> Result<Vec<WasmValue>, CoreError> {
+    // check the number of inputs
+    if input.len() != 1 {
+        return Err(CoreError::Execution(
+            wasmedge_sdk::error::CoreExecutionError::FuncSigMismatch,
+        ));
+    }
+
+    // parse the first input of WebAssembly value type into Rust built-in value type
+    let value = if input[0].ty() == ValType::I32 {
+        input[0].to_i32()
+    } else {
+        return Err(CoreError::Execution(
+            wasmedge_sdk::error::CoreExecutionError::FuncSigMismatch,
+        ));
+    };
+
+    data.radius += value;
+
+    Ok(vec![])
+}
+
+fn main() {
     let circle = Circle { radius: 10 };
 
+    let mut wasi_module = WasiModule::create(None, None, None).unwrap();
+
     // create an import module
-    let import = ImportObjectBuilder::new()
-        .with_async_func::<(), (), Circle>(
-            "hello_with_data",
-            async_hello_with_data,
-            Some(Box::new(circle)),
-        )?
-        .build::<NeverType>("extern", None)?;
+    let mut import_builder = ImportObjectBuilder::new("extern", circle).unwrap();
+    import_builder
+        .with_func::<i32, ()>("inc_radius", inc_radius)
+        .unwrap();
+    import_builder
+        .with_func::<(), i32>("get_radius", get_radius)
+        .unwrap();
+    let mut import_object = import_builder.build();
 
-    // create a Vm
-    let mut vm = VmBuilder::new().build()?;
+    let mut instances: HashMap<String, &mut dyn SyncInst> = HashMap::new();
+    instances.insert(wasi_module.name().to_string(), wasi_module.as_mut());
+    instances.insert(import_object.name().unwrap(), &mut import_object);
 
-    // register the import module
-    vm.register_import_module(&import)?;
+    // create a new Vm with default config
+    let mut vm = Vm::new(Store::new(None, instances).unwrap());
 
-    // create an async state
-    let async_state = AsyncState::new();
+    let res = vm.run_func(Some("extern"), "get_radius", vec![]).unwrap();
+    println!("get_radius() = {}", res[0].to_i32());
 
-    async fn tick() {
-        let mut i = 0;
-        loop {
-            println!("[tick] i={i}");
-            tokio::time::sleep(std::time::Duration::from_millis(500)).await;
-            i += 1;
-        }
-    }
-    tokio::spawn(tick());
+    let res = vm.run_func(Some("extern"), "inc_radius", params!(5));
+    println!("inc_radius(5) = {:?}", res);
 
-    // run the async host function
-    let _ = vm
-        .run_func_async(&async_state, Some("extern"), "hello_with_data", params!())
-        .await?;
-
-    Ok(())
+    let res = vm.run_func(Some("extern"), "get_radius", vec![]).unwrap();
+    println!("get_radius() = {}", res[0].to_i32());
 }

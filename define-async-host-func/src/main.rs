@@ -1,38 +1,41 @@
+use std::{collections::HashMap, future::Future};
+
 use wasmedge_sdk::{
-    async_host_function, error::HostFuncError, params, wasi::r#async::AsyncState, Caller,
-    ImportObjectBuilder, NeverType, VmBuilder, WasmValue,
+    error::CoreError,
+    r#async::{import::ImportObjectBuilder, vm::Vm, AsyncInstance},
+    CallingFrame, Store, WasmValue,
 };
 
-#[async_host_function]
-async fn async_hello(
-    _frame: CallingFrame,
+fn async_hello(
+    _data: &mut (),
+    _inst: &mut AsyncInstance,
+    _frame: &mut CallingFrame,
     _inputs: Vec<WasmValue>,
-) -> Result<Vec<WasmValue>, HostFuncError> {
-    for _ in 0..10 {
-        println!("[async hello] say hello");
-        tokio::time::sleep(std::time::Duration::from_secs(1)).await;
-    }
+) -> Box<dyn Future<Output = Result<Vec<WasmValue>, CoreError>> + Send> {
+    Box::new(async {
+        for _ in 0..10 {
+            println!("[async hello] say hello");
+            tokio::time::sleep(std::time::Duration::from_secs(1)).await;
+        }
 
-    println!("[async hello] Done!");
+        println!("[async hello] Done!");
 
-    Ok(vec![])
+        Ok(vec![])
+    })
 }
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // create an import module
-    let import = ImportObjectBuilder::new()
-        .with_async_func::<(), (), NeverType>("hello", async_hello, None)?
-        .build::<NeverType>("extern", None)?;
+    let mut builder = ImportObjectBuilder::new("extern", ()).unwrap();
+    builder.with_func::<(), ()>("hello", async_hello).unwrap();
+    let mut import = builder.build();
 
+    let mut instances = HashMap::new();
+    instances.insert("extern".into(), &mut import);
+    let store = Store::new(None, instances).unwrap();
     // create a Vm
-    let mut vm = VmBuilder::new().build()?;
-
-    // register the import module
-    vm.register_import_module(&import)?;
-
-    // create an async state
-    let async_state = AsyncState::new();
+    let mut vm = Vm::new(store);
 
     async fn tick() {
         let mut i = 0;
@@ -45,9 +48,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     tokio::spawn(tick());
 
     // run the async host function
-    let _ = vm
-        .run_func_async(&async_state, Some("extern"), "hello", params!())
-        .await?;
+    let _ = vm.run_func(Some("extern"), "hello", []).await?;
 
     Ok(())
 }
