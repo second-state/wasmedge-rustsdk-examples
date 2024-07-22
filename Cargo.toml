@@ -1,0 +1,8 @@
+[workspace]
+resolver = "2"
+members = ["async-wasi/run-wasm-app", "async-wasi/wasm-app"]
+
+
+[workspace.dependencies]
+wasmedge-sdk = { version = "0.14.0", features = ["async"] }
+tokio = { version = "1", features = ["full"] }
