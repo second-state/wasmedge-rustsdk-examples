@@ -85,7 +85,7 @@ jobs:
       - name: call-wasm-lib-with-external-deps
         working-directory: call-wasm-lib-with-external-deps
         run: |
-          cargo build -p wasm-lib --target wasm32-wasi --release
+          cargo build -p call-host --target wasm32-wasi --release
           cargo run -p host-app -- ../target/wasm32-wasi/release/call_host.wasm 2 3
 
       - name: define-async-host-func
