@@ -1,6 +1,7 @@
 [workspace]
 resolver = "2"
 members = [
+    "say_hello",
     "async-wasi/run-wasm-app",
     "async-wasi/wasm-app",
     "async-wasi-socket-addr/main-app",
