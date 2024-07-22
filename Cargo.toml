@@ -1,6 +1,11 @@
 [workspace]
 resolver = "2"
-members = ["async-wasi/run-wasm-app", "async-wasi/wasm-app"]
+members = [
+    "async-wasi/run-wasm-app",
+    "async-wasi/wasm-app",
+    "async-wasi-socket-addr/main-app",
+    "async-wasi-socket-addr/socket-addr",
+]
 
 
 [workspace.dependencies]
