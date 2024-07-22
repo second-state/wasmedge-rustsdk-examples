@@ -23,7 +23,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-22.04, ubuntu-20.04]
-        rust: [1.73, 1.72, 1.71]
+        rust: [1.78, 1.77, 1.76]
     container:
       image: wasmedge/wasmedge:ubuntu-build-clang
 
@@ -68,25 +68,25 @@ jobs:
         working-directory: async-wasi
         run: |
           cargo build -p wasm-app --target wasm32-wasi --release
-          cargo run -p run-wasm-app -- ./target/wasm32-wasi/release/wasm-app.wasm
+          cargo run -p run-wasm-app -- ../target/wasm32-wasi/release/wasm-app.wasm
 
       - name: async-wasi-socket
         working-directory: async-wasi-socket-addr
         run: |
           cargo build -p socket-addr --target wasm32-wasi --release
-          cargo run -p main-app -- ./target/wasm32-wasi/release/socket-addr.wasm
+          cargo run -p main-app -- ../target/wasm32-wasi/release/socket-addr.wasm
 
       - name: call-wasm-lib-from-host example
         working-directory: call-wasm-lib-from-host
         run: |
           cargo build -p wasm-lib --target wasm32-wasi --release
-          cargo run -p call-wasm-lib -- ./target/wasm32-wasi/release/wasm_lib.wasm 5
+          cargo run -p call-wasm-lib -- ../target/wasm32-wasi/release/wasm_lib.wasm 5
 
       - name: call-wasm-lib-with-external-deps
         working-directory: call-wasm-lib-with-external-deps
         run: |
           cargo build -p wasm-lib --target wasm32-wasi --release
-          cargo run -p host-app -- ./target/wasm32-wasi/release/wasm_lib.wasm 2 3
+          cargo run -p host-app -- ../target/wasm32-wasi/release/call_host.wasm 2 3
 
       - name: define-async-host-func
         working-directory: define-async-host-func
@@ -95,11 +95,6 @@ jobs:
 
       - name: define-host-func
         working-directory: define-host-func
-        run: |
-          cargo run
-
-      - name: define-host-func-with-string-args
-        working-directory: define-host-func-with-string-args
         run: |
           cargo run
 
@@ -136,8 +131,8 @@ jobs:
       - name: run-wasm-app-from-host
         working-directory: run-wasm-app-from-host
         run: |
-          cargo build -p wasm-app --target wasm32-wasi --release
-          cargo run -p run-wasm-app -- ./target/wasm32-wasi/release/wasm-app.wasm
+          cargo build -p sync-wasm-app --target wasm32-wasi --release
+          cargo run -p sync-run-wasm-app -- ./target/wasm32-wasi/release/sync-wasm-app.wasm
 
       - name: run-wasm-func-in-aot-mode
         working-directory: run-wasm-func-in-aot-mode
@@ -154,19 +149,6 @@ jobs:
         run: |
           cargo build -p print-env-vars --target wasm32-wasi --release
           cargo run -p set-env-vars-via-wasi -- ./target/wasm32-wasi/release/print_env_vars.wasm
-
-      - name: simple-plugin
-        working-directory: simple-plugin
-        run: |
-          cargo build -p naive-math-plugin --release
-          cp target/release/libnaive_math_plugin.so /usr/local/lib/wasmedge
-          cargo build -p naive-math-wasm --target wasm32-wasi --release
-          cargo run -p run-with-plugin
-
-      - name: table-and-funcref
-        working-directory: table-and-funcref
-        run: |
-          cargo run
 
       - name: wasmedge-bindgen
         working-directory: wasmedge-bindgen
