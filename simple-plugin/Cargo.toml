@@ -1,2 +1,0 @@
-[workspace]
-members = ["naive-math-plugin", "naive-math-wasm", "run-with-plugin"]
