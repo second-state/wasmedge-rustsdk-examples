@@ -16,6 +16,7 @@ members = [
     "define-host-func-with-host-data",
     "run-wasm-app-from-host/run-wasm-app",
     "run-wasm-app-from-host/wasm-app",
+    "run-wasm-func-in-aot-mode",
 ]
 
 
