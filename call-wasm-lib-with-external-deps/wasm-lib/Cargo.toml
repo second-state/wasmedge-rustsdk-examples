@@ -1,5 +1,5 @@
 [package]
-name = "wasm-lib"
+name = "call-host"
 version = "0.1.0"
 edition = "2021"
 

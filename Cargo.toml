@@ -7,6 +7,8 @@ members = [
     "async-wasi-socket-addr/socket-addr",
     "call-wasm-lib-from-host/call-wasm-lib",
     "call-wasm-lib-from-host/wasm-lib",
+    "call-wasm-lib-with-external-deps/host-app",
+    "call-wasm-lib-with-external-deps/wasm-lib",
 ]
 
 
