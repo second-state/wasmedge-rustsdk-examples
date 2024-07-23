@@ -103,7 +103,7 @@ jobs:
         run: |
           cargo build -p alice-wasm-lib --target wasm32-wasi --release
           cargo build -p bob-wasm-lib --target wasm32-wasi --release
-          cargo run -p host-app -- 2 3
+          cargo run -p multi-module-host-app -- 2 3
 
       - name: manipulate-linear-memory
         working-directory: manipulate-linear-memory
