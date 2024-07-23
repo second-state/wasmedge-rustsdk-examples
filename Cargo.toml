@@ -23,6 +23,7 @@ members = [
     "manipulate-linear-memory",
     "ggml-llama-via-wasinn/run-ggml-llama-inference",
     "ggml-llama-via-wasinn/ggml-llama-wasm",
+    "object-detection-via-wasinn",
 ]
 
 
