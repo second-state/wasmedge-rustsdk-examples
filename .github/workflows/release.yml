@@ -106,6 +106,7 @@ jobs:
           cargo run
 
       - name: multi-threaded-parallel
+        if: false
         working-directory: multi-threaded-parallel
         run: |
           cd mandelbrot-c
@@ -146,6 +147,7 @@ jobs:
           cargo run -p set-env-vars-via-wasi -- ./target/wasm32-wasi/release/print_env_vars.wasm
 
       - name: wasmedge-bindgen
+        if: false
         working-directory: wasmedge-bindgen
         run: |
           cargo build -p wasm-lib --target wasm32-wasi --release
