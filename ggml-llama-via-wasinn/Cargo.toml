@@ -1,3 +1,0 @@
-[workspace]
-members = ["ggml-llama-wasm", "run-ggml-llama-inference"]
-resolver = "2"

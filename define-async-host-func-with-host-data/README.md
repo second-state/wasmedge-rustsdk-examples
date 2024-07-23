@@ -24,7 +24,8 @@ Now let's build and run this example.
   # NOTICE that the installation script needs `sudo` access
 
   # install wasmedge to the directory /usr/local/
-  curl -sSf https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash -s -- -v 0.13.5 -p /usr/local
+  curl -sSf https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash -s -- -v 0.14.0
+  source $HOME/.wasmedge/env
   ```
 
   > For users in China mainland (中国大陆地区), try the following command to install WasmEdge Runtime if failed to run the command above
@@ -32,7 +33,8 @@ Now let's build and run this example.
   > ```bash
   > # NOTICE that the installation script needs `sudo` access
   >
-  > bash install_zh.sh -v 0.13.5 -p /usr/local
+  > bash install_zh.sh -v 0.14.0
+  > source $HOME/.wasmedge/env
   > ```
 
 - Download example
@@ -51,45 +53,7 @@ Now let's build and run this example.
   If the command runs successfully, then the following result is printed out on the screen:
 
   ```bash
-  [async hello] say hello
-  [tick] i=0
-  [tick] i=1
-  [async hello] radius of circle: 10
-  [async hello] say hello
-  [tick] i=2
-  [tick] i=3
-  [async hello] radius of circle: 10
-  [async hello] say hello
-  [tick] i=4
-  [tick] i=5
-  [async hello] radius of circle: 10
-  [async hello] say hello
-  [tick] i=6
-  [tick] i=7
-  [async hello] radius of circle: 10
-  [async hello] say hello
-  [tick] i=8
-  [tick] i=9
-  [async hello] radius of circle: 10
-  [async hello] say hello
-  [tick] i=10
-  [tick] i=11
-  [async hello] radius of circle: 10
-  [async hello] say hello
-  [tick] i=12
-  [tick] i=13
-  [async hello] radius of circle: 10
-  [async hello] say hello
-  [tick] i=14
-  [tick] i=15
-  [async hello] radius of circle: 10
-  [async hello] say hello
-  [tick] i=16
-  [tick] i=17
-  [async hello] radius of circle: 10
-  [async hello] say hello
-  [tick] i=18
-  [tick] i=19
-  [async hello] radius of circle: 10
-  [async hello] Done!
+  get_radius() = 10
+  inc_radius(5) = Ok([])
+  get_radius() = 15
   ```

@@ -1,7 +1,6 @@
-use wasmedge_sdk::{
-    config::{CommonConfigOptions, ConfigBuilder, HostRegistrationConfigOptions},
-    params, NeverType, VmBuilder, WasmVal,
-};
+use std::collections::HashMap;
+
+use wasmedge_sdk::{params, wasi::WasiModule, Module, Store, Vm, WasmVal};
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let args: Vec<String> = std::env::args().collect();
@@ -11,19 +10,22 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let num2: i32 = args[2].parse().unwrap();
 
     // create a new Vm with default config
-    let config = ConfigBuilder::new(CommonConfigOptions::default())
-        .with_host_registration_config(HostRegistrationConfigOptions::default().wasi(true))
-        .build()?;
+
+    let mut wasi_module = WasiModule::create(None, None, None).unwrap();
+    let mut instances = HashMap::new();
+    instances.insert(wasi_module.name().to_string(), wasi_module.as_mut());
 
     // create a vm and register bob and alice wasm modules into the vm
-    let vm = VmBuilder::new()
-        .with_config(config)
-        .build()?
-        .register_module_from_file(
-            "my_math_lib",
-            "target/wasm32-wasi/release/bob_wasm_lib.wasm",
-        )?
-        .register_module_from_file("alice", "target/wasm32-wasi/release/alice_wasm_lib.wasm")?;
+    let store = Store::new(None, instances).unwrap();
+    let mut vm = Vm::new(store);
+
+    let bob_wasm =
+        Module::from_file(None, "../target/wasm32-wasi/release/bob_wasm_lib.wasm").unwrap();
+    let alice_wasm =
+        Module::from_file(None, "../target/wasm32-wasi/release/alice_wasm_lib.wasm").unwrap();
+
+    vm.register_module(Some("my_math_lib"), bob_wasm).unwrap();
+    vm.register_module(Some("alice"), alice_wasm).unwrap();
 
     // call the `add` wasm function defined in the `alice` module instance.
     // `alice::add` will call `bob::read_add` internally.

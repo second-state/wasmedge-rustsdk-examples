@@ -1,9 +1,0 @@
-[package]
-name = "naive-math-wasm"
-version = "0.4.0"
-edition = "2021"
-
-[lib]
-crate-type = ["cdylib"]
-
-[dependencies]

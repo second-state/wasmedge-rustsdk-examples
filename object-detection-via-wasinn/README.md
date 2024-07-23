@@ -28,7 +28,8 @@ Now let's build and run this example.
   # NOTICE that the installation script needs `sudo` access
 
   # install wasmedge to the directory /usr/local/
-  curl -sSf https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash -s -- -v 0.13.5 -p /usr/local --plugins wasi_nn-pytorch
+  curl -sSf https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash -s -- -v 0.14.0
+  source $HOME/.wasmedge/env
   ```
 
   > For users in China mainland (中国大陆地区), try the following command to install WasmEdge Runtime if failed to run the command above
@@ -36,7 +37,8 @@ Now let's build and run this example.
   > ```bash
   > # NOTICE that the installation script needs `sudo` access
   >
-  > bash install_zh.sh -v 0.13.5 -p /usr/local
+  > bash install_zh.sh -v 0.14.0
+  > source $HOME/.wasmedge/env
   > ```
 
 - Install `libtorch` and `WasmEdge WASI-NN PyTorch Backend`

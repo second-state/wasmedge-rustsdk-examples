@@ -30,7 +30,8 @@ Now let's build and run this example.
   # NOTICE that the installation script needs `sudo` access
 
   # install wasmedge to the directory /usr/local/
-  curl -sSf https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash -s -- -v 0.13.5 -p /usr/local
+  curl -sSf https://raw.githubusercontent.com/WasmEdge/WasmEdge/master/utils/install.sh | bash -s -- -v 0.14.0
+  source $HOME/.wasmedge/env
   ```
 
   > For users in China mainland (中国大陆地区), try the following command to install WasmEdge Runtime if failed to run the command above
@@ -38,7 +39,8 @@ Now let's build and run this example.
   > ```bash
   > # NOTICE that the installation script needs `sudo` access
   >
-  > bash install_zh.sh -v 0.13.5 -p /usr/local
+  > bash install_zh.sh -v 0.14.0
+  > source $HOME/.wasmedge/env
   > ```
 
 - Download example
@@ -54,17 +56,17 @@ Now let's build and run this example.
   cargo build -p wasm-lib --target wasm32-wasi --release
   ```
 
-  If the command runs successfully, `wasm-lib.wasm` can be found in the directory of `./target/wasm32-wasi/release/`.
+  If the command runs successfully, `call_host.wasm` can be found in the directory of `../target/wasm32-wasi/release/`.
 
 - Build and run `call-wasm-lib`
 
   ```bash
-  cargo run -p host-app -- ./target/wasm32-wasi/release/wasm_lib.wasm 2 3
+  cargo run -p host-app -- ../target/wasm32-wasi/release/call_host.wasm 2 3
   ```
 
   If the command runs successfully, then the following message is printed out on the screen:
 
   ```bash
-  args: ["target/debug/host-app", "./target/wasm32-wasi/release/wasm_lib.wasm", "2", "3"]
+  args: ["target/debug/host-app", "./target/wasm32-wasi/release/call_host", "2", "3"]
   add(2, 3) = 5
   ```

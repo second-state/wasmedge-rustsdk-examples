@@ -1,5 +1,5 @@
 use std::env;
-use wasi_nn;
+use wasmedge_wasi_nn as wasi_nn;
 
 fn main() {
     let args: Vec<String> = env::args().collect();

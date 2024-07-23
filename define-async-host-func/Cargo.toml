@@ -4,5 +4,5 @@ name = "define-async-host-func"
 version = "0.4.0"
 
 [dependencies]
-tokio = { version = "1.28", features = ["full"] }
-wasmedge-sdk = { version = "0.13.0", features = ["async"] }
+wasmedge-sdk.workspace = true
+tokio.workspace = true

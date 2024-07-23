@@ -4,4 +4,4 @@ name = "host-app"
 version = "0.3.0"
 
 [dependencies]
-wasmedge-sdk = "0.13.0"
+wasmedge-sdk.workspace = true

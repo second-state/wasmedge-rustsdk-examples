@@ -1,26 +1,18 @@
-use wasmedge_sdk::{
-    config::{CommonConfigOptions, ConfigBuilder, HostRegistrationConfigOptions},
-    params, VmBuilder,
-};
+use std::collections::HashMap;
+
+use wasmedge_sdk::{params, vm::SyncInst, wasi::WasiModule, Module, Store, Vm};
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
     let wasm_app_file = std::env::args().nth(1).expect("Please specify a wasm file");
 
-    // create a config with the `wasi` option enabled
-    let config = ConfigBuilder::new(CommonConfigOptions::default())
-        .with_host_registration_config(HostRegistrationConfigOptions::default().wasi(true))
-        .build()?;
-    assert!(config.wasi_enabled());
+    let mut wasi_module = WasiModule::create(None, None, None).unwrap();
 
-    // create a VM with the config
-    let mut vm = VmBuilder::new().with_config(config).build()?;
+    let mut instances: HashMap<String, &mut dyn SyncInst> = HashMap::new();
+    instances.insert(wasi_module.name().to_string(), wasi_module.as_mut());
+    let mut vm = Vm::new(Store::new(None, instances).unwrap());
 
-    vm.wasi_module_mut()
-        .expect("Not found wasi module")
-        .initialize(None, None, None);
-
-    vm.register_module_from_file("wasm-app", &wasm_app_file)?
-        .run_func(Some("wasm-app"), "_start", params!())?;
-
+    let module = Module::from_file(None, &wasm_app_file).unwrap();
+    vm.register_module(Some("sync-wasm-app"), module).unwrap();
+    vm.run_func(Some("sync-wasm-app"), "_start", params!())?;
     Ok(())
 }

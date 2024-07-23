@@ -1,22 +1,27 @@
-use wasmedge_sdk::{config::ConfigBuilder, params, NeverType, VmBuilder, WasmVal};
+use std::collections::HashMap;
 
-fn main() -> Result<(), Box<dyn std::error::Error>> {
+use wasmedge_sdk::{params, wasi::WasiModule, Module, Store, Vm, WasmVal};
+
+fn main() {
     let args: Vec<String> = std::env::args().collect();
     println!("args: {:?}", args);
 
     let wasm_lib_file = &args[1];
     let num: i32 = args[2].parse().unwrap();
 
-    // create a config with the `wasi` option enabled
-    let config = ConfigBuilder::default().build()?;
+    let mut wasi_module = WasiModule::create(None, None, Some(vec![".:."])).unwrap();
 
-    // create a VM with the config
-    let vm = VmBuilder::new().with_config(config).build()?;
+    let mut instances = HashMap::new();
+    instances.insert(wasi_module.name().to_string(), wasi_module.as_mut());
 
-    let res = vm
-        .register_module_from_file("wasm-lib", &wasm_lib_file)?
-        .run_func(Some("wasm-lib"), "fib", params!(num))?;
+    let store = Store::new(None, instances).unwrap();
+
+    let mut vm = Vm::new(store);
+
+    let module = Module::from_file(None, wasm_lib_file).unwrap();
+
+    vm.register_module(Some("wasm-lib"), module).unwrap();
+
+    let res = vm.run_func(Some("wasm-lib"), "fib", params!(num)).unwrap();
     println!("fib({}) = {}", num, res[0].to_i32());
-
-    Ok(())
 }

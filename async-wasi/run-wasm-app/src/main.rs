@@ -1,7 +1,15 @@
+use std::collections::HashMap;
+
 use wasmedge_sdk::{
-    config::{CommonConfigOptions, ConfigBuilder, HostRegistrationConfigOptions},
-    wasi::r#async::{AsyncState, WasiContext},
-    VmBuilder,
+    config::{CommonConfigOptions, ConfigBuilder},
+    r#async::{
+        vm::Vm,
+        wasi::{
+            async_wasi::{snapshots::env::vfs::virtual_sys::DiskFileSys, WasiCtx},
+            AsyncWasiModule,
+        },
+    },
+    Module, Store,
 };
 
 #[tokio::main]
@@ -26,29 +34,34 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     tokio::spawn(tick());
 
     let config = ConfigBuilder::new(CommonConfigOptions::default())
-        .with_host_registration_config(HostRegistrationConfigOptions::default().wasi(true))
         .build()
         .expect("failed to create config");
-    assert!(config.wasi_enabled());
 
-    // create WasiContext
-    let wasi_ctx = WasiContext::new(None, Some(vec![("ENV", "VAL")]), Some(vec![(".", ".")]));
+    let mut wasi_module = {
+        let file_sys = DiskFileSys::new(".".into()).unwrap();
+        let mut wasi_ctx = WasiCtx::new();
+        wasi_ctx.mount_file_sys(".", Box::new(file_sys));
+        wasi_ctx.push_env("ENV=VAL".to_string());
+        AsyncWasiModule::create_from_wasi_context(wasi_ctx)?
+    };
+
+    let module = Module::from_file(Some(&config), wasm_file)?;
+
+    let mut instance_map = HashMap::new();
+    instance_map.insert(wasi_module.name().to_string(), wasi_module.as_mut());
+
+    let store = Store::new(Some(&config), instance_map)?;
 
     // create a Vm
-    let mut vm = VmBuilder::new()
-        .with_config(config)
-        .with_wasi_context(wasi_ctx)
-        .build()
-        .expect("failed to create vm");
+    let mut vm = Vm::new(store);
 
-    // run the wasm function from a specified wasm file
-    let async_state = AsyncState::new();
+    vm.register_module(None, module)?;
     let _ = vm
-        .run_func_from_file_async(&async_state, wasm_file, "_start", [])
+        .run_func(None, "_start", [])
         .await
         .expect("failed to run func from file");
+    // run the wasm function from a specified wasm file
 
-    let wasi_module = vm.wasi_module().ok_or("failed to get wasi module")?;
     println!("exit_code: {}", wasi_module.exit_code());
 
     Ok(())
