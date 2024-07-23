@@ -4,4 +4,4 @@ name = "set-env-vars-via-wasi"
 version = "0.4.0"
 
 [dependencies]
-wasmedge-sdk = "0.13.0"
+wasmedge-sdk.workspace = true

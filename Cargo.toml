@@ -24,6 +24,8 @@ members = [
     "ggml-llama-via-wasinn/run-ggml-llama-inference",
     "ggml-llama-via-wasinn/ggml-llama-wasm",
     "object-detection-via-wasinn",
+    "set-env-vars-via-wasi/print-env-vars",
+    "set-env-vars-via-wasi/set-env-vars-via-wasi",
 ]
 
 
