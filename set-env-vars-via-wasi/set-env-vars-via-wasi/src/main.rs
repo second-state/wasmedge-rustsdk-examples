@@ -11,7 +11,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let envs = vec!["ENV1=VAL1", "ENV2=VAL2", "ENV3=VAL3"];
     // the preopened directory is the current directory. You have to guarantee
     // the write permission if you wanna write something in this directory.
-    let preopens = vec![(".:./target")];
+    let preopens = vec![(".:.")];
     let mut wasi_module = WasiModule::create(Some(args), Some(envs), Some(preopens)).unwrap();
     let mut instances = HashMap::new();
     instances.insert(wasi_module.name().to_string(), wasi_module.as_mut());
