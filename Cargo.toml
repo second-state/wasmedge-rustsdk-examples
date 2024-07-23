@@ -20,6 +20,7 @@ members = [
     "load-module-in-module/alice-wasm-lib",
     "load-module-in-module/bob-wasm-lib",
     "load-module-in-module/host-app",
+    "manipulate-linear-memory",
 ]
 
 
