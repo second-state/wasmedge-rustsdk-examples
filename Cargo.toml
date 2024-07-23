@@ -21,6 +21,8 @@ members = [
     "load-module-in-module/bob-wasm-lib",
     "load-module-in-module/host-app",
     "manipulate-linear-memory",
+    "ggml-llama-via-wasinn/run-ggml-llama-inference",
+    "ggml-llama-via-wasinn/ggml-llama-wasm",
 ]
 
 

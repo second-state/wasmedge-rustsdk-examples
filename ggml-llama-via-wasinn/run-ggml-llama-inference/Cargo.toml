@@ -4,4 +4,4 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-wasmedge-sdk = { version = "0.13.0", features = ["wasi_nn"] }
+wasmedge-sdk = { workspace = true, features = ["wasi_nn"] }
