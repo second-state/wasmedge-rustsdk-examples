@@ -133,7 +133,7 @@ jobs:
         working-directory: run-wasm-app-from-host
         run: |
           cargo build -p sync-wasm-app --target wasm32-wasi --release
-          cargo run -p sync-run-wasm-app -- ./target/wasm32-wasi/release/sync-wasm-app.wasm
+          cargo run -p sync-run-wasm-app -- ../target/wasm32-wasi/release/sync-wasm-app.wasm
 
       - name: run-wasm-func-in-aot-mode
         working-directory: run-wasm-func-in-aot-mode
@@ -149,7 +149,7 @@ jobs:
         working-directory: set-env-vars-via-wasi
         run: |
           cargo build -p print-env-vars --target wasm32-wasi --release
-          cargo run -p set-env-vars-via-wasi -- ./target/wasm32-wasi/release/print_env_vars.wasm
+          cargo run -p set-env-vars-via-wasi -- ../target/wasm32-wasi/release/print_env_vars.wasm
 
       - name: wasmedge-bindgen
         if: false
